@@ -2,6 +2,44 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "AdvancedStringBuilder/0.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/AdvancedStringBuilder.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AdvancedStringBuilder.dll": {}
+        }
+      },
+      "JavaScriptEngineSwitcher.Core/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "AdvancedStringBuilder": "0.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {}
+        },
+        "resource": {
+          "lib/netstandard2.0/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll": {
+            "locale": "ru-ru"
+          }
+        }
+      },
+      "JSPool/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "JavaScriptEngineSwitcher.Core": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/JSPool.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JSPool.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -2785,6 +2823,21 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "React.Core/4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "JSPool": "4.0.0",
+          "JavaScriptEngineSwitcher.Core": "3.0.0",
+          "Microsoft.Extensions.DependencyModel": "2.0.4",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/React.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/React.Core.dll": {}
+        }
+      },
       "Remotion.Linq/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -4619,6 +4672,69 @@
     }
   },
   "libraries": {
+    "AdvancedStringBuilder/0.1.0": {
+      "sha512": "62SjDLghk+lBkW906p9geFxMM5XpPRlBa6BC7n1GMG7lx82bYs9OKdlJ9sfVpctxEPIH+FZpH5AnbUPEHsdQCA==",
+      "type": "package",
+      "path": "advancedstringbuilder/0.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "advancedstringbuilder.0.1.0.nupkg.sha512",
+        "advancedstringbuilder.nuspec",
+        "lib/net40-client/AdvancedStringBuilder.dll",
+        "lib/net40-client/AdvancedStringBuilder.xml",
+        "lib/net45/AdvancedStringBuilder.dll",
+        "lib/net45/AdvancedStringBuilder.xml",
+        "lib/netstandard1.0/AdvancedStringBuilder.dll",
+        "lib/netstandard1.0/AdvancedStringBuilder.xml",
+        "lib/netstandard2.0/AdvancedStringBuilder.dll",
+        "lib/netstandard2.0/AdvancedStringBuilder.xml"
+      ]
+    },
+    "JavaScriptEngineSwitcher.Core/3.0.0": {
+      "sha512": "8VYZQ9qIUx0umsXwca7wTYTxkaD87yYgzDgPAr/uVJ8ArMMasIUjj+ougbolmW4S6BoIqXBBYUpMCeUvg97rQQ==",
+      "type": "package",
+      "path": "javascriptengineswitcher.core/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "javascriptengineswitcher.core.3.0.0.nupkg.sha512",
+        "javascriptengineswitcher.core.nuspec",
+        "lib/net40-client/JavaScriptEngineSwitcher.Core.dll",
+        "lib/net40-client/JavaScriptEngineSwitcher.Core.xml",
+        "lib/net40-client/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll",
+        "lib/net45/JavaScriptEngineSwitcher.Core.dll",
+        "lib/net45/JavaScriptEngineSwitcher.Core.xml",
+        "lib/net45/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll",
+        "lib/netstandard1.3/JavaScriptEngineSwitcher.Core.dll",
+        "lib/netstandard1.3/JavaScriptEngineSwitcher.Core.xml",
+        "lib/netstandard1.3/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll",
+        "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll",
+        "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.xml",
+        "lib/netstandard2.0/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll",
+        "readme.txt"
+      ]
+    },
+    "JSPool/4.0.0": {
+      "sha512": "qDl8OZWi41iLiAr1L7wzoJblGGl/qph0mtAJaQ1ZG7IWcU8qVaBhLW3t9gyoMbjMiWnfaoi2YjPadw6l2xBYjw==",
+      "type": "package",
+      "path": "jspool/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jspool.4.0.0.nupkg.sha512",
+        "jspool.nuspec",
+        "lib/net40-client/JSPool.dll",
+        "lib/net40-client/JSPool.xml",
+        "lib/net45/JSPool.dll",
+        "lib/net45/JSPool.xml",
+        "lib/netstandard1.3/JSPool.dll",
+        "lib/netstandard1.3/JSPool.xml",
+        "lib/netstandard2.0/JSPool.dll",
+        "lib/netstandard2.0/JSPool.xml"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "sha512": "AIgEc1up4pvH8kXy+eG1x4Qfqd6piAq3yk11pveCQXWNkkYoiKdflSmcJZuWcerdMcAaoF0xC/mWGoTW4vF4Dg==",
       "type": "package",
@@ -7710,6 +7826,25 @@
         "lib/netstandard1.6/NuGet.Frameworks.xml",
         "nuget.frameworks.4.7.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
+      ]
+    },
+    "React.Core/4.1.1": {
+      "sha512": "Ua9tUfDeviKOR9lwqqI/JEO5MEH75pAKBY/Z51j4y9m5bmUgq7z6a9QnkVC0gf73wGZScTosyS7LgYV9KfiDIQ==",
+      "type": "package",
+      "path": "react.core/4.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/React.Core.dll",
+        "lib/net40/React.Core.xml",
+        "lib/net45/React.Core.dll",
+        "lib/net45/React.Core.xml",
+        "lib/netstandard1.6/React.Core.dll",
+        "lib/netstandard1.6/React.Core.xml",
+        "lib/netstandard2.0/React.Core.dll",
+        "lib/netstandard2.0/React.Core.xml",
+        "react.core.4.1.1.nupkg.sha512",
+        "react.core.nuspec"
       ]
     },
     "Remotion.Linq/2.2.0": {
@@ -12526,7 +12661,8 @@
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
+      "React.Core >= 4.1.1"
     ]
   },
   "packageFolders": {
@@ -12589,6 +12725,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[2.1.1, )"
+          },
+          "React.Core": {
+            "target": "Package",
+            "version": "[4.1.1, )"
           }
         },
         "imports": [

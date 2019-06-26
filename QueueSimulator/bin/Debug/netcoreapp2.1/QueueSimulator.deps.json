@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "1f5da74c73bcd40a876f54e3c32d49fdb295924e"
+    "signature": "ab0f3bd99cd3710189b498ea7217e7df19b4e16b"
   },
   "compilationOptions": {
     "defines": [
@@ -27,13 +27,58 @@
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.NETCore.App": "2.1.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.1.1",
+          "React.Core": "4.1.1"
         },
         "runtime": {
           "QueueSimulator.dll": {}
         },
         "compile": {
           "QueueSimulator.dll": {}
+        }
+      },
+      "AdvancedStringBuilder/0.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/AdvancedStringBuilder.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/AdvancedStringBuilder.dll": {}
+        }
+      },
+      "JavaScriptEngineSwitcher.Core/3.0.0": {
+        "dependencies": {
+          "AdvancedStringBuilder": "0.1.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ru-ru/JavaScriptEngineSwitcher.Core.resources.dll": {
+            "locale": "ru-ru"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/JavaScriptEngineSwitcher.Core.dll": {}
+        }
+      },
+      "JSPool/4.0.0": {
+        "dependencies": {
+          "JavaScriptEngineSwitcher.Core": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JSPool.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/JSPool.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -375,6 +420,23 @@
         },
         "compile": {
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
+        }
+      },
+      "React.Core/4.1.1": {
+        "dependencies": {
+          "JSPool": "4.0.0",
+          "JavaScriptEngineSwitcher.Core": "3.0.0",
+          "Microsoft.Extensions.DependencyModel": "2.1.0",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/React.Core.dll": {
+            "assemblyVersion": "4.1.0.0",
+            "fileVersion": "4.1.1.38586"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/React.Core.dll": {}
         }
       },
       "System.Composition/1.0.31": {
@@ -3462,6 +3524,27 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AdvancedStringBuilder/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-62SjDLghk+lBkW906p9geFxMM5XpPRlBa6BC7n1GMG7lx82bYs9OKdlJ9sfVpctxEPIH+FZpH5AnbUPEHsdQCA==",
+      "path": "advancedstringbuilder/0.1.0",
+      "hashPath": "advancedstringbuilder.0.1.0.nupkg.sha512"
+    },
+    "JavaScriptEngineSwitcher.Core/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8VYZQ9qIUx0umsXwca7wTYTxkaD87yYgzDgPAr/uVJ8ArMMasIUjj+ougbolmW4S6BoIqXBBYUpMCeUvg97rQQ==",
+      "path": "javascriptengineswitcher.core/3.0.0",
+      "hashPath": "javascriptengineswitcher.core.3.0.0.nupkg.sha512"
+    },
+    "JSPool/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qDl8OZWi41iLiAr1L7wzoJblGGl/qph0mtAJaQ1ZG7IWcU8qVaBhLW3t9gyoMbjMiWnfaoi2YjPadw6l2xBYjw==",
+      "path": "jspool/4.0.0",
+      "hashPath": "jspool.4.0.0.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",
       "serviceable": true,
@@ -3594,6 +3677,13 @@
       "sha512": "sha512-KuqDbPzjOWbUM6gPMbkvdhlQ10roQAoMM7mNZ8hcY/fH+9J4Zc+qT8dLWoNzGyr0OrxQVdZdbSjy/fxwoICgGg==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
+    },
+    "React.Core/4.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ua9tUfDeviKOR9lwqqI/JEO5MEH75pAKBY/Z51j4y9m5bmUgq7z6a9QnkVC0gf73wGZScTosyS7LgYV9KfiDIQ==",
+      "path": "react.core/4.1.1",
+      "hashPath": "react.core.4.1.1.nupkg.sha512"
     },
     "System.Composition/1.0.31": {
       "type": "package",
