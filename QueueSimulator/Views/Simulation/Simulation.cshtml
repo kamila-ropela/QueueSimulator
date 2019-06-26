@@ -1,3 +1,85 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+  font-family: "Lato", sans-serif;
 }
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 200px;
+}
+    </style>
+</head>
+<body>
+
+    <div class="sidenav">
+        <form>
+            <br>
+            <br>
+            <div class="form-group input-group-sm mb-3">
+                <label for="exampleFormControlInput1">Liczba pacjentow</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Liczba iteracji</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Algorytm</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="1" id="returnToQuery">
+                <label class="form-check-label" for="defaultCheck1">
+                    Powrot do kolejki
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="2" id="addToQuery">
+                <label class="form-check-label" for="defaultCheck1">
+                    Dodannie do kolejki
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="3" id="twoQuery">
+                <label class="form-check-label" for="defaultCheck1">
+                    Rownolegle kolejki
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Start" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+
+    <div class="main">
+        <h2>Lista pacjentow</h2>
+    </div>
+</body>
+</html>
