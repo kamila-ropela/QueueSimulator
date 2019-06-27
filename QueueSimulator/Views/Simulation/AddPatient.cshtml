@@ -1,0 +1,103 @@
+﻿@model QueueSimulator.Models.Patient
+
+@{
+    ViewData["Title"] = "AddPatient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <a asp-action="Index">Wygeneruj losowo</a>
+</div>
+
+<div class="row">
+    <!--<div class="col-md-4" style="width: 33%">-->
+    <form asp-action="AddPatient">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="PatientName" class="control-label">Nazwa pacjenta</label>
+            <input asp-for="PatientName" class="form-control" />
+            <span asp-validation-for="PatientName" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" style="width: 33%">
+                <label for="GCS" class="control-label">Otwieranie oczu</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked="checked">
+                    <label class="custom-control-label" for="customRadioInline1">spontaniczne</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">na polecenie</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">na bodźce bólowe</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">nie otwiera oczu</label>
+                </div>
+            </div>
+
+            <div class="col-sm-4" style="width: 50%">
+                <label for="GCS" class="control-label">Kontakt slowny</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked="checked">
+                    <label class="custom-control-label" for="customRadioInline1">odpowiedź logiczna, pacjent zorientowany co do miejsca, czasu i własnej osoby</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">odpowiedź splątana, pacjent zdezorientowany</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">odpowiedź nieadekwatna, nie na temat lub krzyk</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">niezrozumiałe dźwięki, pojękiwanie</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">bez reakcji</label>
+                </div>
+            </div>
+
+            <div class="col-sm-4" style="width: 50%">
+                <label for="GCS" class="control-label">Reakcja ruchowa</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked="checked">
+                    <label class="custom-control-label" for="customRadioInline1">spełnianie ruchowych poleceń słownych, migowych</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">ruchy celowe, pacjent lokalizuje bodziec bólowy</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline1">reakcja obronna na ból, wycofanie, próba usunięcia bodźca bólowego</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">patologiczna reakcja zgięciowa, odkorowanie</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">patologiczna reakcja wyprostna, odmóżdżenie</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadioInline2">bez reakcji</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+
+
+
