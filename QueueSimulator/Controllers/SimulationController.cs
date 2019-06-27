@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Models;
 
@@ -8,6 +9,7 @@ namespace QueueSimulator.Controllers
     {
         public IActionResult Simulation()
         {
+            ViewData["PatientList"] = new List<Patient>();
             return View();
         }
 

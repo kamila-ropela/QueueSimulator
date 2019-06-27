@@ -1,5 +1,8 @@
 
 *.dll
+.vs/*
+QueueSimulator/bin/*
+QueueSimulator/obj/*
 .vs/config/applicationhost.config
 .vs/QueueSimulator/v15/.suo
 .vs/QueueSimulator/v15/Server/sqlite3/db.lock
@@ -25,3 +28,25 @@ QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Shared/_ValidationScriptsPart
 QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Simulation/Simulation.g.cshtml.cs
 QueueSimulator/obj/project.assets.json
 QueueSimulator/obj/QueueSimulator.csproj.nuget.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.AssemblyInfo.cs
+QueueSimulator/bin/Debug/netcoreapp2.1/QueueSimulator.runtimeconfig.dev.json
+QueueSimulator/bin/Debug/netcoreapp2.1/QueueSimulator.runtimeconfig.json
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.AssemblyInfoInputs.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.csproj.CopyComplete
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.RazorAssemblyInfo.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.RazorAssemblyInfo.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.RazorCoreGenerate.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.RazorTargetAssemblyInfo.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.RazorTargetAssemblyInfo.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.TagHelpers.input.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/QueueSimulator.TagHelpers.output.cache
+QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/_ViewImports.g.cshtml.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/_ViewStart.g.cshtml.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Shared/Error.g.cshtml.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Simulation/Patient.g.cshtml.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+QueueSimulator/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+QueueSimulator/obj/QueueSimulator.csproj.nuget.g.props
+QueueSimulator/obj/QueueSimulator.csproj.nuget.g.targets
+QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Simulation/AddPatient.g.cshtml.cs

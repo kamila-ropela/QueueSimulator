@@ -9,14 +9,16 @@
 
 .sidenav {
   height: 100%;
-  width: 200px;
+  width: 350px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: #b0c1c9;
   overflow-x: hidden;
   padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .sidenav a {
@@ -43,32 +45,32 @@
             <br>
             <br>
             <div class="form-group input-group-sm mb-3">
-                <label for="exampleFormControlInput1">Liczba pacjentow</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="countPatient">Liczba pacjentow</label>
+                <input type="text" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Liczba iteracji</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="countIteration">Liczba iteracji</label>
+                <input type="text" class="form-control" id="countIteration" placeholder="Liczba iteracji">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Algorytm</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                <label for="algorithm">Algorytm</label>
+                <input type="text" class="form-control" id="algorithm" placeholder="Algorytm">
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="returnToQuery">
-                <label class="form-check-label" for="defaultCheck1">
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="1" id="returnToQuery">
+                <label class="custom-control-input" for="defaultCheck1">
                     Powrot do kolejki
                 </label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="2" id="addToQuery">
-                <label class="form-check-label" for="defaultCheck1">
-                    Dodannie do kolejki
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="2" id="addToQuery">
+                <label class="custom-control-input" for="defaultCheck1">
+                    Dodanie do kolejki
                 </label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="3" id="twoQuery">
-                <label class="form-check-label" for="defaultCheck1">
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="3" id="twoQuery">
+                <label class="custom-control-input" for="defaultCheck1">
                     Rownolegle kolejki
                 </label>
             </div>
@@ -79,7 +81,7 @@
     </div>
 
     <div class="main">
-        <h2>Lista pacjentow</h2>
+        @Html.Partial("Patient", ViewData["PatientList"])
     </div>
 </body>
 </html>
