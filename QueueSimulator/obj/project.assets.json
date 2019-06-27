@@ -11800,11 +11800,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS_projects\\i\\QueueSimulator\\QueueSimulator\\QueueSimulator.csproj",
+      "projectUniqueName": "D:\\VS_projects\\QueueSimulator\\QueueSimulator\\QueueSimulator.csproj",
       "projectName": "QueueSimulator",
-      "projectPath": "D:\\VS_projects\\i\\QueueSimulator\\QueueSimulator\\QueueSimulator.csproj",
+      "projectPath": "D:\\VS_projects\\QueueSimulator\\QueueSimulator\\QueueSimulator.csproj",
       "packagesPath": "C:\\Users\\Kamila\\.nuget\\packages\\",
-      "outputPath": "D:\\VS_projects\\i\\QueueSimulator\\QueueSimulator\\obj\\",
+      "outputPath": "D:\\VS_projects\\QueueSimulator\\QueueSimulator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
