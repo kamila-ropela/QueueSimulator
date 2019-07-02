@@ -47,7 +47,7 @@
             <div class="form-group input-group-sm mb-3">
                 <label for="countPatient">Liczba pacjentow</label>
                 <input type="text" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
-            <input type="button" value="add new" class="btn btn-default" />
+            <input type="button" value="add new" onclick="@("window.location.href='" + @Url.Action("AddPatient", "Simulation") + "'");" class="btn btn-default" />
             <input type="button" value="add random" class="btn btn-default" />
             </div>
             <div class="form-group">

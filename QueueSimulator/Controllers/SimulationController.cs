@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Models;
 
@@ -16,6 +17,12 @@ namespace QueueSimulator.Controllers
         public IActionResult AddPatient()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddPatient(IFormCollection formData)
+        {
+            return null;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
