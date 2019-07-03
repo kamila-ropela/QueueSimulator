@@ -47,16 +47,22 @@
             <div class="form-group input-group-sm mb-3">
                 <label for="countPatient">Liczba pacjentow</label>
                 <input type="text" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
-            <input type="button" value="add new" onclick="@("window.location.href='" + @Url.Action("AddPatient", "Simulation") + "'");" class="btn btn-default" />
-            <input type="button" value="add random" class="btn btn-default" />
+                <input type="button" value="add new" onclick="@("window.location.href='" + @Url.Action("AddPatient", "Simulation") + "'");" class="btn btn-default" />
+                <input type="button" value="add random" class="btn btn-default" />
             </div>
             <div class="form-group">
                 <label for="countIteration">Liczba iteracji</label>
                 <input type="text" class="form-control" id="countIteration" placeholder="Liczba iteracji">
             </div>
             <div class="form-group">
-                <label for="algorithm">Algorytm</label>
-                <input type="text" class="form-control" id="algorithm" placeholder="Algorytm">
+                <label for="exampleFormControlSelect1">Algorytm</label>
+                <select class="form-control" id="Algorytm">
+                    <option>Algorytm 1</option>
+                    <option>Algorytm 2</option>
+                    <option>Algorytm 3</option>
+                    <option>Algorytm 4</option>
+                    <option>Algorytm 5</option>
+                </select>
             </div>
             <div class="custom-control custom-checkbox">
                 <input class="custom-control-input" type="checkbox" value="1" id="returnToQuery">

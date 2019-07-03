@@ -31,7 +31,7 @@ namespace QueueSimulator
             return result;
         }
 
-        public List<Patient> GetLoginsDb(string sqlCommand)
+        public List<Patient> GetPatientsDb(string sqlCommand)
         {
             List<Patient> list = new List<Patient>();
 
