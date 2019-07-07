@@ -12,9 +12,9 @@ namespace QueueSimulator.Database
 
         public static void PostData(Patient data)
         {
-            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Status, Priority, Inspection, RR, POX, HR, BP, RLS, Temperature)
-                                             VALUES ({data.PatientName}, {data.GSC}, {data.Status}, {data.Piority}, {data.Inspection}, {data.RR}, 
-                                                     {data.POX}, {data.HR}, {data.BP}, {data.RLS}, {data.Temperature})");
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature)
+                                             VALUES ('{data.PatientName}', '{data.GSC}', '{data.Inspection}', '{data.RR}', 
+                                                     '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}')");
         }
 
         public static void CleanTable()

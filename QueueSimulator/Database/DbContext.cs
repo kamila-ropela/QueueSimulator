@@ -57,7 +57,7 @@ namespace QueueSimulator
                             POX = Convert.ToInt32(reader["POX"]),
                             HR = Convert.ToInt32(reader["HR"]),
                             RLS = Convert.ToInt32(reader["RLS"]),
-                            Temperature = Convert.ToInt32(reader["Temperature"])
+                            Temperature = Convert.ToDouble(reader["Temperature"])
                         });
                     }
                 }

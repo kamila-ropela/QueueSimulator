@@ -18,7 +18,13 @@ namespace QueueSimulator.Controllers
             return View();
         }
 
-        public IActionResult AddPatient()
+        [HttpPost]
+        public void Simulation(IFormCollection data)
+        {
+            ;
+        }
+
+        public IActionResult AddPatient(string patientCount)
         {
             return View();
         }
@@ -55,6 +61,43 @@ namespace QueueSimulator.Controllers
             };
 
             Patients.PostData(patient);
+        }
+
+        public void AddRandomPatients(string patientCount)
+        {
+            Random random;
+            var count = Convert.ToInt32(patientCount);
+
+            for (int i = 0; i < count; i++)
+            {
+                random = new Random();
+                var PatientName = "Kasia " + random.Next(0, 100);
+                var DrogiOddechowe = random.Next(1, 2);
+            var CzestoscOddechow = random.Next(12, 25);
+                var Pulsoksymetria = random.Next(85, 100);
+                var Tetno = random.Next(40, 120);
+                var CisnienieKrwi = random.Next(80, 110);
+                var Disability = random.Next(1, 4);
+            var Temperatura = System.Math.Round(random.NextDouble() * (43 - 36) + 36, 1);
+
+            var GSC = random.Next(3, 15);
+
+            //TODO dodac status i piority
+            Patient patient = new Patient()
+            {
+                PatientName = PatientName,
+                GSC = GSC,
+                Temperature = Temperatura,
+                Inspection = DrogiOddechowe,
+                RLS = Disability,
+                RR = CzestoscOddechow,
+                POX = Pulsoksymetria,
+                HR = Tetno,
+                BP = CisnienieKrwi
+            };
+
+            Patients.PostData(patient);
+            }
         }
 
         public void CleanTable()

@@ -16,6 +16,6 @@ namespace QueueSimulator.Models
         public int HR { get; set; }
         public int BP { get; set; }
         public int RLS { get; set; }
-        public int Temperature { get; set; }
+        public double Temperature { get; set; }
     }
 }
