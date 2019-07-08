@@ -49,15 +49,15 @@ namespace QueueSimulator
                             Id = Convert.ToInt32(reader["Id"]),
                             PatientName = reader["PatientName"].ToString(),
                             Status = reader["Status"].ToString(),
-                            Piority = reader["Piority"].ToString(),
+                            Piority = reader["Priority"].ToString(),
                             GSC = Convert.ToInt32(reader["GSC"]),
                             Inspection = Convert.ToInt32(reader["Inspection"]),
-                            BP = Convert.ToInt32(reader["BR"]),
+                            BP = Convert.ToInt32(reader["BP"]),
                             RR = Convert.ToInt32(reader["RR"]),
                             POX = Convert.ToInt32(reader["POX"]),
                             HR = Convert.ToInt32(reader["HR"]),
-                            RLS = Convert.ToInt32(reader["RLS"]),
-                            Temperature = Convert.ToDouble(reader["Temperature"])
+                            RLS = Convert.ToInt32(reader["RLS"])
+                            //Temperature = Convert.ToDouble(reader["Temperature"])
                         });
                     }
                 }

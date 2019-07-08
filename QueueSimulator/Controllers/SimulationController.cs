@@ -13,8 +13,9 @@ namespace QueueSimulator.Controllers
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
+            var patientList = Patients.GetData();
 
-            ViewData["PatientList"] = new List<Patient>();
+            ViewData["PatientList"] = patientList;
             return View();
         }
 
