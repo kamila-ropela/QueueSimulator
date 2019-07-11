@@ -56,8 +56,10 @@ namespace QueueSimulator
                             RR = Convert.ToInt32(reader["RR"]),
                             POX = Convert.ToInt32(reader["POX"]),
                             HR = Convert.ToInt32(reader["HR"]),
-                            RLS = Convert.ToInt32(reader["RLS"])
-                            //Temperature = Convert.ToDouble(reader["Temperature"])
+                            RLS = Convert.ToInt32(reader["RLS"]),
+                            Sex = Convert.ToInt32(reader["Sex"]),
+                            Four = Convert.ToInt32(reader["Four"]),
+                            Temperature = reader["Temperature"].ToString()
                         });
                     }
                 }
