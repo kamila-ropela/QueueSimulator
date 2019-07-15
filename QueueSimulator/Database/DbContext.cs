@@ -66,5 +66,25 @@ namespace QueueSimulator
             }
             return list;
         }
+
+        public string GetCountOfRows(string sqlCommand)
+        {
+            string amount = null;
+
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(sqlCommand, conn);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        amount = reader["count"].ToString();
+                    }
+                }
+            }
+            return amount;
+        }
     }
 }

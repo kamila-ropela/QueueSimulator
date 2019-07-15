@@ -46,51 +46,53 @@
             <br>
             <div class="form-group input-group-sm mb-3">
                 <label for="countPatient">Liczba pacjentow</label>
-                <input type="text" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
-                <input type="button" id="AddNew" value="add new" class="btn btn-default" />
-                <input type="button" id="AddRandom" value="add all random" class="btn btn-default" />
+                <input type="text" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
+                <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
+                <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
+                <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
             </div>
             <div class="form-group">
                 <label for="countIteration">Liczba iteracji</label>
-                <input type="text" class="form-control" id="countIteration" placeholder="Liczba iteracji">
+                <input type="text" class="form-control" name="countIteration" id="CountIteration" placeholder="Liczba iteracji">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Algorytm</label>
-                <select class="form-control" id="Algorytm">
-                    <option>Algorytm 1</option>
-                    <option>Algorytm 2</option>
-                    <option>Algorytm 3</option>
-                    <option>Algorytm 4</option>
-                    <option>Algorytm 5</option>
+                <select class="form-control" name="Algorytm" id="Algorytm">
+                    <option value="1">Algorytm 1</option>
+                    <option value="2">Algorytm 2</option>
+                    <option value="2">Algorytm 3</option>
+                    <option value="2">Algorytm 4</option>
+                    <option value="2">Algorytm 5</option>
                 </select>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="1" id="returnToQuery">
+                <input class="custom-control-input" name="returnToQuery" type="checkbox" value="1" id="ReturnToQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Powrot do kolejki
                 </label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="2" id="addToQuery">
+                <input class="custom-control-input" name="addToQuery" type="checkbox" value="2" id="AddToQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Dodanie do kolejki
                 </label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="3" id="twoQuery">
+                <input class="custom-control-input" name="twoQuery" type="checkbox" value="3" id="TwoQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Rownolegle kolejki
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Start" class="btn btn-default" />
+                <input type="submit" id="start" value="Start" class="btn btn-default" />
             </div>
         </form>
     </div>
 
-    <div class="main">
-        @Html.Partial("AddPatient");
-        @Html.Partial("Patient", ViewData["PatientList"])
+    <div class="main" id="main">
+        @Html.Partial("Empty")
+        @*@Html.Partial("AddPatient");
+        @Html.Partial("Patient", ViewData["PatientList"]);*@
     </div>
 </body>
 </html>
@@ -104,8 +106,8 @@
                 data: {
                     patientCount: patientCount,
                 }
-            }).done(function (patientList) {
-                $("#bodyContent").html(patientList);
+            }).done(function (patientForm) {
+                $("#main").html(patientForm);
             });
         });
     });
@@ -120,8 +122,81 @@
                     patientCount: patientCount,
                 }
             }).done(function (patientList) {
-                $("#bodyContent").html(patientList);
+                $("#main").html(patientList);
             });
         });
     });
+
+    $(document).ready(function () {
+        $("#AddDb").on("click", function () {
+            var patientCount = $("#CountPatient").val();
+            $.ajax({
+                url: "/Simulation/AddRandomPatientFromDB",
+                type: "GET",
+                data: {
+                    patientCount: patientCount,
+                }
+            }).done(function (patientList) {
+                $("#main").html(patientList);
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $("#start").on("click", function () {
+            var CountPatient = $("#CountPatient").val();
+            var CountIteration = $("#CountIteration").val();
+            var Algorytm = $("#Algorytm").val();
+            var ReturnToQuery = $("#ReturnToQuery").val();
+            var AddToQuery = $("#AddToQuery").val();
+            var TwoQuery = $("#TwoQuery").val();
+            $.ajax({
+                url: "/Simulation/StartSimulation",
+                type: "GET",
+                data: {
+                    CountPatient: CountPatient,
+                    CountIteration: CountIteration,
+                    Algorytm: Algorytm,
+                    ReturnToQuery: ReturnToQuery,
+                    AddToQuery: AddToQuery,
+                    TwoQuery: TwoQuery
+                }
+            }).done(function (patientList) {
+                $("#main").html(patientList);
+                });
+
+            console.log("jj")
+            //for (var i = 0; i < CountIteration; i++) {
+            //    var intervalID = window.setInterval(function () {
+
+            //        $.ajax({
+            //            url: "/Simulation/GiveActivePatients",
+            //            type: "GET",
+            //            data: { piority: "1"}
+            //        }).done(function (patientList) {
+            //            $("#main").html(patientList);
+            //        });
+
+            //        if (++x === CountIteration) {
+            //            window.clearInterval(intervalID);
+            //        }
+            //    }, 1000);
+            //}
+        });
+    });
+    function ReturnNewPartialView() {
+
+    }
+
+    //function setIntervalX(callback, delay, repetitions) {
+    //    var x = 0;
+    //    var intervalID = window.setInterval(function () {
+
+    //        callback();
+
+    //        if (++x === repetitions) {
+    //            window.clearInterval(intervalID);
+    //        }
+    //    }, delay);
+    //}
 </script>

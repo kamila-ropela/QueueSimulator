@@ -6,7 +6,8 @@
 }
 <div>
     <br>
-    <input type="button" value="add new" onclick="@("window.location.href='" + @Url.Action("AddPatient", "Simulation") + "'");" class="btn btn-info" />
+    <input type="button" value="dodaj losowego pacjenta" onclick="@("window.location.href='" + @Url.Action("AddRandomPatients", "Simulation", "1") + "'");" class="btn btn-info" />
+    <input type="button" value="dodaj pacjenta z bazy" onclick="@("window.location.href='" + @Url.Action("AddRandomPatientFromDB", "Simulation") + "'");" class="btn btn-info" />
     <br><br>
 </div>
 
@@ -24,13 +25,13 @@
                 <label class="col-sm-2 col-form-label">Płeć</label>
                 <div class="col-sm-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Plec" value="K" checked>
+                        <input class="form-check-input" type="radio" name="Plec" value="1" checked>
                         <label class="form-check-label" for="Plec">
                             Kobieta
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Plec" value="M">
+                        <input class="form-check-input" type="radio" name="Plec" value="0">
                         <label class="form-check-label" for="Plec">
                             Mężczyzna
                         </label>
@@ -288,7 +289,7 @@
             </div>
         </div>
 </div>
-
+<br /><br /><br />
 <div class="form-group">
     <input type="submit" value="Create" class="btn btn-default" />
 </div>

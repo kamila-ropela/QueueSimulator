@@ -3,16 +3,26 @@ using System.Collections.Generic;
 
 namespace QueueSimulator.Database
 {
-    public static class Patients
+    public static class PatientsDB
     {
         public static List<Patient> GetDataFromPatientsTable()
         {
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients");
         }
 
+        public static List<Patient> GetActivePatientFromPatientsTable()
+        {
+            return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients WHERE Status = '1'");
+        }
+
         public static List<Patient> GetDataFromSavedPatientsTable()
         {
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM SavedPatients");
+        }
+
+        public static string GetNumbersOfRowInTable(string Table)
+        {
+            return Helper.dbContext.GetCountOfRows($@"SELECT COUNT(*) AS count FROM {Table}");
         }
 
         public static void PostDataInPatientsTable(Patient data)
