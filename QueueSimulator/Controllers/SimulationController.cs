@@ -12,30 +12,57 @@ namespace QueueSimulator.Controllers
     public class SimulationController : Controller
     {
         NewPatients newPatients = new NewPatients();
+        int PatientAddCount, ExpectedAddedPatients;
+        int Algorytm;
+        int additionalEvents;
 
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
-            var patientList = PatientsDB.GetDataFromPatientsTable();
 
+            //var patientList = PatientsDB.GetDataFromPatientsTable();
+            List<Patient> patientList = new List<Patient>();
             ViewData["PatientList"] = patientList;
-            ViewData["Status"] = "List";
+            ViewData["Status"] = "empty";
             return View();
         }
 
-        public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, int returnToQuery, int addToQuery, int twoQuery)
+        public void ReturnByte(string number)
         {
-            SetPriorityAndStatus();
+            var result = 0;
+            var splitNumbers = number.ToCharArray();
 
+            if (splitNumbers[0] == '0')
+                result += 0;
+            else
+                result += 4;
+            if (splitNumbers[1] == '0')
+                result += 0;
+            else
+                result += 2;
+            if (splitNumbers[2] == '0')
+                result += 0;
+            else
+                result += 1;
 
-            var patientList = PatientsDB.GetDataFromPatientsTable();
+            additionalEvents = result;
+        }
+        public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery)
+        {            
+            string EventByte = returnToQuery + addToQuery + twoQuery;
+            ReturnByte(EventByte);
+
+            this.Algorytm = Algorytm;
+            SetPriority();
+
+            var patientList = PatientsDB.GetActivePatientFromPatientsTable();
             return PartialView("Patient", patientList);
         }
 
-        public IActionResult GiveActivePatients(string piority)
+        public IActionResult ActivePatients()
         {
-            ChangeStatus(piority);
-            var patients = PatientsDB.GetActivePatientFromPatientsTable();
+            SetStatus();
+            var patients = PatientsDB.GetActivePatientFromPatientsTable(); 
 
             return PartialView("Patient", patients);
         }
@@ -49,17 +76,30 @@ namespace QueueSimulator.Controllers
 
         public IActionResult AddPatient(string patientCount)
         {
+            PatientAddCount = 0;
             return PartialView("AddPatient");
         }
 
         [HttpPost]
-        public void AddPatient(IFormCollection formData)
+        public IActionResult AddPatient(IFormCollection formData)
         {
-            newPatients.GeneratePatientBasedOnData(formData);
+            if (false)
+            {
+                PatientAddCount++;
+                newPatients.GeneratePatientBasedOnData(formData);
+            }
+            return View("Simulation");
         }
-       
-        public IActionResult AddRandomPatients(string patientCount)
+
+        public IActionResult Check()
         {
+            ;
+            return PartialView();
+        }
+
+        public IActionResult AddRandomPatient(string patientCount)
+        {
+            PatientAddCount++;
             newPatients.GeneratePatientWithRandomData(patientCount);
 
             var patientList = PatientsDB.GetDataFromPatientsTable();
@@ -68,42 +108,92 @@ namespace QueueSimulator.Controllers
 
         public void AddRandomPatientFromDB(string patientCount)
         {
+            PatientAddCount++;
             newPatients.NewPatientFromDB();
         }
 
-        public void SetPriorityAndStatus()
+        public IActionResult AddRandomPatients(string patientCount)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
+            newPatients.GeneratePatientWithRandomData(patientCount);
 
-            foreach (var patient in patients)
+            var patientList = PatientsDB.GetDataFromPatientsTable();
+            return PartialView("Patient", patientList);
+        }
+
+        public void AddRandomPatientsFromDB(string patientCount)
+        {
+            newPatients.NewPatientFromDB();
+        }
+
+        public void SetPriority()
+        {
+            Priority priority = new Priority();
+
+            switch (Algorytm)
             {
-                /*string priority;
-                var GSC = patient.GSC;
-                if(GSC >= 13)
-                    priority = "3";
-                else if(GSC <= 8)
-                    priority = "1";
-                else
-                    priority = "2";*/
-                Random random = new Random();
-                 var priority = random.Next(0, 3);
-
-                PatientsDB.UpdatePriorityById(patient.Id, priority);
-                PatientsDB.UpdateStatusById(patient.Id, "1");
+                case 1:
+                    priority.CountPriorityBasedOnGlasgowScale();
+                    break;
+                case 2:
+                    priority.CountPriorityBasedOnFOURScale();
+                    break;
+                case 3:
+                    priority.CountPriorityBasedOnMETTS();
+                    break;
+                case 4:
+                    priority.CountPriorityBasedOnSCON();
+                    break;
+                case 5:
+                    priority.CountPriorityBasedOnSREN();
+                    break;
+                case 6:
+                    priority.CountPriorityBasedOnMIXED();
+                    break;
             }
         }
 
-        public void ChangeStatus(string changePriority)
+        public void SetStatus()
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
+            Status status = new Status();
 
-            foreach (var patient in patients)
-            {
-                if(patient.Piority == changePriority)
-                {
-                    PatientsDB.UpdateStatusById(patient.Id, "0");
-                    return;
-                }
+            //returnToQuery + addToQuery + twoQuery
+            switch (additionalEvents){
+                case 0:
+                    status.BasedOnPriorityValue();
+                    break;
+                case 1:
+                    //status.BasedOnPriorityValue();
+                    status.PriorityWithTwoQuery();
+                    break;
+                case 2:
+                    status.BasedOnPriorityValue();
+                    status.PriorityWithAddToQuery();
+                    break;
+                case 3:
+                    //status.BasedOnPriorityValue();
+                    status.PriorityWithAddToQuery();
+                    status.PriorityWithTwoQuery();
+                    break;
+                case 4:
+                    status.BasedOnPriorityValue();
+                    status.PriorityWithReturnToQuery();
+                    break;
+                case 5:
+                   // status.BasedOnPriorityValue();
+                    status.PriorityWithReturnToQuery();
+                    status.PriorityWithTwoQuery();
+                    break;
+                case 6:
+                    status.BasedOnPriorityValue();
+                    status.PriorityWithReturnToQuery();
+                    status.PriorityWithAddToQuery();
+                    break;
+                case 7:
+                    //status.BasedOnPriorityValue();
+                    status.PriorityWithReturnToQuery();
+                    status.PriorityWithAddToQuery();
+                    status.PriorityWithTwoQuery();
+                    break;
             }
         }
 

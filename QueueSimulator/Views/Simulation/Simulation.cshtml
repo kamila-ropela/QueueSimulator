@@ -58,145 +58,53 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Algorytm</label>
                 <select class="form-control" name="Algorytm" id="Algorytm">
-                    <option value="1">Algorytm 1</option>
-                    <option value="2">Algorytm 2</option>
-                    <option value="2">Algorytm 3</option>
-                    <option value="2">Algorytm 4</option>
-                    <option value="2">Algorytm 5</option>
+                    <option value="1">Skala Glasgow</option>
+                    <option value="2">Skala FOUR</option>
+                    <option value="3">METTS</option>
+                    <option value="4">SCON</option>
+                    <option value="5">SREN</option>
+                    <option value="6">MIXED</option>
                 </select>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="returnToQuery" type="checkbox" value="1" id="ReturnToQuery">
+                <input class="custom-control-input" name="returnToQuery" value="0" type="checkbox" id="ReturnToQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Powrot do kolejki
                 </label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="addToQuery" type="checkbox" value="2" id="AddToQuery">
+                <input class="custom-control-input" name="addToQuery" value="0" type="checkbox" id="AddToQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Dodanie do kolejki
                 </label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="twoQuery" type="checkbox" value="3" id="TwoQuery">
+                <input class="custom-control-input" name="twoQuery" value="0" type="checkbox" id="TwoQuery">
                 <label class="custom-control-input" for="defaultCheck1">
                     Rownolegle kolejki
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" id="start" value="Start" class="btn btn-default" />
+                <input type="button" id="start" value="Start" class="btn btn-default" />
             </div>
         </form>
     </div>
 
     <div class="main" id="main">
-        @Html.Partial("Empty")
+        @{
+            if (ViewBag.Status == "empty")
+            {
+                @Html.Partial("Empty")
+            }
+            if (ViewBag.Empty == "empty")
+            {
+                @Html.Partial("Patient", ViewData["PatientList"]);
+            }
+        }
+
         @*@Html.Partial("AddPatient");
         @Html.Partial("Patient", ViewData["PatientList"]);*@
     </div>
+    <script src="~/lib/QueueJS/ReloadList.js"></script>
 </body>
 </html>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#AddNew").on("click", function () {
-            var patientCount = $("#CountPatient").val();
-            $.ajax({
-                url: "/Simulation/AddPatient",
-                type: "GET",
-                data: {
-                    patientCount: patientCount,
-                }
-            }).done(function (patientForm) {
-                $("#main").html(patientForm);
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        $("#AddRandom").on("click", function () {
-            var patientCount = $("#CountPatient").val();
-            $.ajax({
-                url: "/Simulation/AddRandomPatients",
-                type: "GET",
-                data: {
-                    patientCount: patientCount,
-                }
-            }).done(function (patientList) {
-                $("#main").html(patientList);
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        $("#AddDb").on("click", function () {
-            var patientCount = $("#CountPatient").val();
-            $.ajax({
-                url: "/Simulation/AddRandomPatientFromDB",
-                type: "GET",
-                data: {
-                    patientCount: patientCount,
-                }
-            }).done(function (patientList) {
-                $("#main").html(patientList);
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        $("#start").on("click", function () {
-            var CountPatient = $("#CountPatient").val();
-            var CountIteration = $("#CountIteration").val();
-            var Algorytm = $("#Algorytm").val();
-            var ReturnToQuery = $("#ReturnToQuery").val();
-            var AddToQuery = $("#AddToQuery").val();
-            var TwoQuery = $("#TwoQuery").val();
-            $.ajax({
-                url: "/Simulation/StartSimulation",
-                type: "GET",
-                data: {
-                    CountPatient: CountPatient,
-                    CountIteration: CountIteration,
-                    Algorytm: Algorytm,
-                    ReturnToQuery: ReturnToQuery,
-                    AddToQuery: AddToQuery,
-                    TwoQuery: TwoQuery
-                }
-            }).done(function (patientList) {
-                $("#main").html(patientList);
-                });
-
-            console.log("jj")
-            //for (var i = 0; i < CountIteration; i++) {
-            //    var intervalID = window.setInterval(function () {
-
-            //        $.ajax({
-            //            url: "/Simulation/GiveActivePatients",
-            //            type: "GET",
-            //            data: { piority: "1"}
-            //        }).done(function (patientList) {
-            //            $("#main").html(patientList);
-            //        });
-
-            //        if (++x === CountIteration) {
-            //            window.clearInterval(intervalID);
-            //        }
-            //    }, 1000);
-            //}
-        });
-    });
-    function ReturnNewPartialView() {
-
-    }
-
-    //function setIntervalX(callback, delay, repetitions) {
-    //    var x = 0;
-    //    var intervalID = window.setInterval(function () {
-
-    //        callback();
-
-    //        if (++x === repetitions) {
-    //            window.clearInterval(intervalID);
-    //        }
-    //    }, delay);
-    //}
-</script>

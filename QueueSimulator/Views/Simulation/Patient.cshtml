@@ -4,27 +4,21 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.PatientName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.Piority)
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
+        <tr style='background-color: @(item.Piority.Equals("1") ? "red" : item.Piority.Equals("2") ? "yellow" : "green");'>
             <td>
                 @Html.DisplayFor(modelItem => item.PatientName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayFor(modelItem => item.Piority)
             </td>
         </tr>
 }
