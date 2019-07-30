@@ -22,21 +22,33 @@ namespace QueueSimulator.Controllers
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
 
             var patientList = PatientsDB.GetDataFromPatientsTable();
-             List<Patient> l = new List<Patient>();
+            List<Patient> l = new List<Patient>();
             ViewData["Data"] = patientList.Last();
             ViewData["PatientList"] = patientList;
             ViewData["Status"] = "empty";
             return View();
         }
 
-        public Patient SetPatientDataToModalPupop(int patientId)
+        public string SetPatientDataToModalPupop(int patientId)
         {
-            var patient = PatientsDB.GetDataByIdFromPatientsTable(patientId);
-            ViewData["Data"] = patient.First();
+            var patient = PatientsDB.GetDataByIdFromPatientsTable(17);
 
-            return patient.First();
+            string result = $@"Name: {patient.First().PatientName} <br> 
+                            Płeć: {patient.First().Sex} <br> 
+                            Drogi oddechowe: {patient.First().Inspection} <br> 
+                            Czestość oddechow: {patient.First().RR} <br> 
+                            Pulsoksymetria: {patient.First().POX} <br> 
+                            Tetno: {patient.First().HR} <br> 
+                            Cisnienie krwi: {patient.First().BP} <br>
+                            Niepełnosprawność: {patient.First().RLS} <br> 
+                            Temperatura: {patient.First().Temperature} <br> 
+                            Skala FOUR: {patient.First().Four} <br> 
+                            Skala Glasgow: {patient.First().GSC} <br> 
+                            Priorytet: {patient.First().Piority}";
+
+            return result;
         }
-        
+
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
             ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
@@ -65,7 +77,7 @@ namespace QueueSimulator.Controllers
         public IActionResult ActivePatients(int iteration)
         {
             SetStatus(iteration);
-            var patients = PatientsDB.GetActivePatientFromPatientsTable(); 
+            var patients = PatientsDB.GetActivePatientFromPatientsTable();
 
             return PartialView("Patient", patients);
         }
@@ -88,7 +100,7 @@ namespace QueueSimulator.Controllers
         {
             PatientAddCount++;
             newPatients.GeneratePatientBasedOnData(formData);
-            
+
             return View("Simulation");
         }
 
@@ -152,7 +164,8 @@ namespace QueueSimulator.Controllers
             Status status = new Status();
 
             //returnToQuery + addToQuery + twoQuery
-            switch (AdditionalEvents){
+            switch (AdditionalEvents)
+            {
                 case 0:
                     status.BasedOnPriorityValue(iteration);
                     break;
@@ -161,8 +174,8 @@ namespace QueueSimulator.Controllers
                     status.PriorityWithTwoQuery();
                     break;
                 case 2:
-                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithAddToQuery();
+                    status.BasedOnPriorityValue(iteration);
                     break;
                 case 3:
                     //status.BasedOnPriorityValue();
@@ -170,18 +183,18 @@ namespace QueueSimulator.Controllers
                     status.PriorityWithTwoQuery();
                     break;
                 case 4:
-                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithReturnToQuery();
+                    status.BasedOnPriorityValue(iteration);
                     break;
                 case 5:
-                   // status.BasedOnPriorityValue();
+                    // status.BasedOnPriorityValue();
                     status.PriorityWithReturnToQuery();
                     status.PriorityWithTwoQuery();
                     break;
                 case 6:
-                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithReturnToQuery();
                     status.PriorityWithAddToQuery();
+                    status.BasedOnPriorityValue(iteration);
                     break;
                 case 7:
                     //status.BasedOnPriorityValue();

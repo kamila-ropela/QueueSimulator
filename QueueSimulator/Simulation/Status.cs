@@ -1,5 +1,6 @@
 ﻿using QueueSimulator.Database;
 using System;
+using System.Linq;
 
 namespace QueueSimulator.Simulation
 {
@@ -10,6 +11,7 @@ namespace QueueSimulator.Simulation
         public void BasedOnPriorityValue(int iteration)
         {
             var patients = PatientsDB.GetDataFromPatientsTable();
+            //liczta pacjentów z pewnym priorytetem
             int P1 = 0, P2 = 0, P3 = 0, P4 = 0, P5 = 0;
 
             foreach (var patient in patients)
@@ -54,11 +56,26 @@ namespace QueueSimulator.Simulation
             var newPatientsCount = random.Next(0, 15);
             //newPatients.NewPatientFromDB(newPatientsCount);
             newPatients.GeneratePatientWithRandomData(newPatientsCount);
+            //policzenie priorytetu dl atego nowego
         }
 
         public void PriorityWithTwoQuery()
         {
 
         }
+
+        public void PropabilityLeaveQuery()
+        {
+            var patients = PatientsDB.GetDataFromPatientsTable();
+            int[,] table = new int[1000, 3];
+
+            for (int item = 1, elementList = 0; elementList < patients.Count; item++, elementList++)
+            {
+                table[item, 0] = Convert.ToInt32(patients.ElementAt(elementList).Id);
+                table[item, 1] = Convert.ToInt32(patients.ElementAt(elementList).Piority);
+                table[item, 2] = Convert.ToInt32(patients.ElementAt(elementList).Status);
+            }
+
+        } 
     }
 }

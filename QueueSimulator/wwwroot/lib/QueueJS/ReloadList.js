@@ -130,6 +130,20 @@ $(document).ready(function () {
             var AddToQuery = $("#AddToQuery").val();
             var TwoQuery = $("#TwoQuery").val();
             var DoctorCount = $("#DoctorCount").val();
+
+            if (CountIteration.length == 0)
+                CountIteration = 1;
+            if (DoctorCount.length == 0)
+                DoctorCount = 1;
+            if (CountPatient.length == 0) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Zapomniałeś dodać pacjentów!'
+                })
+                return;
+            }
+
             $.ajax({
                 url: "/Simulation/StartSimulation",
                 type: "GET",
@@ -145,7 +159,11 @@ $(document).ready(function () {
             }).done(function (patientList) {
                 $("#main").html(patientList);
                 });
-            
+
+            console.log()
+            if (CountIteration.length == 0)
+                console.log("null")
+            else console.log("not null")
             var iteration = 0;
                 var intervalID = window.setInterval(function () {
 
@@ -159,6 +177,7 @@ $(document).ready(function () {
                     console.log("Itemation number: " + iteration)
                     ++iteration;
                     if (iteration == CountIteration) {
+                        console.log("stop")
                         window.clearInterval(intervalID);
                     }
                 }, 4000);
