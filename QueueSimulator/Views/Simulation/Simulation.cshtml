@@ -36,6 +36,44 @@
         .main {
             margin-left: 200px;
         }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body>
@@ -91,7 +129,7 @@
     </div>
 
     <div class="main" id="main">
-        @{
+        @*@{
             if (ViewBag.Status == "empty")
             {
                 @Html.Partial("Empty")
@@ -100,11 +138,77 @@
             {
                 @Html.Partial("Patient", ViewData["PatientList"]);
             }
-        }
+        }*@
 
-        @*@Html.Partial("AddPatient");
-        @Html.Partial("Patient", ViewData["PatientList"]);*@
+        @*@Html.Partial("AddPatient");*@
+        @Html.Partial("Patient", ViewData["PatientList"]);
+
+
+        <div id="myModal" class="modal">
+
+            <div class="modal-content" id="modalConcept">
+                <span class="close">&times;</span>
+                <h5 class="modal-title" id="Name"></h5>
+                <p id="Sex"></p><br />
+                <p id="DrogiOddechowe"></p><br />
+                <p id="CzestoscOddechow"></p><br />
+                <p id="Pulsoksymetria"></p><br />
+                <p id="Tetno"></p><br />
+                <p id="CisnienieKrwi"></p><br />
+                <p id="Disability"></p><br />
+                <p id="Temperatura"></p><br />
+                <p id="FOUR"></p><br />
+                <p id="GCS"></p><br />
+                <p id="Priority"></p><br />
+            </div>
+
+        </div>
     </div>
+   
     <script src="~/lib/QueueJS/ReloadList.js"></script>
 </body>
 </html>
+
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("info");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        var patientId = $("#info").val();
+        
+            $.ajax({
+                url: "/Simulation/SetPatientDataToModalPupop",
+                type: "GET",
+                data: {
+                    patientId: patientId,
+                }
+            }).done(function (response) {
+                console.log(response);
+               @*@{var data = @ViewData["Data"] as Patient;}*@
+                document.getElementById("Name").innerHTML = response.PatientName;
+                document.getElementById("Sex").innerHTML = "Płeć: " + respo.Sex;
+                document.getElementById("DrogiOddechowe").innerHTML = "Drogi oddechowe: " + response.Inspection;
+                document.getElementById("CzestoscOddechow").innerHTML = "Czestosc oddechow: " + response.RR + "/min";
+                document.getElementById("Pulsoksymetria").innerHTML = "Pulsoksymetria: " + response.POX + "%";
+                document.getElementById("Tetno").innerHTML = "Tetno: " + response.HR + "/min";
+                document.getElementById("CisnienieKrwi").innerHTML = "Cisnienie krwi: " + response.BP + "mm Hg"
+                document.getElementById("Disability").innerHTML = "Niepełnosprawność: "  + response.RLS;
+                document.getElementById("Temperatura").innerHTML = "Temperatura: " + reesponse.Temperature + "C";
+                document.getElementById("FOUR").innerHTML ="Skala FOUR: " + response.Four;
+                document.getElementById("GCS").innerHTML ="Skala Glasgow: " + response.GSC;
+                document.getElementById("Priority").innerHTML ="Priorytet: " + response.Piority;
+                modal.style.display = "block";
+            });
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

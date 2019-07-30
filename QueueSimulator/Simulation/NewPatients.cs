@@ -7,14 +7,13 @@ namespace QueueSimulator.Simulation
 {
     public class NewPatients
     {
-        public void GeneratePatientWithRandomData(string patientCount)
+        public void GeneratePatientWithRandomData(int patientCount)
         {
             string[] name = { "Ania", "Anita", "Adam", "Adriam", "Bartosz", "Bartłmiej", "Barbara", "Bianka", "Celina", "Cycylia", "Czesław" };
             string[] surname = { "Kowalski", "Wybicki", "Lama", "Nowak", "Kruszek", "Fretowski", "Gołebiowski" };
             Random random;
-            var count = Convert.ToInt32(patientCount);
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < patientCount; i++)
             {
                 random = new Random();
                 var PatientName = name[random.Next(0, 10)] + " " + surname[random.Next(0, 6)];
@@ -90,7 +89,7 @@ namespace QueueSimulator.Simulation
             PatientsDB.PostDataInSavedPatientsTable(patient);
         }
 
-        public void NewPatientFromDB()
+        public void NewPatientFromDB(int patientCount)
         {
 
         }

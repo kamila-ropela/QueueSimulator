@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Database;
@@ -14,43 +15,31 @@ namespace QueueSimulator.Controllers
         NewPatients newPatients = new NewPatients();
         int PatientAddCount, ExpectedAddedPatients;
         int Algorytm;
-        int additionalEvents;
+        int AdditionalEvents;
 
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
 
-            //var patientList = PatientsDB.GetDataFromPatientsTable();
-            List<Patient> patientList = new List<Patient>();
+            var patientList = PatientsDB.GetDataFromPatientsTable();
+             List<Patient> l = new List<Patient>();
+            ViewData["Data"] = patientList.Last();
             ViewData["PatientList"] = patientList;
             ViewData["Status"] = "empty";
             return View();
         }
 
-        public void ReturnByte(string number)
+        public Patient SetPatientDataToModalPupop(int patientId)
         {
-            var result = 0;
-            var splitNumbers = number.ToCharArray();
+            var patient = PatientsDB.GetDataByIdFromPatientsTable(patientId);
+            ViewData["Data"] = patient.First();
 
-            if (splitNumbers[0] == '0')
-                result += 0;
-            else
-                result += 4;
-            if (splitNumbers[1] == '0')
-                result += 0;
-            else
-                result += 2;
-            if (splitNumbers[2] == '0')
-                result += 0;
-            else
-                result += 1;
-
-            additionalEvents = result;
+            return patient.First();
         }
+        
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery)
-        {            
-            string EventByte = returnToQuery + addToQuery + twoQuery;
-            ReturnByte(EventByte);
+        {
+            ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
 
             this.Algorytm = Algorytm;
             SetPriority();
@@ -59,9 +48,23 @@ namespace QueueSimulator.Controllers
             return PartialView("Patient", patientList);
         }
 
-        public IActionResult ActivePatients()
+        private void ConvertAdditionalEventsToBinary(int countPatient, string returnToQuery, string addToQuery, string twoQuery)
         {
-            SetStatus();
+            string EventByte = returnToQuery + addToQuery + twoQuery;
+            AdditionalEvents = Helper.ReturnByte(EventByte);
+            CheckIfDbHasEnoughtPatients(countPatient);
+        }
+
+        private void CheckIfDbHasEnoughtPatients(int countPatient)
+        {
+            int countPatientsInDb = Convert.ToInt32(PatientsDB.GetNumbersOfRowInTable("Patients"));
+            if (countPatientsInDb != countPatient)
+                newPatients.GeneratePatientWithRandomData((countPatient - countPatientsInDb));
+        }
+
+        public IActionResult ActivePatients(int iteration)
+        {
+            SetStatus(iteration);
             var patients = PatientsDB.GetActivePatientFromPatientsTable(); 
 
             return PartialView("Patient", patients);
@@ -83,21 +86,13 @@ namespace QueueSimulator.Controllers
         [HttpPost]
         public IActionResult AddPatient(IFormCollection formData)
         {
-            if (false)
-            {
-                PatientAddCount++;
-                newPatients.GeneratePatientBasedOnData(formData);
-            }
+            PatientAddCount++;
+            newPatients.GeneratePatientBasedOnData(formData);
+            
             return View("Simulation");
         }
 
-        public IActionResult Check()
-        {
-            ;
-            return PartialView();
-        }
-
-        public IActionResult AddRandomPatient(string patientCount)
+        public IActionResult AddRandomPatient(int patientCount)
         {
             PatientAddCount++;
             newPatients.GeneratePatientWithRandomData(patientCount);
@@ -106,13 +101,13 @@ namespace QueueSimulator.Controllers
             return PartialView("Patient", patientList);
         }
 
-        public void AddRandomPatientFromDB(string patientCount)
+        public void AddRandomPatientFromDB(int patientCount)
         {
             PatientAddCount++;
-            newPatients.NewPatientFromDB();
+            newPatients.NewPatientFromDB(patientCount);
         }
 
-        public IActionResult AddRandomPatients(string patientCount)
+        public IActionResult AddRandomPatients(int patientCount)
         {
             newPatients.GeneratePatientWithRandomData(patientCount);
 
@@ -120,9 +115,9 @@ namespace QueueSimulator.Controllers
             return PartialView("Patient", patientList);
         }
 
-        public void AddRandomPatientsFromDB(string patientCount)
+        public void AddRandomPatientsFromDB(int patientCount)
         {
-            newPatients.NewPatientFromDB();
+            newPatients.NewPatientFromDB(patientCount);
         }
 
         public void SetPriority()
@@ -152,21 +147,21 @@ namespace QueueSimulator.Controllers
             }
         }
 
-        public void SetStatus()
+        public void SetStatus(int iteration)
         {
             Status status = new Status();
 
             //returnToQuery + addToQuery + twoQuery
-            switch (additionalEvents){
+            switch (AdditionalEvents){
                 case 0:
-                    status.BasedOnPriorityValue();
+                    status.BasedOnPriorityValue(iteration);
                     break;
                 case 1:
                     //status.BasedOnPriorityValue();
                     status.PriorityWithTwoQuery();
                     break;
                 case 2:
-                    status.BasedOnPriorityValue();
+                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithAddToQuery();
                     break;
                 case 3:
@@ -175,7 +170,7 @@ namespace QueueSimulator.Controllers
                     status.PriorityWithTwoQuery();
                     break;
                 case 4:
-                    status.BasedOnPriorityValue();
+                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithReturnToQuery();
                     break;
                 case 5:
@@ -184,7 +179,7 @@ namespace QueueSimulator.Controllers
                     status.PriorityWithTwoQuery();
                     break;
                 case 6:
-                    status.BasedOnPriorityValue();
+                    status.BasedOnPriorityValue(iteration);
                     status.PriorityWithReturnToQuery();
                     status.PriorityWithAddToQuery();
                     break;

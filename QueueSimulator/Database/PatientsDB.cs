@@ -1,4 +1,5 @@
 ﻿using QueueSimulator.Models;
+using System;
 using System.Collections.Generic;
 
 namespace QueueSimulator.Database
@@ -8,6 +9,11 @@ namespace QueueSimulator.Database
         public static List<Patient> GetDataFromPatientsTable()
         {
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients");
+        }
+
+        public static List<Patient> GetDataByIdFromPatientsTable(int id)
+        {
+            return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients WHERE Id = '{id}'");
         }
 
         public static List<Patient> GetActivePatientFromPatientsTable()
@@ -20,9 +26,16 @@ namespace QueueSimulator.Database
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM SavedPatients");
         }
 
-        public static string GetNumbersOfRowInTable(string Table)
+        public static int GetNumbersOfRowInTable(string Table)
         {
-            return Helper.dbContext.GetCountOfRows($@"SELECT COUNT(*) AS count FROM {Table}");
+            var result = Helper.dbContext.GetCountOfRows($@"SELECT COUNT(*) AS count FROM {Table}");
+            return Convert.ToInt32(result);
+        }
+
+        public static int GetNumbersOfActivePatientsInTable()
+        {
+            var result = Helper.dbContext.GetCountOfRows($@"SELECT COUNT(*) AS count FROM Patients WHERE Status = '1'");
+            return Convert.ToInt32(result);
         }
 
         public static void PostDataInPatientsTable(Patient data)
@@ -34,7 +47,7 @@ namespace QueueSimulator.Database
 
         public static void PostDataInSavedPatientsTable(Patient data)
         {
-            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four)
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO SavedPatients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four)
                                              VALUES ('{data.PatientName}', '{data.GSC}', '{data.Inspection}', '{data.RR}', 
                                                      '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}', '{data.Sex}', '{data.Four}')");
         }

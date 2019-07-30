@@ -1,5 +1,7 @@
 ﻿using QueueSimulator.Database;
+using QueueSimulator.Models;
 using System;
+using System.Globalization;
 
 namespace QueueSimulator.Simulation
 {
@@ -49,9 +51,20 @@ namespace QueueSimulator.Simulation
             }
         }
 
+        //1 - red
+        //2 -orange
+        //3 - yellow
+        //4 - green
+        //with oxygen ora without jak rozróznic ?
         public void CountPriorityBasedOnMETTS()
         {
+            var patients = PatientsDB.GetDataFromPatientsTable();
 
+            foreach (var patient in patients)
+            {
+                var piority = CountPiority(patient);
+                PatientsDB.UpdatePriorityById(patient.Id, piority);
+            }
         }
 
         //czas spedzony u lekarza na wizycie
@@ -66,9 +79,86 @@ namespace QueueSimulator.Simulation
 
         }
 
+        //polaczenie SCON i SREN z wagami
         public void CountPriorityBasedOnMIXED()
         {
 
+        }
+
+        private int CountPiority(Patient patient)
+        {
+            var Piority = 0;
+            int[] histogramPiority = new int[4];
+
+
+            if (CheckIfPatientHaveRedPiority(patient))
+                Piority = 4;
+            else if (CheckIfPatientHaveOrangePiority(patient))
+                Piority = 3;
+            else if (CheckIfPatientHaveYellowPiority(patient))
+                Piority = 2;
+            else if (CheckIfPatientHaveGreenPiority(patient))
+                Piority = 1;
+
+            return Piority;
+        }
+
+        private bool CheckIfPatientHaveRedPiority(Patient results)
+        {
+            if (results.Inspection == 1)
+                return true;
+            if ((results.RR > 30 || results.RR < 8) && results.POX < 90)
+                return true;
+            if (results.HR > 130 || results.BP < 90)
+                return true;
+            if (results.RLS > 3)
+                return true;
+            return false;
+        }
+
+        private bool CheckIfPatientHaveOrangePiority(Patient results)
+        {
+            if (results.Inspection == 0)
+                return true;
+            if (results.RR > 25 || results.POX < 90)
+                return true;
+            if (results.HR > 120 || results.BP < 40)
+                return true;
+            if (results.RLS <= 3 || results.RLS >= 2)
+                return true;
+            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 41 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 35)
+                return true;
+            return false;
+        }
+
+        private bool CheckIfPatientHaveYellowPiority(Patient results)
+        {
+            if (results.Inspection == 0)
+                return true;
+            if ((results.POX <= 91 || results.POX >= 95) && results.RR < 25)
+                return true;
+            if (results.BP > 130 || results.HR < 90)
+                return true;
+            if (results.RLS > 1)
+                return true;
+            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 38.5 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 41)
+                return true;
+            return false;
+        }
+
+        private bool CheckIfPatientHaveGreenPiority(Patient results)
+        {
+            if (results.Inspection == 0)
+                return true;
+            if ((results.RR <= 9 || results.RR >= 25) && results.POX > 95)
+                return true;
+            if (results.BP < 51 || results.HR > 109)
+                return true;
+            if (results.RLS > 0)
+                return true;
+            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 35.1 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 38.4)
+                return true;
+            return false;
         }
     }
 }

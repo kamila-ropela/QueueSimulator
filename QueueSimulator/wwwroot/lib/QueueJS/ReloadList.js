@@ -142,21 +142,21 @@ $(document).ready(function () {
                 }
             }).done(function (patientList) {
                 $("#main").html(patientList);
-            });
-
-            var IterationItem = 0;
+                });
+            
+            var iteration = 0;
                 var intervalID = window.setInterval(function () {
 
                     $.ajax({
                         url: "/Simulation/ActivePatients",
                         type: "GET",
-                        data: { piority: "1"}
+                        data: { iteration: iteration}
                     }).done(function (patientList) {
                         $("#main").html(patientList);
                         });
-                    console.log("Itemation number: " + IterationItem)
-                    ++IterationItem;
-                    if (IterationItem == CountIteration) {
+                    console.log("Itemation number: " + iteration)
+                    ++iteration;
+                    if (iteration == CountIteration) {
                         window.clearInterval(intervalID);
                     }
                 }, 4000);
