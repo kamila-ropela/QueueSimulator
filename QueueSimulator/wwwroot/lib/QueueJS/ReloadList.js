@@ -129,6 +129,7 @@ $(document).ready(function () {
             var ReturnToQuery = $("#ReturnToQuery").val();
             var AddToQuery = $("#AddToQuery").val();
             var TwoQuery = $("#TwoQuery").val();
+            var DoctorCount = $("#DoctorCount").val();
             $.ajax({
                 url: "/Simulation/StartSimulation",
                 type: "GET",
@@ -138,7 +139,8 @@ $(document).ready(function () {
                     Algorytm: Algorytm,
                     ReturnToQuery: ReturnToQuery,
                     AddToQuery: AddToQuery,
-                    TwoQuery: TwoQuery
+                    TwoQuery: TwoQuery,
+                    DoctorCount: DoctorCount
                 }
             }).done(function (patientList) {
                 $("#main").html(patientList);

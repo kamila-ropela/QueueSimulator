@@ -84,14 +84,20 @@
             <br>
             <div class="form-group input-group-sm mb-3">
                 <label for="countPatient">Liczba pacjentow</label>
-                <input type="text" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
-                <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
-                <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
-                <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
+                <input type="number" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
+                <div class="btn-group-vertical">
+                    <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
+                    <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
+                    <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
+                </div>
             </div>
             <div class="form-group">
                 <label for="countIteration">Liczba iteracji</label>
-                <input type="text" class="form-control" name="countIteration" id="CountIteration" placeholder="Liczba iteracji">
+                <input type="number" class="form-control" name="countIteration" id="CountIteration" placeholder="Liczba iteracji">
+            </div>
+            <div class="form-group">
+                <label for="countIteration">Liczba lekarzy</label>
+                <input type="number" class="form-control" name="doctorCount" id="DoctorCount" placeholder="Liczba lekarzy">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Algorytm</label>
@@ -136,20 +142,20 @@
             }
             if (ViewBag.Empty == "empty")
             {
-                @Html.Partial("Patient", ViewData["PatientList"]);
+                @Html.Partial("Patient", ViewData["PatientList"])
             }
         }*@
 
-        @*@Html.Partial("AddPatient");*@
-        @Html.Partial("Patient", ViewData["PatientList"]);
+        @*@Html.Partial("AddPatient")*@
+        @Html.Partial("Patient", ViewData["PatientList"])
 
 
         <div id="myModal" class="modal">
 
             <div class="modal-content" id="modalConcept">
                 <span class="close">&times;</span>
-                <h5 class="modal-title" id="Name"></h5>
-                <p id="Sex"></p><br />
+                @*<h5 class="modal-title" id="Name"></h5>*@
+                <p id="Sex"></p>@*<br />
                 <p id="DrogiOddechowe"></p><br />
                 <p id="CzestoscOddechow"></p><br />
                 <p id="Pulsoksymetria"></p><br />
@@ -159,7 +165,7 @@
                 <p id="Temperatura"></p><br />
                 <p id="FOUR"></p><br />
                 <p id="GCS"></p><br />
-                <p id="Priority"></p><br />
+                <p id="Priority"></p><br />*@
             </div>
 
         </div>
@@ -185,19 +191,20 @@
                 }
             }).done(function (response) {
                 console.log(response);
+                document.getElementById("Sex").innerHTML = response;
                @*@{var data = @ViewData["Data"] as Patient;}*@
-                document.getElementById("Name").innerHTML = response.PatientName;
-                document.getElementById("Sex").innerHTML = "Płeć: " + respo.Sex;
-                document.getElementById("DrogiOddechowe").innerHTML = "Drogi oddechowe: " + response.Inspection;
-                document.getElementById("CzestoscOddechow").innerHTML = "Czestosc oddechow: " + response.RR + "/min";
-                document.getElementById("Pulsoksymetria").innerHTML = "Pulsoksymetria: " + response.POX + "%";
-                document.getElementById("Tetno").innerHTML = "Tetno: " + response.HR + "/min";
-                document.getElementById("CisnienieKrwi").innerHTML = "Cisnienie krwi: " + response.BP + "mm Hg"
-                document.getElementById("Disability").innerHTML = "Niepełnosprawność: "  + response.RLS;
-                document.getElementById("Temperatura").innerHTML = "Temperatura: " + reesponse.Temperature + "C";
-                document.getElementById("FOUR").innerHTML ="Skala FOUR: " + response.Four;
-                document.getElementById("GCS").innerHTML ="Skala Glasgow: " + response.GSC;
-                document.getElementById("Priority").innerHTML ="Priorytet: " + response.Piority;
+                //document.getElementById("Name").innerHTML = response.PatientName;
+                //document.getElementById("Sex").innerHTML = "Płeć: " + respo.Sex;
+                //document.getElementById("DrogiOddechowe").innerHTML = "Drogi oddechowe: " + response.Inspection;
+                //document.getElementById("CzestoscOddechow").innerHTML = "Czestosc oddechow: " + response.RR + "/min";
+                //document.getElementById("Pulsoksymetria").innerHTML = "Pulsoksymetria: " + response.POX + "%";
+                //document.getElementById("Tetno").innerHTML = "Tetno: " + response.HR + "/min";
+                //document.getElementById("CisnienieKrwi").innerHTML = "Cisnienie krwi: " + response.BP + "mm Hg"
+                //document.getElementById("Disability").innerHTML = "Niepełnosprawność: "  + response.RLS;
+                //document.getElementById("Temperatura").innerHTML = "Temperatura: " + reesponse.Temperature + "C";
+                //document.getElementById("FOUR").innerHTML ="Skala FOUR: " + response.Four;
+                //document.getElementById("GCS").innerHTML ="Skala Glasgow: " + response.GSC;
+                //document.getElementById("Priority").innerHTML ="Priorytet: " + response.Piority;
                 modal.style.display = "block";
             });
     }

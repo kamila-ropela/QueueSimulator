@@ -13,7 +13,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr style='background-color: @(item.Piority.Equals("1") ? "red" : item.Piority.Equals("2") ? "yellow" : "green");'>
+        <tr style='background-color: @(item.Piority.Equals("1") ? "#ee2c2c" : item.Piority.Equals("2") ? "#ffd700" : "#66cd00");'>
             <td>
                 @Html.DisplayFor(modelItem => item.PatientName)
             </td>
@@ -21,7 +21,7 @@
                 @Html.DisplayFor(modelItem => item.Piority)
             </td>
             <td>
-                <button id="info" value="@item.Id" type="button" style="float: right;" class="btn-sm btn-outline-info @*glyphicon glyphicon-option-horizontal*@"></button>
+                <button id="info" value="@item.Id" style="float: right;" class="btn-sm btn-outline-info glyphicon glyphicon-option-horizontal"> </button>
             </td>
         </tr>
 }

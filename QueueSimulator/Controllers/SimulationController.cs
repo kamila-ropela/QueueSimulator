@@ -37,7 +37,7 @@ namespace QueueSimulator.Controllers
             return patient.First();
         }
         
-        public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery)
+        public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
             ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
 
