@@ -48,8 +48,8 @@ namespace QueueSimulator
                         {
                             Id = Convert.ToInt32(reader["Id"]),
                             PatientName = reader["PatientName"].ToString(),
-                            Status = reader["Status"].ToString(),
-                            Piority = reader["Priority"].ToString(),
+                            Status = Convert.ToInt32(reader["Status"]),
+                            Priority = Convert.ToInt32(reader["Priority"]),
                             GSC = Convert.ToInt32(reader["GSC"]),
                             Inspection = Convert.ToInt32(reader["Inspection"]),
                             BP = Convert.ToInt32(reader["BP"]),

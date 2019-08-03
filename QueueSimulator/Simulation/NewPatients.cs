@@ -2,6 +2,7 @@
 using QueueSimulator.Database;
 using QueueSimulator.Models;
 using System;
+using System.Collections.Generic;
 
 namespace QueueSimulator.Simulation
 {
@@ -29,7 +30,6 @@ namespace QueueSimulator.Simulation
                 var GSC = random.Next(3, 15);
                 var Four = random.Next(0, 16);
 
-                //TODO dodac status i piority
                 Patient patient = new Patient()
                 {
                     PatientName = PatientName,
@@ -69,7 +69,6 @@ namespace QueueSimulator.Simulation
             var GSC = KontaktSlowny + OtwieranieOczu + ReakcjaRuchowa;
             var Four = ReakcjaRuchowaFour + OdruchyOddychania + OtwieranieOczuFour + OdruchyPniaMózgu;
 
-            //TODO dodac status i piority
             Patient patient = new Patient()
             {
                 PatientName = PatientName,
@@ -91,7 +90,21 @@ namespace QueueSimulator.Simulation
 
         public void NewPatientFromDB(int patientCount)
         {
+            Random random = new Random();
+            var itemsCount = PatientsDB.GetNumbersOfRowInTable("SavedPatients");
 
+            for (int patient = 0; patient < patientCount; patient++)
+            {                
+               // PatientsDB.TransferRecordFromSavedPatientTableById(random.Next(1, itemsCount));
+            }            
+        }
+
+        public List<Patient> NewRandomPatient(int patientCount)
+        {
+            GeneratePatientWithRandomData(patientCount);
+
+            var patientList = PatientsDB.GetDataFromPatientsTable();
+            return patientList;
         }
     }
 }

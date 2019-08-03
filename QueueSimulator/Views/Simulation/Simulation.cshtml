@@ -21,17 +21,17 @@
             padding-right: 20px;
         }
 
-            .sidenav a {
-                padding: 6px 6px 6px 32px;
-                text-decoration: none;
-                font-size: 25px;
-                color: #818181;
-                display: block;
-            }
+        .sidenav a {
+            padding: 6px 6px 6px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+        }
 
-                .sidenav a:hover {
-                    color: #f1f1f1;
-                }
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
 
         .main {
             margin-left: 200px;
@@ -53,82 +53,85 @@
     </style>
 </head>
 <body>
-
-    <div class="sidenav">
-        <form asp-action="Simulation">
-            <br>
-            <br>
-            <div class="form-group input-group-sm mb-3">
-                <label for="countPatient">Liczba pacjentow</label>
-                <input type="number" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
-                <div class="btn-group-vertical">
-                    <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
-                    <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
-                    <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
+    <div class="container">
+        <div class="sidenav">
+            <form asp-action="Simulation">
+                <br>
+                <br>
+                <div class="form-group input-group-sm mb-3">
+                    <label for="countPatient">Liczba pacjentow</label>
+                    <input type="number" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow">
+                    <div class="btn-group-vertical">
+                        <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
+                        <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
+                        <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="countIteration">Liczba iteracji</label>
-                <input type="number" class="form-control" name="countIteration" id="CountIteration" placeholder="Liczba iteracji">
-            </div>
-            <div class="form-group">
-                <label for="countIteration">Liczba lekarzy</label>
-                <input type="number" class="form-control" name="doctorCount" id="DoctorCount" placeholder="Liczba lekarzy">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Algorytm</label>
-                <select class="form-control" name="Algorytm" id="Algorytm">
-                    <option value="1">Skala Glasgow</option>
-                    <option value="2">Skala FOUR</option>
-                    <option value="3">METTS</option>
-                    <option value="4">SCON</option>
-                    <option value="5">SREN</option>
-                    <option value="6">MIXED</option>
-                </select>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="returnToQuery" value="0" type="checkbox" id="ReturnToQuery">
-                <label class="custom-control-input" for="defaultCheck1">
-                    Powrot do kolejki
-                </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="addToQuery" value="0" type="checkbox" id="AddToQuery">
-                <label class="custom-control-input" for="defaultCheck1">
-                    Dodanie do kolejki
-                </label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" name="twoQuery" value="0" type="checkbox" id="TwoQuery">
-                <label class="custom-control-input" for="defaultCheck1">
-                    Rownolegle kolejki
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="button" id="start" value="Start" class="btn btn-default" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label for="countIteration">Liczba iteracji</label>
+                    <input type="number" class="form-control" name="countIteration" id="CountIteration" placeholder="Liczba iteracji">
+                </div>
+                <div class="form-group">
+                    <label for="countIteration">Liczba lekarzy</label>
+                    <input type="number" class="form-control" name="doctorCount" id="DoctorCount" placeholder="Liczba lekarzy">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Algorytm</label>
+                    <select class="form-control" name="Algorytm" id="Algorytm">
+                        <option value="1">Skala Glasgow</option>
+                        <option value="2">Skala FOUR</option>
+                        <option value="3">METTS</option>
+                        <option value="4">SCON</option>
+                        <option value="5">SREN</option>
+                        <option value="6">MIXED</option>
+                    </select>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" name="returnToQuery" value="0" type="checkbox" id="ReturnToQuery">
+                    <label class="custom-control-input" for="defaultCheck1">
+                        Powrot do kolejki
+                    </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" name="addToQuery" value="0" type="checkbox" id="AddToQuery">
+                    <label class="custom-control-input" for="defaultCheck1">
+                        Dodanie do kolejki
+                    </label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" name="twoQuery" value="0" type="checkbox" id="TwoQuery">
+                    <label class="custom-control-input" for="defaultCheck1">
+                        Rownolegle kolejki
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="button" id="start" value="Start" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+
+        <div class="main" id="main">
+            @*@Html.Partial("Empty")*@
+            @*@{
+                    if (ViewBag.Status == "empty")
+                    {
+                        @Html.Partial("Empty")
+                    }
+                    if (ViewBag.Empty == "empty")
+                    {
+                        @Html.Partial("Patient", ViewData["PatientList"])
+                    }
+                }*@
+
+            @*@Html.Partial("AddPatient")*@
+            @Html.Partial("Patient", ViewData["PatientList"])
+
+        </div>
+
     </div>
-
-    <div class="main" id="main">
-        @*@Html.Partial("Empty")*@
-        @*@{
-                if (ViewBag.Status == "empty")
-                {
-                    @Html.Partial("Empty")
-                }
-                if (ViewBag.Empty == "empty")
-                {
-                    @Html.Partial("Patient", ViewData["PatientList"])
-                }
-            }*@
-
-        @*@Html.Partial("AddPatient")*@
-        @Html.Partial("Patient", ViewData["PatientList"])
-
-    </div>
-
-    <script src="~/lib/QueueJS/ReloadList.js"></script>
+    <script src="~/lib/QueueJS/SimulationForm.js"></script>
+    <script src="~/lib/QueueJS/AddPatient.js"></script>
+    <script src="~/lib/QueueJS/SimulationProcess.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </body>
 </html>

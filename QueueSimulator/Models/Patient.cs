@@ -7,8 +7,8 @@ namespace QueueSimulator.Models
         public int Id { get; set; }
         [DisplayName("Pacjent")]
         public string PatientName { get; set; }
-        public string Status { get; set; }
-        public string Piority { get; set; }
+        public int Status { get; set; }
+        public int Priority { get; set; }
         public int GSC { get; set; }
         public int Inspection { get; set; }
         public int RR { get; set; }

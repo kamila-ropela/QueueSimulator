@@ -7,18 +7,18 @@
                 @Html.DisplayNameFor(model => model.PatientName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Piority)
+                @Html.DisplayNameFor(model => model.Priority)
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr style='background-color: @(item.Piority.Equals("1") ? "#ee2c2c" : item.Piority.Equals("2") ? "#ffd700" : "#66cd00");'>
+        <tr style='background-color: @(item.Priority.Equals(1) ? "#ee2c2c" : item.Priority.Equals(2) ? "#ffd700" : "#66cd00");'>
             <td>
                 @Html.DisplayFor(modelItem => item.PatientName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Piority)
+                @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
                 <button id="info" style="float: right;" name="infoButton" class="btn-sm btn-outline-info glyphicon glyphicon-option-horizontal"> </button>

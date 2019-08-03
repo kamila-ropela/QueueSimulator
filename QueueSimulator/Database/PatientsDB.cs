@@ -1,6 +1,7 @@
 ﻿using QueueSimulator.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QueueSimulator.Database
 {
@@ -19,6 +20,11 @@ namespace QueueSimulator.Database
         public static List<Patient> GetActivePatientFromPatientsTable()
         {
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients WHERE Status = '1'");
+        }
+
+        public static Patient GetLastAddedPatientFromPatientsTable()
+        {
+            return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients ORDER BY Id DESC LIMIT 1").First();
         }
 
         public static List<Patient> GetDataFromSavedPatientsTable()
@@ -65,6 +71,11 @@ namespace QueueSimulator.Database
         public static void UpdatePriorityById(int id, int priority)
         {
             Helper.dbContext.ExecuteQuery($@"UPDATE Patients SET Priority = '{priority}' WHERE Id = '{id}'");
+        }
+
+        public static void TransferRecordFromSavedPatientTableById(int id)
+        {
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO SavedPatients SELECT * FROM Patients WHERE Id = '{id}'");
         }
     }
 }
