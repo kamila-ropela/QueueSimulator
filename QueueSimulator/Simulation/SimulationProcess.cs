@@ -1,4 +1,5 @@
 ﻿using QueueSimulator.Database;
+using QueueSimulator.Models;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace QueueSimulator.Simulation
     public class SimulationProcess
     {
         Random random;
-        List<PatientContent> activePatient = new List<PatientContent>();
+        public static List<PatientContent> activePatient = new List<PatientContent>();
         //int highestPriority;
 
         
@@ -55,9 +56,8 @@ namespace QueueSimulator.Simulation
         }
 
         //po dodaniu nowego pacjenta lub jego powrocie z listy
-        public void UpdatePatientList()
+        public void UpdatePatientList(Patient lastPatient)
         {
-            var lastPatient = PatientsDB.GetLastAddedPatientFromPatientsTable();
             activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority });
         }
 

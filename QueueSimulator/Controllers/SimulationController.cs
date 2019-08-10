@@ -35,7 +35,7 @@ namespace QueueSimulator.Controllers
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
             DoctorCount = doctorCount;
-            AdditionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
+            this.AdditionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
             simulationStart.SetPriority(Algorytm);
 
             simulationProcess.CleanList();

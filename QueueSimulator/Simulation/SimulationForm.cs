@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using QueueSimulator.Database;
 using QueueSimulator.EnumAndDictionary;
 
@@ -13,14 +12,14 @@ namespace QueueSimulator.Simulation
         {
             string EventByte = returnToQuery + addToQuery + twoQuery;
             int AdditionalEvents = Helper.ReturnByte(EventByte);
-            CheckIfDbHasEnoughtPatients(countPatient);
+           // CheckIfDbHasEnoughtPatients(countPatient);
 
             return AdditionalEvents;
         }
 
         public void CheckIfDbHasEnoughtPatients(int countPatient)
         {
-            int countPatientsInDb = Convert.ToInt32(PatientsDB.GetNumbersOfRowInTable("Patients"));
+            var countPatientsInDb = PatientsDB.GetNumbersOfRowInTable("Patients");
             if (countPatientsInDb != countPatient)
                 newPatients.GeneratePatientWithRandomData((countPatient - countPatientsInDb));
         }

@@ -15,20 +15,26 @@ namespace QueueSimulator.Simulation
 
             foreach (var patient in patients)
             {
-                /*string priority;
-                var GSC = patient.GSC;
-                if(GSC >= 13)
-                    priority = "3";
-                else if(GSC <= 8)
-                    priority = "1";
-                else
-                    priority = "2";*/
-                Random random = new Random();
-                var priority = random.Next(1, 4);
+                int priority = GlasgowScale(patient);
+                //Random random = new Random();
+                //var priority = random.Next(1, 4);
 
                 PatientsDB.UpdatePriorityById(patient.Id, priority);
                 PatientsDB.UpdateStatusById(patient.Id, "1");
             }
+        }
+
+        public static int GlasgowScale(Patient patient)
+        {
+            int priority;
+            var GSC = patient.GSC;
+            if (GSC >= 13)
+                priority = 3;
+            else if (GSC <= 8)
+                priority = 1;
+            else
+                priority = 2;
+            return priority;
         }
 
         public void CountPriorityBasedOnFOURScale()
@@ -37,18 +43,24 @@ namespace QueueSimulator.Simulation
 
             foreach (var patient in patients)
             {
-                int priority;
-                var GSC = patient.GSC;
-                if(GSC >= 13)
-                    priority = 3;
-                else if(GSC <= 6)
-                    priority = 1;
-                else
-                    priority = 2;
+                int priority = FourScale(patient);
 
                 PatientsDB.UpdatePriorityById(patient.Id, priority);
                 PatientsDB.UpdateStatusById(patient.Id, "1");
             }
+        }
+
+        public static int FourScale(Patient patient)
+        {
+            int priority;
+            var GSC = patient.GSC;
+            if (GSC >= 13)
+                priority = 3;
+            else if (GSC <= 6)
+                priority = 1;
+            else
+                priority = 2;
+            return priority;
         }
 
         //1 - red
@@ -62,7 +74,7 @@ namespace QueueSimulator.Simulation
 
             foreach (var patient in patients)
             {
-                var piority = CountPiority(patient);
+                var piority = CountPiorityMetts(patient);
                 PatientsDB.UpdatePriorityById(patient.Id, piority);
             }
         }
@@ -85,7 +97,7 @@ namespace QueueSimulator.Simulation
 
         }
 
-        private int CountPiority(Patient patient)
+        public static int CountPiorityMetts(Patient patient)
         {
             var Piority = 0;
             int[] histogramPiority = new int[4];
@@ -103,7 +115,7 @@ namespace QueueSimulator.Simulation
             return Piority;
         }
 
-        private bool CheckIfPatientHaveRedPiority(Patient results)
+        private static bool CheckIfPatientHaveRedPiority(Patient results)
         {
             if (results.Inspection == 1)
                 return true;
@@ -116,7 +128,7 @@ namespace QueueSimulator.Simulation
             return false;
         }
 
-        private bool CheckIfPatientHaveOrangePiority(Patient results)
+        private static bool CheckIfPatientHaveOrangePiority(Patient results)
         {
             if (results.Inspection == 0)
                 return true;
@@ -131,7 +143,7 @@ namespace QueueSimulator.Simulation
             return false;
         }
 
-        private bool CheckIfPatientHaveYellowPiority(Patient results)
+        private static bool CheckIfPatientHaveYellowPiority(Patient results)
         {
             if (results.Inspection == 0)
                 return true;
@@ -146,7 +158,7 @@ namespace QueueSimulator.Simulation
             return false;
         }
 
-        private bool CheckIfPatientHaveGreenPiority(Patient results)
+        private static bool CheckIfPatientHaveGreenPiority(Patient results)
         {
             if (results.Inspection == 0)
                 return true;

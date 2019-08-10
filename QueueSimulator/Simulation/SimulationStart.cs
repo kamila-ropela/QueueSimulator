@@ -2,15 +2,19 @@
 {
     public class SimulationStart
     {
+        Priority priority = new Priority();
         int HighestPriority;
-        static int Algorytm;
+        public static int Algorytm;
 
         public void SetPriority(int algorytm)
-        {
-            Priority priority = new Priority();
+        {            
             Algorytm = algorytm;
+            CountPriority();
+        }
 
-            switch (algorytm)
+        public void CountPriority()
+        {
+            switch (Algorytm)
             {
                 case 1:
                     priority.CountPriorityBasedOnGlasgowScale();
