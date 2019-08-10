@@ -38,10 +38,6 @@ $(document).ready(function () {
             $("#main").html(patientList);
         });
 
-        console.log()
-        if (CountIteration.length == 0)
-            console.log("null")
-        else console.log("not null")
         var iteration = 0;
         var intervalID = window.setInterval(function () {
 
@@ -58,6 +54,23 @@ $(document).ready(function () {
                 console.log("stop")
                 window.clearInterval(intervalID);
             }
-        }, 4000);
+        }, 6000);
     });
 });
+
+function showPopup(patientId) {
+    $.ajax({
+        url: "/Simulation/SetPatientDataToModalPopup",
+        type: "GET",
+        data: {
+            patientId: patientId,
+        }
+    }).done(function (response) {
+        console.log(response);
+
+        Swal.fire({
+            type: 'info',
+            html: response
+        })
+    });
+}

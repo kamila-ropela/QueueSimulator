@@ -1,53 +1,29 @@
-﻿using QueueSimulator.Database;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace QueueSimulator.Simulation
 {
     public class Status
     {
         Random random;
+        SimulationProcess simulationProcess = new SimulationProcess();
+        int doctorCount, highestPriority;
+
+        public Status(int doctorStatus, int highestPriority) {
+            doctorCount = doctorCount;
+            highestPriority = highestPriority;
+        }
 
         public void BasedOnPriorityValue(int iteration)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-            //liczta pacjentów z pewnym priorytetem
-            //int P1 = 0, P2 = 0, P3 = 0, P4 = 0, P5 = 0;
-
-            //foreach (var patient in patients)
-            //{
-            //    if (patient.Priority == "1" && P1 != 2)
-            //    {
-            //        PatientsDB.UpdateStatusById(patient.Id, "0");
-            //        P1++;
-            //    }
-            //    else if (patient.Priority == "2" && P2 != 1)
-            //    {
-            //        PatientsDB.UpdateStatusById(patient.Id, "0");
-            //        P2++;
-            //    }
-            //    else if (patient.Priority == "3" && P3 != 1 && iteration % 2 == 0)
-            //    {
-            //        PatientsDB.UpdateStatusById(patient.Id, "0");
-            //        P3++;
-            //    }
-            //    else if (patient.Priority == "4" && P4 != 2 && iteration % 3 == 0)
-            //    {
-            //        PatientsDB.UpdateStatusById(patient.Id, "0");
-            //        P4++;
-            //    }
-            //    else if (patient.Priority == "5" && P5 != 1 && iteration % 3 == 0)
-            //    {
-            //        PatientsDB.UpdateStatusById(patient.Id, "0");
-            //        P5++;
-            //    }
-
-            //}
+            //var patients = PatientsDB.GetDataFromPatientsTable();            
+            simulationProcess.PropabilityLeaveQueryByPatient(doctorCount, highestPriority);
         }
 
         public void PriorityWithReturnToQuery()
         {
-
+            var returnPatientsCount = random.Next(0, 15);
+            //dodawanie dowych do listy z listy db ze statusem 0
+            simulationProcess.PropabilityLeaveQueryByPatient(doctorCount, highestPriority);
         }
 
         public void PriorityWithAddToQuery()
@@ -61,7 +37,7 @@ namespace QueueSimulator.Simulation
 
         public void PriorityWithTwoQuery()
         {
-
+            simulationProcess.PropabilityLeaveQueryByPatientInTwoQuery(doctorCount, highestPriority);
         }       
     }
 }

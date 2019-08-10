@@ -15,25 +15,74 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+        }
+
+        .sidenav {
+            /*height: 100%;*/
+            width: 20%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            background-color: #a6e3e9;
+            /*overflow-x: hidden;
+            overflow-y: hidden;*/
+            padding-top: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+            .sidenav a {
+                padding: 6px 6px 6px 32px;
+                text-decoration: none;
+                font-size: 25px;
+                color: #818181;
+                display: block;
+            }
+
+                .sidenav a:hover {
+                    color: #f1f1f1;
+                }
+
+        .main {
+            margin-left: 200px;
+            width: 70%;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    </style>
+
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a asp-area="" asp-controller="Simulation" asp-action="Simulation" class="navbar-brand">QueueSimulator</a>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a asp-area="" asp-controller="Simulation" asp-action="Simulation" class="navbar-brand">QueueSimulator</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>*@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content" id="container">
-        @RenderBody()
-        <hr />
-        @*<footer>
-            <p>&copy; 2019 - QueueSimulator</p>
-        </footer>*@
-    </div>
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -55,6 +104,14 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+    <div class="container body-content" id="container">
+        @RenderBody()
+        
+        @*<footer>
+                <p>&copy; 2019 - QueueSimulator</p>
+            </footer>*@
+    </div>
 
     @RenderSection("Scripts", required: false)
 </body>

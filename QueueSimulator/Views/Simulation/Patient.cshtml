@@ -21,7 +21,9 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                <button id="info" style="float: right;" name="infoButton" class="btn-sm btn-outline-info glyphicon glyphicon-option-horizontal"> </button>
+                <button id="info" style="float: right;" name="info" 
+                        class="info btn btn-success btn-sm glyphicon glyphicon-option-horizontal"
+                        onclick="showPopup(@item.Id)"> </button>
             </td>
         </tr>
 }

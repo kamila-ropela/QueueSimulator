@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Database;
@@ -15,45 +13,33 @@ namespace QueueSimulator.Controllers
         NewPatients newPatients = new NewPatients();
         SimulationForm simulationForm = new SimulationForm();
         SimulationProcess simulationProcess = new SimulationProcess();
+        SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
         int PatientAddCount, ExpectedAddedPatients;
         int AdditionalEvents;
+        int DoctorCount;
 
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
             var patientList = PatientsDB.GetDataFromPatientsTable();
-            List<Patient> l = new List<Patient>();
-            ViewData["Data"] = patientList.Last();
-            ViewData["PatientList"] = patientList;
-            ViewData["Status"] = "empty";
+            ViewData["data"] = patientList;
             return View();
         }
 
-        public string SetPatientDataToModalPupop(int patientId)
+        public string SetPatientDataToModalPopup(int patientId)
         {
-            var patient = PatientsDB.GetDataByIdFromPatientsTable(17);
-
-            string result = $@"Name: {patient.First().PatientName} <br> 
-                            Płeć: {patient.First().Sex} <br> 
-                            Drogi oddechowe: {patient.First().Inspection} <br> 
-                            Czestość oddechow: {patient.First().RR} <br> 
-                            Pulsoksymetria: {patient.First().POX} <br> 
-                            Tetno: {patient.First().HR} <br> 
-                            Cisnienie krwi: {patient.First().BP} <br>
-                            Niepełnosprawność: {patient.First().RLS} <br> 
-                            Temperatura: {patient.First().Temperature} <br> 
-                            Skala FOUR: {patient.First().Four} <br> 
-                            Skala Glasgow: {patient.First().GSC} <br> 
-                            Priorytet: {patient.First().Priority}";
-
-            return result;
+            return simulationForm.CreateNoteAboutPatient(patientId);
         }
-
+       
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
+            DoctorCount = doctorCount;
             AdditionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
-            simulationProcess.SetPriority(Algorytm);
+            simulationStart.SetPriority(Algorytm);
+
+            simulationProcess.CleanList();
+            simulationProcess.FillPatientListOnTheBegging();
 
             var patientList = PatientsDB.GetActivePatientFromPatientsTable();
             return PartialView("Patient", patientList);
@@ -62,17 +48,17 @@ namespace QueueSimulator.Controllers
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
         {
-            simulationProcess.SetStatus(iteration, AdditionalEvents);
+            simulationStart.SetStatus(iteration, AdditionalEvents, DoctorCount);
             var patients = PatientsDB.GetActivePatientFromPatientsTable();
 
             return PartialView("Patient", patients);
         }
 
-        [HttpPost]
-        public IActionResult ReturnPatientInIteratin()
-        {            
-            return PartialView("Patient", patient);
-        }
+        //[HttpPost]
+        //public IActionResult ReturnPatientInIteratin()
+        //{            
+        //    return PartialView("Patient", patient);
+        //}
         
         //???
         public IActionResult AddPatient(string patientCount)
