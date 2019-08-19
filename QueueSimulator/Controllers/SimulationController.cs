@@ -16,8 +16,6 @@ namespace QueueSimulator.Controllers
         SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
         int PatientAddCount, ExpectedAddedPatients;
-        int AdditionalEvents;
-        int DoctorCount;
 
         public IActionResult Simulation()
         {
@@ -34,10 +32,12 @@ namespace QueueSimulator.Controllers
        
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
-            DoctorCount = doctorCount;
-            this.AdditionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
-            simulationStart.SetPriority(Algorytm);
-
+            int additionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
+            Helper.doctorCount = doctorCount;
+            Helper.additionalEvents = additionalEvents;
+            Helper.algorytm = Algorytm;
+            simulationStart.SetPriority();
+            
             simulationProcess.CleanList();
             simulationProcess.FillPatientListOnTheBegging();
 
@@ -48,8 +48,10 @@ namespace QueueSimulator.Controllers
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
         {
-            simulationStart.SetStatus(iteration, AdditionalEvents, DoctorCount);
-            var patients = PatientsDB.GetActivePatientFromPatientsTable();
+            simulationStart.SetStatus(iteration);
+            //var patients = PatientsDB.GetActivePatientFromPatientsTable();
+                        
+            var patients = SimulationProcess.patientList;
 
             return PartialView("Patient", patients);
         }
@@ -63,39 +65,41 @@ namespace QueueSimulator.Controllers
         //???
         public IActionResult AddPatient(string patientCount)
         {
-            PatientAddCount = 0;
+            //PatientAddCount = 0;
             return PartialView("AddPatient");
         }
 
         [HttpPost]
         public IActionResult AddPatient(IFormCollection formData)
         {
-            PatientAddCount++;
+            //PatientAddCount++;
             newPatients.GeneratePatientBasedOnData(formData);
 
             return View("Simulation");
         }
 
         //pojedyńczy patiennt
-        public IActionResult AddRandomPatient(int patientCount)
+        public void AddRandomPatient(int patientCount)
         {
-            PatientAddCount++;
-            var patientList = newPatients.NewRandomPatient(patientCount);
-            return PartialView("Patient", patientList);
+            //PatientAddCount++;
+            newPatients.NewRandomPatient(patientCount);
+            //var patientList;
+            //return PartialView("Patient", patientList);
         }
 
         //pojedyńczy pacjent
         public void AddRandomPatientFromDB(int patientCount)
         {
-            PatientAddCount++;
+            //PatientAddCount++;
             newPatients.NewPatientFromDB(patientCount);
         }
 
         //wszyscy pacjenci
-        public IActionResult AddRandomPatients(int patientCount)
+        public void AddRandomPatients(int patientCount)
         {
-            var patientList = newPatients.NewRandomPatient(patientCount);
-            return PartialView("Patient", patientList);
+            newPatients.NewRandomPatient(patientCount);
+            //var patientList;
+            //return PartialView("Patient", patientList);
         }
 
         //wszyscy pacjenci

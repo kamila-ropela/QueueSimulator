@@ -46,16 +46,18 @@ namespace QueueSimulator.Database
 
         public static void PostDataInPatientsTable(Patient data)
         {
-            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four)
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four, Status, Priority)
                                              VALUES ('{data.PatientName}', '{data.GSC}', '{data.Inspection}', '{data.RR}', 
-                                                     '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}', '{data.Sex}', '{data.Four}')");
+                                                     '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}', 
+                                                     '{data.Sex}', '{data.Four}', '{data.Status}', '{data.Priority}')");
         }
 
         public static void PostDataInSavedPatientsTable(Patient data)
         {
-            Helper.dbContext.ExecuteQuery($@"INSERT INTO SavedPatients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four)
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO SavedPatients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four, Status, Priority)
                                              VALUES ('{data.PatientName}', '{data.GSC}', '{data.Inspection}', '{data.RR}', 
-                                                     '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}', '{data.Sex}', '{data.Four}')");
+                                                     '{data.POX}', '{data.HR}', '{data.BP}', '{data.RLS}', '{data.Temperature}',
+                                                     '{data.Sex}', '{data.Four}', '{data.Status}', '{data.Priority}')");
         }
 
         public static void CleanTable()

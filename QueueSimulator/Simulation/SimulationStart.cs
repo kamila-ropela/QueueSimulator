@@ -3,53 +3,44 @@
     public class SimulationStart
     {
         Priority priority = new Priority();
-        int HighestPriority;
-        public static int Algorytm;
+        Status status = new Status();
 
-        public void SetPriority(int algorytm)
-        {            
-            Algorytm = algorytm;
-            CountPriority();
-        }
-
-        public void CountPriority()
+        public void SetPriority()
         {
-            switch (Algorytm)
+            switch (Helper.algorytm)
             {
                 case 1:
                     priority.CountPriorityBasedOnGlasgowScale();
-                    HighestPriority = 3;
+                    Helper.highestPriority = 3;
                     break;
                 case 2:
                     priority.CountPriorityBasedOnFOURScale();
-                    HighestPriority = 3;
+                    Helper.highestPriority = 3;
                     break;
                 case 3:
                     priority.CountPriorityBasedOnMETTS();
-                    HighestPriority = 5;
+                    Helper.highestPriority = 5;
                     break;
                 case 4:
                     priority.CountPriorityBasedOnSCON();
-                    HighestPriority = 3;
+                    Helper.highestPriority = 3;
                     break;
                 case 5:
                     priority.CountPriorityBasedOnSREN();
-                    HighestPriority = 3;
+                    Helper.highestPriority = 3;
                     break;
                 case 6:
                     priority.CountPriorityBasedOnMIXED();
-                    HighestPriority = 3;
+                    Helper.highestPriority = 3;
                     break;
             }
         }
 
-        public void SetStatus(int iteration, int additionalEvents, int doctorCount)
+        public void SetStatus(int iteration)
         {
-            Status status = new Status(doctorCount, HighestPriority);
-
             //liczby w HighestPriority odpowidaja
             //returnToQuery + addToQuery + twoQuery
-            switch (additionalEvents)
+            switch (Helper.additionalEvents)
             {
                 case 0:
                     status.BasedOnPriorityValue(iteration);

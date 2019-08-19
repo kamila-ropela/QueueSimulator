@@ -2,15 +2,20 @@
 using QueueSimulator.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QueueSimulator.Simulation
 {
     public class SimulationProcess
     {
-        Random random;
+        Random random = new Random();
         public static List<PatientContent> activePatient = new List<PatientContent>();
-        //int highestPriority;
+        public static List<Patient> patientList = new List<Patient>();
 
+        //public SimulationProcess(int doctor)
+        //{
+        //    doctorCount = doctor;
+        //}
         
         public void CleanTable()
         {
@@ -18,28 +23,28 @@ namespace QueueSimulator.Simulation
         }
 
         //wylosowanie priorytetu z jakim pacjenci oposzcza kolejke
-        public void PropabilityLeaveQueryByPatient(int doctorCount, int highestPriority)
+        public void PropabilityLeaveQueryByPatient()
         {
-            for (int element = 0; element < 2 * doctorCount; element++)
+            for (int element = 0; element < 2 * Helper.doctorCount; element++)
             {
-                var priorityLeave = random.Next(1, highestPriority + 1);
+                var priorityLeave = random.Next(1, Helper.highestPriority + 1);
                 DeletePatientFromTheList(priorityLeave);
             }
         }
 
-        public void PropabilityLeaveQueryByPatientInTwoQuery(int doctorCount, int highestPriority)
+        public void PropabilityLeaveQueryByPatientInTwoQuery()
         {
             //kolejka z wyzszym priorytetem
-            for (int element = 0; element < doctorCount; element++)
+            for (int element = 0; element < Helper.doctorCount; element++)
             {
-                var priorityLeave = random.Next(1, highestPriority + 1);
+                var priorityLeave = random.Next(1, Helper.highestPriority + 1);
                 DeletePatientFromTheList(priorityLeave);
             }
 
             //kkolejka z niższym priorytetem
-            for (int element = 0; element < doctorCount; element++)
+            for (int element = 0; element < Helper.doctorCount; element++)
             {
-                var priorityLeave = random.Next(1, highestPriority / 2 + 1);
+                var priorityLeave = random.Next(1, Helper.highestPriority / 2 + 1);
                 DeletePatientFromTheList(priorityLeave);
             }
         }
@@ -52,6 +57,7 @@ namespace QueueSimulator.Simulation
             foreach (var patient in patients)
             {
                 activePatient.Add(new PatientContent() { Id = patient.Id, Priority = patient.Priority });
+                patientList.Add(patient);
             }
         }
 
@@ -59,6 +65,7 @@ namespace QueueSimulator.Simulation
         public void UpdatePatientList(Patient lastPatient)
         {
             activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority });
+            patientList.Add(lastPatient);
         }
 
         //usunięcie pacjenta gdy opusci kolejke
@@ -69,6 +76,7 @@ namespace QueueSimulator.Simulation
                 if (patient.Priority == deletePriority)
                 {
                     activePatient.Remove(patient);
+                    patientList.Remove(patientList.Where(x => x.Id == patient.Id).First());
                     return;
                 }
             }
@@ -77,6 +85,7 @@ namespace QueueSimulator.Simulation
         public void CleanList()
         {
             activePatient.Clear();
+            patientList.Clear();
         }
     }
 

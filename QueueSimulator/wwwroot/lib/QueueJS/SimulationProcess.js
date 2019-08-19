@@ -23,6 +23,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
+            async: false,
             url: "/Simulation/StartSimulation",
             type: "GET",
             data: {

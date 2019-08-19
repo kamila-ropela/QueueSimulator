@@ -6,20 +6,14 @@ namespace QueueSimulator.Simulation
 {
     public class Status
     {
-        Random random;
+        Random random = new Random();
         SimulationProcess simulationProcess = new SimulationProcess();
         NewPatients newPatients = new NewPatients();
-        int DoctorCount, HighestPriority;
-
-        public Status(int doctorCount, int highestPriority) {
-            DoctorCount = doctorCount;
-            HighestPriority = highestPriority;
-        }
 
         public void BasedOnPriorityValue(int iteration)
         {
             //var patients = PatientsDB.GetDataFromPatientsTable();            
-            simulationProcess.PropabilityLeaveQueryByPatient(DoctorCount, HighestPriority);
+            simulationProcess.PropabilityLeaveQueryByPatient();
         }
 
         public void PriorityWithReturnToQuery()
@@ -28,7 +22,7 @@ namespace QueueSimulator.Simulation
             var noActivePatient = patientList.Where(x => x.Status == 0).Count();
             var returnPatientsCount = random.Next(0, noActivePatient);
 
-            simulationProcess.PropabilityLeaveQueryByPatient(DoctorCount, HighestPriority);
+            simulationProcess.PropabilityLeaveQueryByPatient();
 
             for (int i = 1; i < returnPatientsCount; i++)
             {
@@ -54,7 +48,7 @@ namespace QueueSimulator.Simulation
                 var lastAddedPatient = PatientsDB.GetLastAddedPatientFromPatientsTable();
 
                 int priority = 0;
-                switch (SimulationStart.Algorytm)
+                switch (Helper.algorytm)
                 {
                     case 1:
                         priority = Priority.GlasgowScale(lastAddedPatient);
@@ -85,7 +79,7 @@ namespace QueueSimulator.Simulation
 
         public void PriorityWithTwoQuery()
         {
-            simulationProcess.PropabilityLeaveQueryByPatientInTwoQuery(DoctorCount, HighestPriority);
+            simulationProcess.PropabilityLeaveQueryByPatientInTwoQuery();
         }       
     }
 }

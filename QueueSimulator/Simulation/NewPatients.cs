@@ -2,7 +2,6 @@
 using QueueSimulator.Database;
 using QueueSimulator.Models;
 using System;
-using System.Collections.Generic;
 
 namespace QueueSimulator.Simulation
 {
@@ -40,7 +39,11 @@ namespace QueueSimulator.Simulation
                     RR = CzestoscOddechow,
                     POX = Pulsoksymetria,
                     HR = Tetno,
-                    BP = CisnienieKrwi
+                    BP = CisnienieKrwi,
+                    Four = Four,
+                    Sex = Plec,
+                    Priority = 0,
+                    Status = 0
                 };
 
                 PatientsDB.PostDataInPatientsTable(patient);
@@ -82,6 +85,8 @@ namespace QueueSimulator.Simulation
                 BP = CisnienieKrwi,
                 Sex = Plec,
                 Four = Four,
+                Priority = 0,
+                Status = 0
             };
 
             PatientsDB.PostDataInPatientsTable(patient);
@@ -99,12 +104,12 @@ namespace QueueSimulator.Simulation
             }            
         }
 
-        public List<Patient> NewRandomPatient(int patientCount)
+        public void NewRandomPatient(int patientCount)
         {
             GeneratePatientWithRandomData(patientCount);
 
-            var patientList = PatientsDB.GetDataFromPatientsTable();
-            return patientList;
+            //var patientList = PatientsDB.GetDataFromPatientsTable();
+            //return patientList;
         }
     }
 }

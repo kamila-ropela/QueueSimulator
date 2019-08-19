@@ -3,6 +3,10 @@
     public static class Helper
     {
         public static DbContext dbContext;
+        public static int doctorCount;
+        public static int additionalEvents;
+        public static int algorytm;
+        public static int highestPriority;
 
         public static int ReturnByte(string number)
         {
