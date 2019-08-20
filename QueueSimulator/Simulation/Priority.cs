@@ -16,8 +16,6 @@ namespace QueueSimulator.Simulation
             foreach (var patient in patients)
             {
                 int priority = GlasgowScale(patient);
-                //Random random = new Random();
-                //var priority = random.Next(1, 4);
 
                 PatientsDB.UpdatePriorityById(patient.Id, priority);
                 PatientsDB.UpdateStatusById(patient.Id, "1");
@@ -28,12 +26,16 @@ namespace QueueSimulator.Simulation
         {
             int priority;
             var GSC = patient.GSC;
+
             if (GSC >= 13)
+                priority = 4;
+            else if (GSC <= 12 && GSC >= 9)
                 priority = 3;
-            else if (GSC <= 8)
+            else if (GSC <= 5)
                 priority = 1;
             else
                 priority = 2;
+
             return priority;
         }
 
@@ -54,12 +56,16 @@ namespace QueueSimulator.Simulation
         {
             int priority;
             var GSC = patient.GSC;
+
             if (GSC >= 13)
+                priority = 4;
+            else if (GSC <= 12 && GSC >= 9)
                 priority = 3;
-            else if (GSC <= 6)
-                priority = 1;
+            else if (GSC <= 4)
+                priority = 1;            
             else
                 priority = 2;
+
             return priority;
         }
 
@@ -104,13 +110,13 @@ namespace QueueSimulator.Simulation
 
 
             if (CheckIfPatientHaveRedPiority(patient))
-                Piority = 4;
-            else if (CheckIfPatientHaveOrangePiority(patient))
-                Piority = 3;
-            else if (CheckIfPatientHaveYellowPiority(patient))
-                Piority = 2;
-            else if (CheckIfPatientHaveGreenPiority(patient))
                 Piority = 1;
+            else if (CheckIfPatientHaveOrangePiority(patient))
+                Piority = 2;
+            else if (CheckIfPatientHaveYellowPiority(patient))
+                Piority = 3;
+            else if (CheckIfPatientHaveGreenPiority(patient))
+                Piority = 4;
 
             return Piority;
         }

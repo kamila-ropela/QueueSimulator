@@ -11,11 +11,6 @@ namespace QueueSimulator.Simulation
         Random random = new Random();
         public static List<PatientContent> activePatient = new List<PatientContent>();
         public static List<Patient> patientList = new List<Patient>();
-
-        //public SimulationProcess(int doctor)
-        //{
-        //    doctorCount = doctor;
-        //}
         
         public void CleanTable()
         {
@@ -27,7 +22,7 @@ namespace QueueSimulator.Simulation
         {
             for (int element = 0; element < 2 * Helper.doctorCount; element++)
             {
-                var priorityLeave = random.Next(1, Helper.highestPriority + 1);
+                var priorityLeave = this.ChoosePatienToLeaveQuery();//random.Next(1, Helper.highestPriority + 1);
                 DeletePatientFromTheList(priorityLeave);
             }
         }
@@ -47,6 +42,20 @@ namespace QueueSimulator.Simulation
                 var priorityLeave = random.Next(1, Helper.highestPriority / 2 + 1);
                 DeletePatientFromTheList(priorityLeave);
             }
+        }
+
+        private int ChoosePatienToLeaveQuery()
+        {
+             var randomPriority = random.Next(1, 11);
+
+            if (randomPriority <= 4)
+                return 1;
+            else if (randomPriority == 10)
+                return 4;
+            else if (randomPriority == 8 || randomPriority == 9)
+                return 2;
+            else
+                return 3;
         }
 
         //wypełnienie pacjetow na poczatku symulacji

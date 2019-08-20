@@ -43,6 +43,7 @@ $(document).ready(function () {
         var intervalID = window.setInterval(function () {
 
             $.ajax({
+                async: false,
                 url: "/Simulation/ActivePatients",
                 type: "GET",
                 data: { iteration: iteration }
@@ -56,6 +57,15 @@ $(document).ready(function () {
                 window.clearInterval(intervalID);
             }
         }, 6000);
+
+        $.ajax({
+            async: false,
+            url: "/Simulation/CreateRaport",
+            type: "GET",
+            data: { }
+        }).done(function (empty) {
+            $("#main").html(empty);
+        });
     });
 });
 

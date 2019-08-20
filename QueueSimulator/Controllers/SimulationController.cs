@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -56,12 +57,17 @@ namespace QueueSimulator.Controllers
             return PartialView("Patient", patients);
         }
 
+        public void CreateRaport()
+        {
+
+        }
+
         //[HttpPost]
         //public IActionResult ReturnPatientInIteratin()
         //{            
         //    return PartialView("Patient", patient);
         //}
-        
+
         //???
         public IActionResult AddPatient(string patientCount)
         {

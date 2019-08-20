@@ -11,27 +11,21 @@
             {
                 case 1:
                     priority.CountPriorityBasedOnGlasgowScale();
-                    Helper.highestPriority = 3;
                     break;
                 case 2:
                     priority.CountPriorityBasedOnFOURScale();
-                    Helper.highestPriority = 3;
                     break;
                 case 3:
                     priority.CountPriorityBasedOnMETTS();
-                    Helper.highestPriority = 5;
                     break;
                 case 4:
                     priority.CountPriorityBasedOnSCON();
-                    Helper.highestPriority = 3;
                     break;
                 case 5:
                     priority.CountPriorityBasedOnSREN();
-                    Helper.highestPriority = 3;
                     break;
                 case 6:
                     priority.CountPriorityBasedOnMIXED();
-                    Helper.highestPriority = 3;
                     break;
             }
         }
