@@ -57,16 +57,10 @@ namespace QueueSimulator.Controllers
             return PartialView("Patient", patients);
         }
 
-        public void CreateRaport()
+        public IActionResult CreateRaport()
         {
-
+            return PartialView("Empty");
         }
-
-        //[HttpPost]
-        //public IActionResult ReturnPatientInIteratin()
-        //{            
-        //    return PartialView("Patient", patient);
-        //}
 
         //???
         public IActionResult AddPatient(string patientCount)
