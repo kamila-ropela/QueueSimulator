@@ -1,32 +1,31 @@
-﻿namespace QueueSimulator.Simulation
+﻿using QueueSimulator.Models;
+using System.Collections.Generic;
+
+namespace QueueSimulator.Simulation
 {
     public class SimulationStart
     {
         Priority priority = new Priority();
         Status status = new Status();
 
-        public void SetPriority()
+        public List<Patient> SetPriority()
         {
             switch (Helper.algorytm)
             {
                 case 1:
-                    priority.CountPriorityBasedOnGlasgowScale();
-                    break;
+                    return priority.CountPriorityBasedOnGlasgowScale();
                 case 2:
-                    priority.CountPriorityBasedOnFOURScale();
-                    break;
+                    return priority.CountPriorityBasedOnFOURScale();
                 case 3:
-                    priority.CountPriorityBasedOnMETTS();
-                    break;
+                    return priority.CountPriorityBasedOnMETTS();
                 case 4:
-                    priority.CountPriorityBasedOnSCON();
-                    break;
+                    return priority.CountPriorityBasedOnSCON();
                 case 5:
-                    priority.CountPriorityBasedOnSREN();
-                    break;
+                    return priority.CountPriorityBasedOnSREN();
                 case 6:
-                    priority.CountPriorityBasedOnMIXED();
-                    break;
+                    return priority.CountPriorityBasedOnMIXED();
+                default:
+                    return null;
             }
         }
 

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Database;
 using QueueSimulator.Models;
 using QueueSimulator.Simulation;
+using SelectPdf;
 
 namespace QueueSimulator.Controllers
 {
@@ -16,13 +16,12 @@ namespace QueueSimulator.Controllers
         SimulationProcess simulationProcess = new SimulationProcess();
         SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
+        SimulationRaport simulationRaport = new SimulationRaport();
         int PatientAddCount, ExpectedAddedPatients;
 
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
-            var patientList = PatientsDB.GetDataFromPatientsTable();
-            ViewData["data"] = patientList;
             return View();
         }
 
@@ -33,36 +32,37 @@ namespace QueueSimulator.Controllers
        
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
+            simulationRaport.GenerateRaport();
             int additionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
             Helper.doctorCount = doctorCount;
             Helper.additionalEvents = additionalEvents;
             Helper.algorytm = Algorytm;
-            simulationStart.SetPriority();
+            var patients = simulationStart.SetPriority();
             
             simulationProcess.CleanList();
-            simulationProcess.FillPatientListOnTheBegging();
+            simulationProcess.FillPatientListOnTheBegging(patients);
+            simulationRaport.UpdatePatientListAfterIteration();
 
-            var patientList = PatientsDB.GetActivePatientFromPatientsTable();
+            var patientList = SimulationProcess.patientList;
             return PartialView("Patient", patientList);
+        }
+
+        public IActionResult CreateRaport()
+        {
+            return View();
         }
 
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
         {
             simulationStart.SetStatus(iteration);
-            //var patients = PatientsDB.GetActivePatientFromPatientsTable();
-                        
+            
+            simulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList;
 
             return PartialView("Patient", patients);
         }
 
-        public IActionResult CreateRaport()
-        {
-            return PartialView("Empty");
-        }
-
-        //???
         public IActionResult AddPatient(string patientCount)
         {
             //PatientAddCount = 0;

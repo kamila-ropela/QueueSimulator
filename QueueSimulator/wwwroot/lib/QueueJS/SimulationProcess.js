@@ -10,17 +10,17 @@ $(document).ready(function () {
         var DoctorCount = $("#DoctorCount").val();
 
         if (CountIteration.length == 0)
-            CountIteration = 1;
+            CountIteration = 10;
         if (DoctorCount.length == 0)
-            DoctorCount = 1;
-        if (CountPatient.length == 0) {
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text: 'Zapomniałeś dodać pacjentów!'
-            })
-            return;
-        }
+            DoctorCount = 4;
+        //if (CountPatient.length == 0) {
+        //    Swal.fire({
+        //        type: 'error',
+        //        title: 'Oops...',
+        //        text: 'Zapomniałeś dodać pacjentów!'
+        //    })
+        //    return;
+        //}
 
         $.ajax({
             async: false,
@@ -58,14 +58,6 @@ $(document).ready(function () {
             }
         }, 6000);
 
-        $.ajax({
-            async: false,
-            url: "/Simulation/CreateRaport",
-            type: "GET",
-            data: { }
-        }).done(function (empty) {
-            $("#main").html(empty);
-        });
     });
 });
 

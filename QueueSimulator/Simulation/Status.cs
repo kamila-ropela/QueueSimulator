@@ -11,8 +11,7 @@ namespace QueueSimulator.Simulation
         NewPatients newPatients = new NewPatients();
 
         public void BasedOnPriorityValue(int iteration)
-        {
-            //var patients = PatientsDB.GetDataFromPatientsTable();            
+        {         
             simulationProcess.PropabilityLeaveQueryByPatient();
         }
 

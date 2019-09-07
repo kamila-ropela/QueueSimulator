@@ -25,6 +25,11 @@ namespace QueueSimulator.Simulation
                 var priorityLeave = this.ChoosePatienToLeaveQuery();
                 DeletePatientFromTheList(priorityLeave);
             }
+
+            activePatient.ForEach(x => x.Iteration++);
+            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 2).ToList().ForEach(x => x.Priority--);
+            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 3).ToList().ForEach(x => x.Priority--);
+            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 4).ToList().ForEach(x => x.Priority--);
         }
 
         public void PropabilityLeaveQueryByPatientInTwoQuery()
@@ -42,6 +47,11 @@ namespace QueueSimulator.Simulation
                 var priorityLeave = ChoosePatientToLeaveTwoQuery(2, 1);
                 DeletePatientFromTheList(priorityLeave);
             }
+
+            activePatient.ForEach(x => x.Iteration++);
+            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 2).ToList().ForEach(x => x.Priority--);
+            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 3).ToList().ForEach(x => x.Priority--);
+            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 4).ToList().ForEach(x => x.Priority--);
         }
 
         private int[] ChangePriority(int[] patientPriorityGropu, int patientPriorityCount)
@@ -78,20 +88,27 @@ namespace QueueSimulator.Simulation
         {
             var patientPriorityGropu = patientList.GroupBy(x => x.Priority).Select(x => x.Key).ToArray(); //podział na grupy
 
-            patientPriorityGropu = ChangePriority(patientPriorityGropu, patientPriorityGropu.Count());
-            var patientPriorityOrder = patientPriorityGropu.OrderByDescending(x => x).Select(x => Convert.ToDouble(x)).Select(x => x/((double)patientPriorityGropu.Sum()));
+            if (patientPriorityGropu.Count() == 0)
+                return 0;
+
+            if (patientPriorityGropu.Count() != 1)
+            {
+                patientPriorityGropu = ChangePriority(patientPriorityGropu, patientPriorityGropu.Count());
+                var patientPriorityOrder = patientPriorityGropu.OrderByDescending(x => x).Select(x => Convert.ToDouble(x)).Select(x => x / ((double)patientPriorityGropu.Sum()));
 
 
-            var randomPriority = Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2)/(double)patientPriorityGropu.Sum();
+                var randomPriority = Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum();
 
-            if (randomPriority > 1 - patientPriorityOrder.ElementAt(0))
-                return 1;
-            else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
-                return 2;
-            else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
-                return 3;
-            else
-                return 4;
+                if (randomPriority > 1 - patientPriorityOrder.ElementAt(0))
+                    return 1;
+                else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
+                    return 2;
+                else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
+                    return 3;
+                else
+                    return 4;
+            }
+            return patientPriorityGropu[0];
         }
 
         private int ChoosePatientToLeaveTwoQuery(int priorityMin, int priorityMax)
@@ -117,21 +134,27 @@ namespace QueueSimulator.Simulation
         }
 
         //wypełnienie pacjetow na poczatku symulacji
-        public void FillPatientListOnTheBegging()
+        public void FillPatientListOnTheBegging(List<Patient> patients)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
             foreach (var patient in patients)
             {
-                activePatient.Add(new PatientContent() { Id = patient.Id, Priority = patient.Priority });
+                activePatient.Add(new PatientContent() { Id = patient.Id, Priority = patient.Priority, Iteration = 0 });
                 patientList.Add(patient);
+                
+                if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                {
+                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 3).FirstOrDefault().InerationUpdate = 2;
+                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 2).FirstOrDefault().InerationUpdate = 3;
+                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 1).FirstOrDefault().InerationUpdate = 5;
+                    activePatient.Where(x => x.Priority != 1).ToList().ForEach(x => x.Priority = 4);
+                }
             }
         }
 
         //po dodaniu nowego pacjenta lub jego powrocie z listy
         public void UpdatePatientList(Patient lastPatient)
         {
-            activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority });
+            activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority, Iteration = 0});
             patientList.Add(lastPatient);
         }
 
@@ -160,5 +183,7 @@ namespace QueueSimulator.Simulation
     {
         public int Id { get; set; }
         public int Priority { get; set; }
+        public int InerationUpdate { get; set; }
+        public int Iteration { get; set; }
     }
 }

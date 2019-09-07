@@ -1,7 +1,9 @@
 ﻿using QueueSimulator.Database;
 using QueueSimulator.Models;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace QueueSimulator.Simulation
 {
@@ -9,17 +11,18 @@ namespace QueueSimulator.Simulation
     {
         //1 -> need help now
         //3 -> can wait for help
-        public void CountPriorityBasedOnGlasgowScale()
+        public List<Patient> CountPriorityBasedOnGlasgowScale()
         {
             var patients = PatientsDB.GetDataFromPatientsTable();
 
-            foreach (var patient in patients)
-            {
-                int priority = GlasgowScale(patient);
+            patients.Where(x => x.GSC >= 13).ToList().ForEach(x => x.Priority = 4);
+            patients.Where(x => x.GSC <= 12 && x.GSC >= 9).ToList().ForEach(x => x.Priority = 3);
+            patients.Where(x => x.GSC <= 8 && x.GSC >= 4).ToList().ForEach(x => x.Priority = 2);
+            patients.Where(x => x.GSC <= 5).ToList().ForEach(x => x.Priority = 1);
 
-                PatientsDB.UpdatePriorityById(patient.Id, priority);
-                PatientsDB.UpdateStatusById(patient.Id, "1");
-            }
+            patients.ForEach(x => x.Status = 1);
+
+            return patients;
         }
 
         public static int GlasgowScale(Patient patient)
@@ -39,17 +42,18 @@ namespace QueueSimulator.Simulation
             return priority;
         }
 
-        public void CountPriorityBasedOnFOURScale()
+        public List<Patient> CountPriorityBasedOnFOURScale()
         {
             var patients = PatientsDB.GetDataFromPatientsTable();
 
-            foreach (var patient in patients)
-            {
-                int priority = FourScale(patient);
+            patients.Where(x => x.GSC >= 13).ToList().ForEach(x => x.Priority = 4);
+            patients.Where(x => x.GSC <= 12 && x.GSC >= 9).ToList().ForEach(x => x.Priority = 3);
+            patients.Where(x => x.GSC <= 8 && x.GSC >= 5).ToList().ForEach(x => x.Priority = 2);
+            patients.Where(x => x.GSC <= 4).ToList().ForEach(x => x.Priority = 1);
 
-                PatientsDB.UpdatePriorityById(patient.Id, priority);
-                PatientsDB.UpdateStatusById(patient.Id, "1");
-            }
+            patients.ForEach(x => x.Status = 1);
+
+            return patients;
         }
 
         public static int FourScale(Patient patient)
@@ -74,33 +78,45 @@ namespace QueueSimulator.Simulation
         //3 - yellow
         //4 - green
         //with oxygen ora without jak rozróznic ?
-        public void CountPriorityBasedOnMETTS()
+        public List<Patient> CountPriorityBasedOnMETTS()
         {
             var patients = PatientsDB.GetDataFromPatientsTable();
 
-            foreach (var patient in patients)
-            {
-                var piority = CountPiorityMetts(patient);
-                PatientsDB.UpdatePriorityById(patient.Id, piority);
-            }
+            patients.Where(x => CheckIfPatientHaveGreenPiority(x)).ToList().ForEach(x => x.Priority = 4);
+            patients.Where(x => CheckIfPatientHaveYellowPiority(x)).ToList().ForEach(x => x.Priority = 3);
+            patients.Where(x => CheckIfPatientHaveOrangePiority(x)).ToList().ForEach(x => x.Priority = 2);
+            patients.Where(x => CheckIfPatientHaveRedPiority(x)).ToList().ForEach(x => x.Priority = 1);
+
+            patients.ForEach(x => x.Status = 1);
+
+            return patients;
         }
 
         //czas spedzony u lekarza na wizycie
-        public void CountPriorityBasedOnSCON()
+        public List<Patient> CountPriorityBasedOnSCON()
         {
-
+            return null;
         }
 
         //pozostały czas w kolejce
-        public void CountPriorityBasedOnSREN()
+        public List<Patient> CountPriorityBasedOnSREN()
         {
+            var patients = PatientsDB.GetDataFromPatientsTable();
 
+            patients.Where(x => CheckIfPatientHaveGreenPiority(x)).ToList().ForEach(x => x.Priority = 4);
+            patients.Where(x => CheckIfPatientHaveYellowPiority(x)).ToList().ForEach(x => x.Priority = 3);
+            patients.Where(x => CheckIfPatientHaveOrangePiority(x)).ToList().ForEach(x => x.Priority = 2);
+            patients.Where(x => CheckIfPatientHaveRedPiority(x)).ToList().ForEach(x => x.Priority = 1);
+
+            patients.ForEach(x => x.Status = 1);
+
+            return patients;
         }
 
         //polaczenie SCON i SREN z wagami
-        public void CountPriorityBasedOnMIXED()
+        public List<Patient> CountPriorityBasedOnMIXED()
         {
-
+            return null;
         }
 
         public static int CountPiorityMetts(Patient patient)
