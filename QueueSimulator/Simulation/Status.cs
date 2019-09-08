@@ -41,44 +41,36 @@ namespace QueueSimulator.Simulation
         {            
             var newPatientsCount = random.Next(0, 15);
             //newPatients.NewPatientFromDB(newPatientsCount);
-            for (int i = 1; i < newPatientsCount; i++)
+
+            newPatients.GeneratePatientWithRandomData(newPatientsCount);
+            var lastAddedPatients = PatientsDB.GetLastAddedPatientFromPatientsTable(newPatientsCount);
+
+            switch (Helper.algorytm)
             {
-                newPatients.GeneratePatientWithRandomData(1);
+                case 1:
+                    lastAddedPatients = Priority.CountPriorityBasedOnGlasgowScale(lastAddedPatients);
+                    break;
+                case 2:
+                    lastAddedPatients = Priority.CountPriorityBasedOnFOURScale(lastAddedPatients);
+                    break;
+                case 3:
+                    lastAddedPatients = Priority.CountPriorityBasedOnMETTS(lastAddedPatients);
+                    break;
+                case 4:
+                    lastAddedPatients = Priority.CountPriorityBasedOnSCON(lastAddedPatients);
+                    break;
+                case 5:
+                    lastAddedPatients = Priority.CountPriorityBasedOnSREN(lastAddedPatients);
+                    break;
+                case 6:
+                    lastAddedPatients = Priority.CountPriorityBasedOnMIXED(lastAddedPatients);
+                    break;
+            }
 
-                //policzenie priorytetu dla nowego
-                var lastAddedPatient = PatientsDB.GetLastAddedPatientFromPatientsTable();
+            lastAddedPatients.ForEach(x => x.Status = 1);
 
-                int priority = 0;
-                switch (Helper.algorytm)
-                {
-                    case 1:
-                        priority = Priority.CountPriorityBasedOnGlasgowScale(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                    case 2:
-                        priority = Priority.CountPriorityBasedOnFOURScale(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                    case 3:
-                        priority = Priority.CountPriorityBasedOnMETTS(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                    case 4:
-                        priority = Priority.CountPriorityBasedOnSCON(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                    case 5:
-                        priority = Priority.CountPriorityBasedOnSREN(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                    case 6:
-                        priority = Priority.CountPriorityBasedOnMIXED(new List<Patient> { lastAddedPatient }).First().Priority;
-                        break;
-                }
-
-                lastAddedPatient.Priority = priority;
-                lastAddedPatient.Status = 1;
-                PatientsDB.UpdateStatusById(lastAddedPatient.Id, "1");
-                PatientsDB.UpdatePriorityById(lastAddedPatient.Id, priority);
-
-                //dodanie do tabllicy
-                simulationProcess.UpdatePatientList(lastAddedPatient);
-            }           
+            //dodanie do tabllicy
+            simulationProcess.UpdatePatientList(lastAddedPatients);           
         }
 
         public void PriorityWithTwoQuery()

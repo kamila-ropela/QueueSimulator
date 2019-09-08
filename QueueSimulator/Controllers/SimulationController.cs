@@ -45,12 +45,7 @@ namespace QueueSimulator.Controllers
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
             return PartialView("Patient", patientList);
-        }
-
-        public IActionResult CreateRaport()
-        {
-            return View();
-        }
+        }        
 
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
@@ -61,6 +56,11 @@ namespace QueueSimulator.Controllers
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
 
             return PartialView("Patient", patients);
+        }
+
+        public IActionResult CreateRaport()
+        {
+            return View();
         }
 
         public IActionResult AddPatient(string patientCount)

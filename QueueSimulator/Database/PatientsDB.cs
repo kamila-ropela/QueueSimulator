@@ -22,9 +22,9 @@ namespace QueueSimulator.Database
             return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients WHERE Status = '1'");
         }
 
-        public static Patient GetLastAddedPatientFromPatientsTable()
+        public static List<Patient> GetLastAddedPatientFromPatientsTable(int lastAddedPatients)
         {
-            return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients ORDER BY Id DESC LIMIT 1").First();
+            return Helper.dbContext.GetPatientsDb($@"SELECT * FROM Patients ORDER BY Id DESC LIMIT {lastAddedPatients}");
         }
 
         public static List<Patient> GetDataFromSavedPatientsTable()

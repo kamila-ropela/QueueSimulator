@@ -198,10 +198,9 @@ namespace QueueSimulator.Simulation
         }
 
         //po dodaniu nowego pacjenta lub jego powrocie z listy
-        public void UpdatePatientList(Patient lastPatient)
+        public void UpdatePatientList(List<Patient> lastPatients)
         {
-            activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority, Iteration = 0 });
-            patientList.Add(lastPatient);
+            this.FillPatientListOnTheBegging(lastPatients);
         }
 
         //usunięcie pacjenta gdy opusci kolejke
