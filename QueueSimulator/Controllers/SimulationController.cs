@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Models;
 using QueueSimulator.Simulation;
+using System.Linq;
 using SelectPdf;
 
 namespace QueueSimulator.Controllers
@@ -42,7 +43,7 @@ namespace QueueSimulator.Controllers
             simulationProcess.FillPatientListOnTheBegging(patients);
             simulationRaport.UpdatePatientListAfterIteration();
 
-            var patientList = SimulationProcess.patientList;
+            var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
             return PartialView("Patient", patientList);
         }
 
@@ -57,7 +58,7 @@ namespace QueueSimulator.Controllers
             simulationStart.SetStatus(iteration);
             
             simulationRaport.UpdatePatientListAfterIteration();
-            var patients = SimulationProcess.patientList;
+            var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
 
             return PartialView("Patient", patients);
         }

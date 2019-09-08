@@ -26,10 +26,11 @@ namespace QueueSimulator.Simulation
                 DeletePatientFromTheList(priorityLeave);
             }
 
+            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+
             activePatient.ForEach(x => x.Iteration++);
-            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 2).ToList().ForEach(x => x.Priority--);
-            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 3).ToList().ForEach(x => x.Priority--);
-            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 4).ToList().ForEach(x => x.Priority--);
         }
 
         public void PropabilityLeaveQueryByPatientInTwoQuery()
@@ -48,10 +49,11 @@ namespace QueueSimulator.Simulation
                 DeletePatientFromTheList(priorityLeave);
             }
 
+            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+
             activePatient.ForEach(x => x.Iteration++);
-            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 2).ToList().ForEach(x => x.Priority--);
-            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 3).ToList().ForEach(x => x.Priority--);
-            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 0 && x.Priority != 1 && patientList.Where(a => a.Id == x.Id).FirstOrDefault().Priority == 4).ToList().ForEach(x => x.Priority--);
         }
 
         private int[] ChangePriority(int[] patientPriorityGropu, int patientPriorityCount)
@@ -142,6 +144,7 @@ namespace QueueSimulator.Simulation
                 {
                     Id = patient.Id,
                     Priority = patient.Priority,
+                    OrginalPriority = patient.Priority,
                     Iteration = 0
                 };
 
@@ -152,14 +155,17 @@ namespace QueueSimulator.Simulation
                         case 4:
                             pat.InerationUpdate = 5;
                             pat.Priority = 4;
+                            patient.Priority = 4;
                             break;
                         case 3:
                             pat.InerationUpdate = 3;
                             pat.Priority = 4;
+                            patient.Priority = 4;
                             break;
                         case 2:
                             pat.InerationUpdate = 2;
                             pat.Priority = 4;
+                            patient.Priority = 4;
                             break;
                     }
                 }
@@ -169,15 +175,19 @@ namespace QueueSimulator.Simulation
                     {
                         case 4:
                             pat.Priority = 2;
+                            patient.Priority = 2;
                             break;
                         case 3:
                             pat.Priority = 3;
+                            patient.Priority = 3;
                             break;
                         case 2:
                             pat.Priority = 4;
+                            patient.Priority = 4;
                             break;
                         case 1:
                             pat.Priority = 1;
+                            patient.Priority = 1;
                             break;
                     }
                 }
@@ -197,15 +207,10 @@ namespace QueueSimulator.Simulation
         //usunięcie pacjenta gdy opusci kolejke
         public void DeletePatientFromTheList(int deletePriority)
         {
-            foreach (var patient in activePatient)
-            {
-                if (patient.Priority == deletePriority)
-                {
-                    activePatient.Remove(patient);
-                    patientList.Remove(patientList.Where(x => x.Id == patient.Id).First());
-                    return;
-                }
-            }
+            var patientToDelete = activePatient.Where(x => x.Priority == deletePriority).First();
+
+            activePatient.Remove(patientToDelete);
+            patientList.Where(x => x.Id == patientToDelete.Id).First().Status = 0;
         }
 
         public void CleanList()
@@ -219,6 +224,7 @@ namespace QueueSimulator.Simulation
     {
         public int Id { get; set; }
         public int Priority { get; set; }
+        public int OrginalPriority { get; set; }
         public int InerationUpdate { get; set; }
         public int Iteration { get; set; }
     }
