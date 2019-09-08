@@ -52,21 +52,22 @@ namespace QueueSimulator.Simulation
                 switch (Helper.algorytm)
                 {
                     case 1:
-                        priority = Priority.GlasgowScale(lastAddedPatient);
+                        priority = Priority.CountPriorityBasedOnGlasgowScale(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                     case 2:
-                        priority = Priority.FourScale(lastAddedPatient);
+                        priority = Priority.CountPriorityBasedOnFOURScale(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                     case 3:
-                        priority = Priority.CountPiorityMetts(lastAddedPatient);
+                        priority = Priority.CountPriorityBasedOnMETTS(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                     case 4:
-                        
+                        priority = Priority.CountPriorityBasedOnSCON(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                     case 5:
+                        priority = Priority.CountPriorityBasedOnSREN(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                     case 6:
-                        priority = Priority.WeigthInMixedAlgorithm(new List<Patient>() { lastAddedPatient }).First().Priority;
+                        priority = Priority.CountPriorityBasedOnMIXED(new List<Patient> { lastAddedPatient }).First().Priority;
                         break;
                 }
 

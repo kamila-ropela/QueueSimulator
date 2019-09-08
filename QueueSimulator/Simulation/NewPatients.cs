@@ -18,13 +18,13 @@ namespace QueueSimulator.Simulation
                 random = new Random();
                 var PatientName = name[random.Next(0, 10)] + " " + surname[random.Next(0, 6)];
                 var Plec = random.Next(0, 1);
-                var DrogiOddechowe = random.Next(1, 2);
-                var CzestoscOddechow = random.Next(12, 25);
-                var Pulsoksymetria = random.Next(85, 100);
-                var Tetno = random.Next(40, 120);
+                var DrogiOddechowe = random.Next(0, 2);
+                var CzestoscOddechow = random.Next(0, 40);
+                var Pulsoksymetria = random.Next(80, 100);
+                var Tetno = random.Next(20, 150);
                 var CisnienieKrwi = random.Next(80, 110);
-                var Disability = random.Next(1, 4);
-                var Temperatura = (System.Math.Round(random.NextDouble() * (43 - 36) + 36, 1)).ToString();
+                var Disability = random.Next(1, 5);
+                var Temperatura = (Math.Round(random.NextDouble() * (43 - 34) + 34, 1)).ToString();
 
                 var GSC = random.Next(3, 15);
                 var Four = random.Next(0, 16);

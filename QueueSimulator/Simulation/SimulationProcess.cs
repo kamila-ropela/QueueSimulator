@@ -162,13 +162,6 @@ namespace QueueSimulator.Simulation
 
                 activePatient.Add(pat);
                 patientList.Add(patient);
-                //if (Helper.algorytm == 5 || Helper.algorytm == 6)
-                //{
-                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 3).DefaultIfEmpty().First().InerationUpdate = 2;
-                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 2).FirstOrDefault().InerationUpdate = 3;
-                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 1).FirstOrDefault().InerationUpdate = 5;
-                //    activePatient.Where(x => x.Priority != 1).ToList().ForEach(x => x.Priority = 4);
-                //}
             }
         }
 

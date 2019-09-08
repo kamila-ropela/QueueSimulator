@@ -1,5 +1,4 @@
-﻿using QueueSimulator.Database;
-using QueueSimulator.Models;
+﻿using QueueSimulator.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,70 +6,28 @@ using System.Linq;
 
 namespace QueueSimulator.Simulation
 {
-    public class Priority
+    public static class Priority
     {
         //1 -> need help now
         //3 -> can wait for help
-        public List<Patient> CountPriorityBasedOnGlasgowScale()
+        public static List<Patient> CountPriorityBasedOnGlasgowScale(List<Patient> patients)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
             patients.Where(x => x.GSC >= 13).ToList().ForEach(x => x.Priority = 4);
             patients.Where(x => x.GSC <= 12 && x.GSC >= 9).ToList().ForEach(x => x.Priority = 3);
             patients.Where(x => x.GSC <= 8 && x.GSC >= 4).ToList().ForEach(x => x.Priority = 2);
             patients.Where(x => x.GSC <= 5).ToList().ForEach(x => x.Priority = 1);
 
-            patients.ForEach(x => x.Status = 1);
-
             return patients;
         }
 
-        public static int GlasgowScale(Patient patient)
+        public static List<Patient> CountPriorityBasedOnFOURScale(List<Patient> patients)
         {
-            int priority;
-            var GSC = patient.GSC;
-
-            if (GSC >= 13)
-                priority = 4;
-            else if (GSC <= 12 && GSC >= 9)
-                priority = 3;
-            else if (GSC <= 5)
-                priority = 1;
-            else
-                priority = 2;
-
-            return priority;
-        }
-
-        public List<Patient> CountPriorityBasedOnFOURScale()
-        {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
             patients.Where(x => x.Four >= 13).ToList().ForEach(x => x.Priority = 4);
             patients.Where(x => x.Four <= 12 && x.Four >= 9).ToList().ForEach(x => x.Priority = 3);
             patients.Where(x => x.Four <= 8 && x.Four >= 5).ToList().ForEach(x => x.Priority = 2);
             patients.Where(x => x.Four <= 4).ToList().ForEach(x => x.Priority = 1);
 
-            patients.ForEach(x => x.Status = 1);
-
             return patients;
-        }
-
-        public static int FourScale(Patient patient)
-        {
-            int priority;
-            var Four = patient.Four;
-
-            if (Four >= 13)
-                priority = 4;
-            else if (Four <= 12 && Four >= 9)
-                priority = 3;
-            else if (Four <= 4)
-                priority = 1;            
-            else
-                priority = 2;
-
-            return priority;
         }
 
         //1 - red
@@ -78,60 +35,31 @@ namespace QueueSimulator.Simulation
         //3 - yellow
         //4 - green
         //with oxygen ora without jak rozróznic ?
-        public List<Patient> CountPriorityBasedOnMETTS()
+        public static List<Patient> CountPriorityBasedOnMETTS(List<Patient> patients)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
-            patients.Where(x => CheckIfPatientHaveGreenPiority(x)).ToList().ForEach(x => x.Priority = 4);
-            patients.Where(x => CheckIfPatientHaveYellowPiority(x)).ToList().ForEach(x => x.Priority = 3);
-            patients.Where(x => CheckIfPatientHaveOrangePiority(x)).ToList().ForEach(x => x.Priority = 2);
-            patients.Where(x => CheckIfPatientHaveRedPiority(x)).ToList().ForEach(x => x.Priority = 1);
-
-            patients.ForEach(x => x.Status = 1);
+            patients = PatientsHaveRedPriority(patients);
+            patients = PatientsHaveOrangePriority(patients);
+            patients = PatientsHaveYellowPriority(patients);
+            patients = PatientsHaveGreenPriority(patients);
 
             return patients;
         }
 
         //czas spedzony u lekarza na wizycie
-        public List<Patient> CountPriorityBasedOnSCON()
+        public static List<Patient> CountPriorityBasedOnSCON(List<Patient> patients)
         {
             return null;
         }
 
         //pozostały czas w kolejce
-        public List<Patient> CountPriorityBasedOnSREN()
+        public static List<Patient> CountPriorityBasedOnSREN(List<Patient> patients)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
-            patients.Where(x => CheckIfPatientHaveGreenPiority(x)).ToList().ForEach(x => x.Priority = 4);
-            patients.Where(x => CheckIfPatientHaveYellowPiority(x)).ToList().ForEach(x => x.Priority = 3);
-            patients.Where(x => CheckIfPatientHaveOrangePiority(x)).ToList().ForEach(x => x.Priority = 2);
-            patients.Where(x => CheckIfPatientHaveRedPiority(x)).ToList().ForEach(x => x.Priority = 1);
-
-            patients.ForEach(x => x.Status = 1);
-
-            return patients;
-        }
-
-        public static List<Patient> CountAlgorithmSREN()
-        {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
-            //patients.Where(x => CheckIfPatientHaveGreenPiority(x)).ToList().ForEach(x => x.Priority = 4);
-            //patients.Where(x => CheckIfPatientHaveYellowPiority(x)).ToList().ForEach(x => x.Priority = 3);
-            //patients.Where(x => CheckIfPatientHaveOrangePiority(x)).ToList().ForEach(x => x.Priority = 2);
-            //patients.Where(x => CheckIfPatientHaveRedPiority(x)).ToList().ForEach(x => x.Priority = 1);
-
-            //patients.ForEach(x => x.Status = 1);
-
-            return patients;
+            return CountPriorityBasedOnMETTS(patients);
         }
 
         //polaczenie SCON i SREN z wagami
-        public List<Patient> CountPriorityBasedOnMIXED()
+        public static List<Patient> CountPriorityBasedOnMIXED(List<Patient> patients)
         {
-            var patients = PatientsDB.GetDataFromPatientsTable();
-
             return WeigthInMixedAlgorithm(patients);
         }
 
@@ -172,80 +100,49 @@ namespace QueueSimulator.Simulation
             return patients;
         }
 
-        public static int CountPiorityMetts(Patient patient)
+        public static List<Patient> PatientsHaveRedPriority(List<Patient> patients)
         {
-            var Piority = 0;
-            int[] histogramPiority = new int[4];
+            patients.Where(x => x.Inspection == 1).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.RR > 30).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.POX <= 90).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.HR > 130).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.BP <= 90).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.RLS == 4).ToList().ForEach(x => x.Priority = 1);
 
-
-            if (CheckIfPatientHaveRedPiority(patient))
-                Piority = 1;
-            else if (CheckIfPatientHaveOrangePiority(patient))
-                Piority = 2;
-            else if (CheckIfPatientHaveYellowPiority(patient))
-                Piority = 3;
-            else if (CheckIfPatientHaveGreenPiority(patient))
-                Piority = 4;
-
-            return Piority;
+            return patients;
         }
 
-        private static bool CheckIfPatientHaveRedPiority(Patient results)
+        public static List<Patient> PatientsHaveOrangePriority(List<Patient> patients)
         {
-            if (results.Inspection == 1)
-                return true;
-            if ((results.RR > 30 || results.RR < 8) && results.POX < 90)
-                return true;
-            if (results.HR > 130 || results.BP < 90)
-                return true;
-            if (results.RLS > 3)
-                return true;
-            return false;
+            patients.Where(x => x.Priority == 0 && (x.Inspection == 0)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RR > 25 && x.RR <= 30)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.HR <= 40 || (x.HR > 120 && x.HR <= 130))).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RLS == 3)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) > 40 || Double.Parse(x.Temperature, CultureInfo.InvariantCulture) <= 35)).ToList().ForEach(x => x.Priority = 1);
+
+            return patients;
         }
 
-        private static bool CheckIfPatientHaveOrangePiority(Patient results)
+        public static List<Patient> PatientsHaveYellowPriority(List<Patient> patients)
         {
-            if (results.Inspection == 0)
-                return true;
-            if (results.RR > 25 || results.POX < 90)
-                return true;
-            if (results.HR > 120 || results.BP < 40)
-                return true;
-            if (results.RLS <= 3 || results.RLS >= 2)
-                return true;
-            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 41 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 35)
-                return true;
-            return false;
+            patients.Where(x => x.Priority == 0 && (x.Inspection == 0)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RR <= 9)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && ((x.HR > 40 && x.HR <= 50) || (x.HR > 110 && x.HR <= 120))).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RLS == 2)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) <= 41 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) > 38.5)).ToList().ForEach(x => x.Priority = 1);
+
+            return patients;
         }
 
-        private static bool CheckIfPatientHaveYellowPiority(Patient results)
+        public static List<Patient> PatientsHaveGreenPriority(List<Patient> patients)
         {
-            if (results.Inspection == 0)
-                return true;
-            if ((results.POX <= 91 || results.POX >= 95) && results.RR < 25)
-                return true;
-            if (results.BP > 130 || results.HR < 90)
-                return true;
-            if (results.RLS > 1)
-                return true;
-            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 38.5 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 41)
-                return true;
-            return false;
-        }
+            patients.Where(x => x.Priority == 0 && (x.Inspection == 0)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RR > 9 && x.RR <= 25)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.HR > 50 && x.HR <= 110)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (x.RLS == 1)).ToList().ForEach(x => x.Priority = 1);
+            patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) <= 38.4 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) > 35.1)).ToList().ForEach(x => x.Priority = 1);
 
-        private static bool CheckIfPatientHaveGreenPiority(Patient results)
-        {
-            if (results.Inspection == 0)
-                return true;
-            if ((results.RR <= 9 || results.RR >= 25) && results.POX > 95)
-                return true;
-            if (results.BP < 51 || results.HR > 109)
-                return true;
-            if (results.RLS > 0)
-                return true;
-            if (Double.Parse(results.Temperature, CultureInfo.InvariantCulture) > 35.1 || Double.Parse(results.Temperature, CultureInfo.InvariantCulture) < 38.4)
-                return true;
-            return false;
+            return patients;
         }
     }
 }
