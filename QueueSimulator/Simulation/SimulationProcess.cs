@@ -146,19 +146,41 @@ namespace QueueSimulator.Simulation
                 };
 
                 if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                {                
                     switch (pat.Priority)
                     {
+                        case 4:
+                            pat.InerationUpdate = 5;
+                            pat.Priority = 4;
+                            break;
                         case 3:
-                            pat.InerationUpdate = 2;
+                            pat.InerationUpdate = 3;
+                            pat.Priority = 4;
                             break;
                         case 2:
-                            pat.InerationUpdate = 3;
-                            break;
-                        case 1:
-                            pat.InerationUpdate = 4;
+                            pat.InerationUpdate = 2;
+                            pat.Priority = 4;
                             break;
                     }
-
+                }
+                if (Helper.algorytm == 4)
+                {
+                    switch (pat.Priority)
+                    {
+                        case 4:
+                            pat.Priority = 2;
+                            break;
+                        case 3:
+                            pat.Priority = 3;
+                            break;
+                        case 2:
+                            pat.Priority = 4;
+                            break;
+                        case 1:
+                            pat.Priority = 1;
+                            break;
+                    }
+                }
 
                 activePatient.Add(pat);
                 patientList.Add(patient);
