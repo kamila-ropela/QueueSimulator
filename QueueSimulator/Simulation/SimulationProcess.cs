@@ -11,7 +11,7 @@ namespace QueueSimulator.Simulation
         Random random = new Random();
         public static List<PatientContent> activePatient = new List<PatientContent>();
         public static List<Patient> patientList = new List<Patient>();
-        
+
         public void CleanTable()
         {
             PatientsDB.CleanTable();
@@ -138,23 +138,44 @@ namespace QueueSimulator.Simulation
         {
             foreach (var patient in patients)
             {
-                activePatient.Add(new PatientContent() { Id = patient.Id, Priority = patient.Priority, Iteration = 0 });
-                patientList.Add(patient);
-                
-                if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                var pat = new PatientContent
                 {
-                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 3).FirstOrDefault().InerationUpdate = 2;
-                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 2).FirstOrDefault().InerationUpdate = 3;
-                    activePatient.Where(x => x.Id == patient.Id && x.Priority == 1).FirstOrDefault().InerationUpdate = 5;
-                    activePatient.Where(x => x.Priority != 1).ToList().ForEach(x => x.Priority = 4);
-                }
+                    Id = patient.Id,
+                    Priority = patient.Priority,
+                    Iteration = 0
+                };
+
+                if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                    switch (pat.Priority)
+                    {
+                        case 3:
+                            pat.InerationUpdate = 2;
+                            break;
+                        case 2:
+                            pat.InerationUpdate = 3;
+                            break;
+                        case 1:
+                            pat.InerationUpdate = 4;
+                            break;
+                    }
+
+
+                activePatient.Add(pat);
+                patientList.Add(patient);
+                //if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                //{
+                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 3).DefaultIfEmpty().First().InerationUpdate = 2;
+                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 2).FirstOrDefault().InerationUpdate = 3;
+                //    activePatient.Where(x => x.Id == patient.Id && x.Priority == 1).FirstOrDefault().InerationUpdate = 5;
+                //    activePatient.Where(x => x.Priority != 1).ToList().ForEach(x => x.Priority = 4);
+                //}
             }
         }
 
         //po dodaniu nowego pacjenta lub jego powrocie z listy
         public void UpdatePatientList(Patient lastPatient)
         {
-            activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority, Iteration = 0});
+            activePatient.Add(new PatientContent() { Id = lastPatient.Id, Priority = lastPatient.Priority, Iteration = 0 });
             patientList.Add(lastPatient);
         }
 

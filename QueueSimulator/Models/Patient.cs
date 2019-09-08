@@ -19,5 +19,6 @@ namespace QueueSimulator.Models
         public int Sex { get; set; }
         public int Four { get; set; }
         public string Temperature { get; set; }
+        public double WeightPriority { get; set; }
     }
 }

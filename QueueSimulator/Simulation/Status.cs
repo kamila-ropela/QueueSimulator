@@ -1,5 +1,7 @@
 ﻿using QueueSimulator.Database;
+using QueueSimulator.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QueueSimulator.Simulation
@@ -59,10 +61,12 @@ namespace QueueSimulator.Simulation
                         priority = Priority.CountPiorityMetts(lastAddedPatient);
                         break;
                     case 4:
+                        
                         break;
                     case 5:
                         break;
                     case 6:
+                        priority = Priority.WeigthInMixedAlgorithm(new List<Patient>() { lastAddedPatient }).First().Priority;
                         break;
                 }
 

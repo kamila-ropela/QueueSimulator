@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QueueSimulator.Database;
 using QueueSimulator.Models;
 using QueueSimulator.Simulation;
 using SelectPdf;
