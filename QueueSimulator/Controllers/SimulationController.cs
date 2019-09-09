@@ -50,7 +50,8 @@ namespace QueueSimulator.Controllers
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
         {
-            simulationStart.SetStatus(iteration);
+            if(SimulationProcess.activePatient.Count() != 0)
+                simulationStart.SetStatus(iteration);
             
             simulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);

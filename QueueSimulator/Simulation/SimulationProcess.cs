@@ -8,7 +8,6 @@ namespace QueueSimulator.Simulation
 {
     public class SimulationProcess
     {
-        Random random = new Random();
         public static List<PatientContent> activePatient = new List<PatientContent>();
         public static List<Patient> patientList = new List<Patient>();
 
@@ -22,15 +21,21 @@ namespace QueueSimulator.Simulation
         {
             for (int element = 0; element < 2 * Helper.doctorCount; element++)
             {
-                var priorityLeave = this.ChoosePatienToLeaveQuery();
-                DeletePatientFromTheList(priorityLeave);
+                if(activePatient.Count() != 0)
+                {
+                    var priorityLeave = CalculatePriorityOfLeavingPatients.ChoosePatienToLeaveQuery();
+                    DeletePatientFromTheList(priorityLeave);
+                }                
             }
 
-            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            if(Helper.algorytm == 5)
+            {
+                activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
 
-            activePatient.ForEach(x => x.Iteration++);
+                activePatient.ForEach(x => x.Iteration++);
+            }
         }
 
         public void PropabilityLeaveQueryByPatientInTwoQuery()
@@ -38,101 +43,45 @@ namespace QueueSimulator.Simulation
             //kolejka z wyzszym priorytetem
             for (int element = 0; element < Helper.doctorCount; element++)
             {
-                var priorityLeave = ChoosePatientToLeaveTwoQuery(4, 3);
-                DeletePatientFromTheList(priorityLeave);
+                if (activePatient.Count() != 0 && activePatient.Where(x => x.Priority == 4 || x.Priority == 3).Count() != 0)
+                {
+                    if (activePatient.Where(x => x.Priority == 4).Count() == 0)
+                        DeletePatientFromTheList(3);
+                    else if (activePatient.Where(x => x.Priority == 3).Count() == 0)
+                        DeletePatientFromTheList(4);
+                    else
+                    {
+                        var priorityLeave = CalculatePriorityOfLeavingPatients.ChoosePatientToLeaveTwoQuery(4, 3);
+                        DeletePatientFromTheList(priorityLeave);
+                    }
+                }                    
             }
 
             //kkolejka z niższym priorytetem
             for (int element = 0; element < Helper.doctorCount; element++)
             {
-                var priorityLeave = ChoosePatientToLeaveTwoQuery(2, 1);
-                DeletePatientFromTheList(priorityLeave);
+                if (activePatient.Count() != 0 && activePatient.Where(x => x.Priority == 2 || x.Priority == 1).Count() != 0)
+                {
+                    if (activePatient.Where(x => x.Priority == 2).Count() == 0)
+                        DeletePatientFromTheList(1);
+                    else if (activePatient.Where(x => x.Priority == 1).Count() == 0)
+                        DeletePatientFromTheList(2);
+                    else
+                    {
+                        var priorityLeave = CalculatePriorityOfLeavingPatients.ChoosePatientToLeaveTwoQuery(2, 1);
+                        DeletePatientFromTheList(priorityLeave);
+                    }                    
+                }                    
             }
 
-            activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-            activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-            activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+            if(Helper.algorytm == 5)
+            {            
+                activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
 
-            activePatient.ForEach(x => x.Iteration++);
-        }
-
-        private int[] ChangePriority(int[] patientPriorityGropu, int patientPriorityCount)
-        {
-            for (int i = 0; i < patientPriorityCount; i++)
-            {
-                if (patientPriorityGropu[i] == 1)
-                {
-                    patientPriorityGropu[i] = 4;
-                    continue;
-                }
-
-                else if (patientPriorityGropu[i] == 2)
-                {
-                    patientPriorityGropu[i] = 3;
-                    continue;
-                }
-                else if (patientPriorityGropu[i] == 3)
-                {
-                    patientPriorityGropu[i] = 2;
-                    continue;
-                }
-                else
-                {
-                    patientPriorityGropu[i] = 1;
-                    continue;
-                }
+                activePatient.ForEach(x => x.Iteration++);
             }
-
-            return patientPriorityGropu;
-        }
-
-        private int ChoosePatienToLeaveQuery()
-        {
-            var patientPriorityGropu = patientList.GroupBy(x => x.Priority).Select(x => x.Key).ToArray(); //podział na grupy
-
-            if (patientPriorityGropu.Count() == 0)
-                return 0;
-
-            if (patientPriorityGropu.Count() != 1)
-            {
-                patientPriorityGropu = ChangePriority(patientPriorityGropu, patientPriorityGropu.Count());
-                var patientPriorityOrder = patientPriorityGropu.OrderByDescending(x => x).Select(x => Convert.ToDouble(x)).Select(x => x / ((double)patientPriorityGropu.Sum()));
-
-
-                var randomPriority = Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum();
-
-                if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0))
-                    return 1;
-                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
-                    return 2;
-                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
-                    return 3;
-                else
-                    return 4;
-            }
-            return patientPriorityGropu[0];
-        }
-
-        private int ChoosePatientToLeaveTwoQuery(int priorityMin, int priorityMax)
-        {
-            var patientPriorityGropu = patientList.GroupBy(x => x.Priority).Select(x => x.Key).Where(x => x.Equals(priorityMin) || x.Equals(priorityMax)).ToArray(); //podział na grupy
-
-            if (patientPriorityGropu.Count() != 1)
-            {
-                patientPriorityGropu = ChangePriority(patientPriorityGropu, patientPriorityGropu.Count());
-                var patientPriorityOrder = patientPriorityGropu.OrderByDescending(x => x).Select(x => Convert.ToDouble(x)).Select(x => x / ((double)patientPriorityGropu.Sum()));
-
-
-                var randomPriority = Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum();
-
-
-                if (randomPriority <= patientPriorityOrder.ElementAt(1))
-                    return priorityMin;
-                else
-                    return priorityMax;
-            }
-
-            return patientPriorityGropu[0];
         }
 
         //wypełnienie pacjetow na poczatku symulacji
