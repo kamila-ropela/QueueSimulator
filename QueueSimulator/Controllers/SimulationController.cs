@@ -40,7 +40,7 @@ namespace QueueSimulator.Controllers
             var patients = simulationStart.SetPriority();
             
             simulationProcess.CleanList();
-            simulationProcess.FillPatientListOnTheBegging(patients);
+            simulationProcess.FillPatientListOnTheBegging(patients, false);
             simulationRaport.UpdatePatientListAfterIteration();
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);

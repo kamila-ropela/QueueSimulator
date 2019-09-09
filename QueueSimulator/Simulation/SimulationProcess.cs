@@ -136,7 +136,7 @@ namespace QueueSimulator.Simulation
         }
 
         //wypełnienie pacjetow na poczatku symulacji
-        public void FillPatientListOnTheBegging(List<Patient> patients)
+        public void FillPatientListOnTheBegging(List<Patient> patients, bool IfReturnToQuery)
         {
             foreach (var patient in patients)
             {
@@ -190,7 +190,13 @@ namespace QueueSimulator.Simulation
                             patient.Priority = 1;
                             break;
                     }
-                }
+
+                    if (IfReturnToQuery && pat.Priority != 1)
+                    {
+                        pat.Priority--;
+                        patient.Priority--;
+                    }
+                }                                    
 
                 activePatient.Add(pat);
                 patientList.Add(patient);
@@ -200,7 +206,7 @@ namespace QueueSimulator.Simulation
         //po dodaniu nowego pacjenta lub jego powrocie z listy
         public void UpdatePatientList(List<Patient> lastPatients, bool IfReturnToQuery)
         {
-            this.FillPatientListOnTheBegging(lastPatients);
+            this.FillPatientListOnTheBegging(lastPatients, IfReturnToQuery);
         }
 
         //usunięcie pacjenta gdy opusci kolejke
