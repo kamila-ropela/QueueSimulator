@@ -9,20 +9,24 @@ $(document).ready(function () {
         var TwoQuery = $("#TwoQuery").val();
         var DoctorCount = $("#DoctorCount").val();
 
-        if (CountIteration.length == 0)
+        if (CountIteration.length == 0) {
             Swal.fire({
                 type: 'error',
                 title: 'Oops...',
                 text: 'Zapomniałeś dodać iteracje!'
             })
-        return;
-        if (DoctorCount.length == 0)
+            return;
+        }
+
+        if (DoctorCount.length == 0) {
             Swal.fire({
                 type: 'error',
                 title: 'Oops...',
                 text: 'Zapomniałeś dodać lekarzy!'
             })
-        return;
+            return;
+        }
+
         if (CountPatient.length == 0) {
             Swal.fire({
                 type: 'error',
