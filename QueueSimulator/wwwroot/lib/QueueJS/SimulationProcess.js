@@ -55,20 +55,20 @@ $(document).ready(function () {
 
         var iteration = 0;
         var intervalID = window.setInterval(function () {
-
-            $.ajax({
-                async: false,
-                url: "/Simulation/ActivePatients",
-                type: "GET",
-                data: { iteration: iteration }
-            }).done(function (patientList) {
-                $("#main").html(patientList);
-            });
-            console.log("Itemation number: " + iteration)
-            ++iteration;
             if (iteration == CountIteration) {
                 console.log("stop")
                 window.clearInterval(intervalID);
+            } else {
+                $.ajax({
+                    async: false,
+                    url: "/Simulation/ActivePatients",
+                    type: "GET",
+                    data: { iteration: iteration }
+                }).done(function (patientList) {
+                    $("#main").html(patientList);
+                });
+                console.log("Itemation number: " + iteration)
+                ++iteration;
             }
         }, 6000);
 
