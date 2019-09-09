@@ -48,7 +48,7 @@ namespace QueueSimulator.Simulation
         //czas spedzony u lekarza na wizycie
         public static List<Patient> CountPriorityBasedOnSCON(List<Patient> patients)
         {
-            return null;
+            return CountPriorityBasedOnMETTS(patients);
         }
 
         //pozostały czas w kolejce

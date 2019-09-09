@@ -101,11 +101,11 @@ namespace QueueSimulator.Simulation
 
                 var randomPriority = Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum();
 
-                if (randomPriority > 1 - patientPriorityOrder.ElementAt(0))
+                if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0))
                     return 1;
-                else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
+                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
                     return 2;
-                else if (randomPriority > 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
+                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
                     return 3;
                 else
                     return 4;
