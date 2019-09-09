@@ -17,24 +17,26 @@ namespace QueueSimulator.Simulation
             simulationProcess.PropabilityLeaveQueryByPatient();
         }
 
-        public void PriorityWithReturnToQuery()
+        public void PriorityWithReturnToQuery(bool ifTwoQuery)
         {
-            var patientList = PatientsDB.GetDataFromPatientsTable();
-            var noActivePatient = patientList.Where(x => x.Status == 0).Count();
-            var returnPatientsCount = random.Next(0, noActivePatient);
+            //var patientList = PatientsDB.GetDataFromPatientsTable();
+            var noActivePatient = SimulationProcess.patientList.Where(x => x.Status == 0).Count();
+            var returnPatientsCount = random.Next(0, noActivePatient); //ile pacjentow na być ponownie dodanych do kolejki
 
-            simulationProcess.PropabilityLeaveQueryByPatient();
+            if (ifTwoQuery)
+                simulationProcess.PropabilityLeaveQueryByPatientInTwoQuery();
+            else
+                simulationProcess.PropabilityLeaveQueryByPatient();
+
 
             for (int i = 1; i < returnPatientsCount; i++)
             {
-                var noActivePatientList = patientList.Where(x => x.Status == 0);
+                var noActivePatientList = SimulationProcess.patientList.Where(x => x.Status == 0);
                 var randomIndex = random.Next(0, noActivePatientList.Count());
-                var patientToAdd = new PatientContent() { Id = noActivePatientList.ElementAt(randomIndex).Id, Priority = noActivePatientList.ElementAt(randomIndex).Priority };
-                SimulationProcess.activePatient.Add(patientToAdd);
-                noActivePatientList.ElementAt(randomIndex).Status = 1;
-                PatientsDB.UpdateStatusById(noActivePatientList.ElementAt(randomIndex).Id, "1");
-            }
-            
+
+                SimulationProcess.patientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).ToList().ForEach(x => x.Status = 1);
+                simulationProcess.UpdatePatientList(new List<Patient>{ noActivePatientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).First()}, true);
+            }            
         }
 
         public void PriorityWithAddToQuery()
@@ -70,7 +72,7 @@ namespace QueueSimulator.Simulation
             lastAddedPatients.ForEach(x => x.Status = 1);
 
             //dodanie do tabllicy
-            simulationProcess.UpdatePatientList(lastAddedPatients);           
+            simulationProcess.UpdatePatientList(lastAddedPatients, false);           
         }
 
         public void PriorityWithTwoQuery()

@@ -198,7 +198,7 @@ namespace QueueSimulator.Simulation
         }
 
         //po dodaniu nowego pacjenta lub jego powrocie z listy
-        public void UpdatePatientList(List<Patient> lastPatients)
+        public void UpdatePatientList(List<Patient> lastPatients, bool IfReturnToQuery)
         {
             this.FillPatientListOnTheBegging(lastPatients);
         }

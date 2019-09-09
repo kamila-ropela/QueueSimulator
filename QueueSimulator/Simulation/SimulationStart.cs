@@ -53,22 +53,18 @@ namespace QueueSimulator.Simulation
                     status.PriorityWithTwoQuery();
                     break;
                 case 4:
-                    status.PriorityWithReturnToQuery();
-                    status.BasedOnPriorityValue(iteration);
+                    status.PriorityWithReturnToQuery(false);
                     break;
                 case 5:
-                    status.PriorityWithReturnToQuery();
-                    status.PriorityWithTwoQuery();
+                    status.PriorityWithReturnToQuery(true);
                     break;
                 case 6:
-                    status.PriorityWithReturnToQuery();
                     status.PriorityWithAddToQuery();
-                    status.BasedOnPriorityValue(iteration);
+                    status.PriorityWithReturnToQuery(false);
                     break;
                 case 7:
-                    status.PriorityWithReturnToQuery();
                     status.PriorityWithAddToQuery();
-                    status.PriorityWithTwoQuery();
+                    status.PriorityWithReturnToQuery(true);
                     break;
             }
         }
