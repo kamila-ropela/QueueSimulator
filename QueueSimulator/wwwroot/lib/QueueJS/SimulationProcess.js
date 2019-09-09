@@ -10,17 +10,27 @@ $(document).ready(function () {
         var DoctorCount = $("#DoctorCount").val();
 
         if (CountIteration.length == 0)
-            CountIteration = 10;
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Zapomniałeś dodać iteracje!'
+            })
+        return;
         if (DoctorCount.length == 0)
-            DoctorCount = 4;
-        //if (CountPatient.length == 0) {
-        //    Swal.fire({
-        //        type: 'error',
-        //        title: 'Oops...',
-        //        text: 'Zapomniałeś dodać pacjentów!'
-        //    })
-        //    return;
-        //}
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Zapomniałeś dodać lekarzy!'
+            })
+        return;
+        if (CountPatient.length == 0) {
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text: 'Zapomniałeś dodać pacjentów!'
+            })
+            return;
+        }
 
         $.ajax({
             async: false,
