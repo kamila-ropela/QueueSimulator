@@ -18,6 +18,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#AddRandom").on("click", function () {
         var patientCount = $("#CountPatient").val();
+        if (patientCount.length == 0) {
+            Swal.fire({
+                type: 'warning',
+                title: 'Oops...',
+                text: 'Zapomniałeś wpisać liczby pacjentów!'
+            })
+            return;
+        }
         $.ajax({
             url: "/Simulation/AddRandomPatients",
             type: "GET",
@@ -25,7 +33,11 @@ $(document).ready(function () {
                 patientCount: patientCount,
             }
         }).done(function (patientList) {
-            $("#main").html(patientList);
+            Swal.fire({
+                type: 'success',
+                title: 'Sukces...',
+                text: 'Pacjenci zostali dodani!'
+            })
         });
     });
 });
@@ -34,6 +46,14 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#AddDb").on("click", function () {
         var patientCount = $("#CountPatient").val();
+        if (patientCount.length == 0) {
+            Swal.fire({
+                type: 'warning',
+                title: 'Oops...',
+                text: 'Zapomniałeś wpisać liczby pacjentów!'
+            })
+            return;
+        }
         $.ajax({
             url: "/Simulation/AddRandomPatientsFromDB",
             type: "GET",
@@ -41,7 +61,49 @@ $(document).ready(function () {
                 patientCount: patientCount,
             }
         }).done(function (patientList) {
-            $("#main").html(patientList);
+            Swal.fire({
+                type: 'success',
+                title: 'Sukces...',
+                text: 'Pacjenci zostali dodani!'
+            })
+        });
+    });
+});
+
+//Add one random patients
+$(document).ready(function () {
+    $("#AddOneRandom").on("click", function () {
+        $.ajax({
+            url: "/Simulation/AddRandomPatients",
+            method: "GET",
+            data: {
+                patientCount: 1,
+            }
+        }).done(function (patientList) {
+            Swal.fire({
+                type: 'success',
+                title: 'Sukces...',
+                text: 'Pacjenci zostali dodani!'
+            })
+        });
+    });
+});
+
+//Add one random patients from db
+$(document).ready(function () {
+    $("#AddOneDb").on("click", function () {
+        $.ajax({
+            url: "/Simulation/AddRandomPatientsFromDB",
+            method: "GET",
+            data: {
+                patientCount: 1,
+            }
+        }).done(function (patientList) {
+            Swal.fire({
+                type: 'success',
+                title: 'Sukces...',
+                text: 'Pacjenci zostali dodani!'
+            })
         });
     });
 });

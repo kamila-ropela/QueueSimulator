@@ -29,10 +29,10 @@ namespace QueueSimulator.Simulation
                 simulationProcess.PropabilityLeaveQueryByPatient();
 
 
-            for (int i = 1; i < returnPatientsCount; i++)
+            for (int i = 0; i < returnPatientsCount; i++)
             {
                 var noActivePatientList = SimulationProcess.patientList.Where(x => x.Status == 0);
-                var randomIndex = random.Next(0, noActivePatientList.Count());
+                var randomIndex = random.Next(0, noActivePatientList.Count() - 1);
 
                 SimulationProcess.patientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).ToList().ForEach(x => x.Status = 1);
                 simulationProcess.UpdatePatientList(new List<Patient>{ noActivePatientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).First()}, true);

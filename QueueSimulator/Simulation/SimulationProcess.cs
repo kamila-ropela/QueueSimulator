@@ -148,7 +148,8 @@ namespace QueueSimulator.Simulation
                 }                                    
 
                 activePatient.Add(pat);
-                patientList.Add(patient);
+                if(!IfReturnToQuery)
+                    patientList.Add(patient);
             }
         }
 

@@ -6,8 +6,8 @@
 }
 <div>
     <br>
-    <input type="button" value="dodaj losowego pacjenta" onclick="@("window.location.href='" + @Url.Action("AddRandomPatient", "Simulation", "1") + "'");" class="btn btn-info" />
-    <input type="button" value="dodaj pacjenta z bazy" onclick="@("window.location.href='" + @Url.Action("AddRandomPatientFromDB", "Simulation") + "'");" class="btn btn-info" />
+    <input type="button" value="dodaj losowego pacjenta" id="AddOneRandom" class="btn btn-info" />
+    <input type="button" value="dodaj pacjenta z bazy" id="AddOneDb" class="btn btn-info" />
     <br><br>
 </div>
 
@@ -302,4 +302,5 @@
         
     </div>
 
-
+<script src="~/lib/QueueJS/AddPatient.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using QueueSimulator.Database;
 using QueueSimulator.EnumAndDictionary;
 
 namespace QueueSimulator.Simulation
@@ -17,29 +16,23 @@ namespace QueueSimulator.Simulation
             return AdditionalEvents;
         }
 
-        public void CheckIfDbHasEnoughtPatients(int countPatient)
-        {
-            var countPatientsInDb = PatientsDB.GetNumbersOfRowInTable("Patients");
-            if (countPatientsInDb != countPatient)
-                newPatients.GeneratePatientWithRandomData((countPatient - countPatientsInDb));
-        }
-
         public string CreateNoteAboutPatient(int id)
         {
-            var patientById = PatientsDB.GetDataByIdFromPatientsTable(id);
+            var patientById = 
+               SimulationProcess.patientList.Where(x => x.Id == id).FirstOrDefault();
             
-            var result = $@"<b>{patientById.First().PatientName} <br> <br>
-                            Płeć: {Dictionary.GetSexByValue(patientById.First().Sex)} <br>
-                            Drogi oddechowe: {Dictionary.GetAirwayByValue(patientById.First().Inspection)} <br><br> 
-                            Czestość oddechow: {patientById.First().RR}/min <br> 
-                            Pulsoksymetria: {patientById.First().POX}% <br> <br>
-                            Tetno: {patientById.First().HR}/min <br> 
-                            Cisnienie krwi: {patientById.First().BP} mm Hg SBP <br><br>
-                            Niepełnosprawność: {Dictionary.GetDisabilityByValue(patientById.First().RLS)} <br> 
-                            Temperatura: {patientById.First().Temperature}°C <br> <br>
-                            Skala FOUR: {patientById.First().Four} <br> 
-                            Skala Glasgow: {patientById.First().GSC} <br> <br>
-                            Priorytet: {patientById.First().Priority}</b>";
+            var result = $@"<b>{patientById.PatientName} <br> <br>
+                            Płeć: {Dictionary.GetSexByValue(patientById.Sex)} <br>
+                            Drogi oddechowe: {Dictionary.GetAirwayByValue(patientById.Inspection)} <br><br> 
+                            Czestość oddechow: {patientById.RR}/min <br> 
+                            Pulsoksymetria: {patientById.POX}% <br> <br>
+                            Tetno: {patientById.HR}/min <br> 
+                            Cisnienie krwi: {patientById.BP} mm Hg SBP <br><br>
+                            Niepełnosprawność: {Dictionary.GetDisabilityByValue(patientById.RLS)} <br> 
+                            Temperatura: {patientById.Temperature}°C <br> <br>
+                            Skala FOUR: {patientById.Four} <br> 
+                            Skala Glasgow: {patientById.GSC} <br> <br>
+                            Priorytet: {patientById.Priority}</b>";
             return result;
         }
     }

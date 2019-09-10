@@ -6,6 +6,7 @@ using QueueSimulator.Models;
 using QueueSimulator.Simulation;
 using System.Linq;
 using SelectPdf;
+using QueueSimulator.Database;
 
 namespace QueueSimulator.Controllers
 {
@@ -17,7 +18,6 @@ namespace QueueSimulator.Controllers
         SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
         SimulationRaport simulationRaport = new SimulationRaport();
-        int PatientAddCount, ExpectedAddedPatients;
 
         public IActionResult Simulation()
         {
@@ -44,6 +44,7 @@ namespace QueueSimulator.Controllers
             simulationRaport.UpdatePatientListAfterIteration();
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
+            ViewBag.Iteration = 0;
             return PartialView("Patient", patientList);
         }        
 
@@ -56,6 +57,7 @@ namespace QueueSimulator.Controllers
             simulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
 
+            ViewBag.Iteration = iteration;
             return PartialView("Patient", patients);
         }
 
@@ -66,47 +68,32 @@ namespace QueueSimulator.Controllers
 
         public IActionResult AddPatient(string patientCount)
         {
-            //PatientAddCount = 0;
             return PartialView("AddPatient");
         }
 
         [HttpPost]
         public IActionResult AddPatient(IFormCollection formData)
         {
-            //PatientAddCount++;
             newPatients.GeneratePatientBasedOnData(formData);
 
             return View("Simulation");
-        }
-
-        //pojedyńczy patiennt
-        public void AddRandomPatient(int patientCount)
-        {
-            //PatientAddCount++;
-            newPatients.NewRandomPatient(patientCount);
-            //var patientList;
-            //return PartialView("Patient", patientList);
-        }
-
-        //pojedyńczy pacjent
-        public void AddRandomPatientFromDB(int patientCount)
-        {
-            //PatientAddCount++;
-            newPatients.NewPatientFromDB(patientCount);
         }
 
         //wszyscy pacjenci
         public void AddRandomPatients(int patientCount)
         {
             newPatients.NewRandomPatient(patientCount);
-            //var patientList;
-            //return PartialView("Patient", patientList);
         }
 
         //wszyscy pacjenci
         public void AddRandomPatientsFromDB(int patientCount)
         {
             newPatients.NewPatientFromDB(patientCount);
+        }
+
+        public int GetPatientCountInDB()
+        {
+            return PatientsDB.GetNumbersOfRowInTable("Patients");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
