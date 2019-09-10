@@ -7,6 +7,7 @@
         public static int additionalEvents;
         public static int algorytm;
         public static int highestPriority = 4;
+        public static int iteration;
 
         public static int ReturnByte(string number)
         {

@@ -32,4 +32,13 @@ $(document).ready(function () {
             $('input[id="TwoQuery"]').val("0");
         }
     });
+
+    $('#SimulationType').change(function () {
+        var x = document.getElementById("nextIteration");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    })
 });

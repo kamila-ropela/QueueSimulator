@@ -39,35 +39,39 @@
                 </div>
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" name="returnToQuery" value="0" type="checkbox" id="ReturnToQuery">
-                    <label class="custom-control-input" for="defaultCheck1">
+                    <label class="custom-control-label" for="ReturnToQuery">
                         Powrot do kolejki
                     </label>
                 </div>
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" name="addToQuery" value="0" type="checkbox" id="AddToQuery">
-                    <label class="custom-control-input" for="defaultCheck1">
+                    <label class="custom-control-label" for="AddToQuery">
                         Dodanie do kolejki
                     </label>
                 </div>
                 <div class="custom-control custom-checkbox">
                     <input class="custom-control-input" name="twoQuery" value="0" type="checkbox" id="TwoQuery">
-                    <label class="custom-control-input" for="defaultCheck1">
+                    <label class="custom-control-label" for="TwoQuery">
                         Rownolegle kolejki
                     </label>
                 </div>
+
                 <div class="form-group">
+                    <input type="checkbox" id="SimulationType" checked data-toggle="toggle" data-onstyle="info" data-offstyle="dark" data-on="Automatycznia" data-off="Ręczna">
+                    <div id="console-event"></div>
                     <input type="button" id="start" value="Start" class="btn btn-default" />
+                    <input type="button" id="nextIteration" value="Następna iteracja" class="btn btn-default" style="display: none" />
                 </div>
             </form>
         </div>
     </div>
 
     <div class="main" id="main">
-        @*@Html.Partial("Patient", ViewData["data"])*@
         @Html.Partial("Empty")
     </div>
 
 </div>
+
 <script src="~/lib/QueueJS/SimulationForm.js"></script>
 <script src="~/lib/QueueJS/AddPatient.js"></script>
 <script src="~/lib/QueueJS/SimulationProcess.js"></script>

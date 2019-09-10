@@ -45,19 +45,22 @@ namespace QueueSimulator.Controllers
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
             ViewBag.Iteration = 0;
+            Helper.iteration = 0;
             return PartialView("Patient", patientList);
         }        
 
         //przy procesie symulacji
         public IActionResult ActivePatients(int iteration)
         {
+            Helper.iteration++;
+
             if(SimulationProcess.activePatient.Count() != 0)
                 simulationStart.SetStatus(iteration);
             
             simulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
 
-            ViewBag.Iteration = iteration;
+            ViewBag.Iteration = Helper.iteration;
             return PartialView("Patient", patients);
         }
 
@@ -94,6 +97,10 @@ namespace QueueSimulator.Controllers
         public int GetPatientCountInDB()
         {
             return PatientsDB.GetNumbersOfRowInTable("Patients");
+        }
+        public int GetIteratinNumber()
+        {
+            return Helper.iteration;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
