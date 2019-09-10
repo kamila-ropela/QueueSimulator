@@ -12,14 +12,13 @@ namespace QueueSimulator.Simulation
         SimulationProcess simulationProcess = new SimulationProcess();
         NewPatients newPatients = new NewPatients();
 
-        public void BasedOnPriorityValue(int iteration)
+        public void BasedOnPriorityValue()
         {         
             simulationProcess.PropabilityLeaveQueryByPatient();
         }
 
         public void PriorityWithReturnToQuery(bool ifTwoQuery)
         {
-            //var patientList = PatientsDB.GetDataFromPatientsTable();
             var noActivePatient = SimulationProcess.patientList.Where(x => x.Status == 0).Count();
             var returnPatientsCount = random.Next(0, noActivePatient); //ile pacjentow na być ponownie dodanych do kolejki
 
@@ -42,7 +41,6 @@ namespace QueueSimulator.Simulation
         public void PriorityWithAddToQuery()
         {            
             var newPatientsCount = random.Next(0, 15);
-            //newPatients.NewPatientFromDB(newPatientsCount);
 
             newPatients.GeneratePatientWithRandomData(newPatientsCount);
             var lastAddedPatients = PatientsDB.GetLastAddedPatientFromPatientsTable(newPatientsCount);

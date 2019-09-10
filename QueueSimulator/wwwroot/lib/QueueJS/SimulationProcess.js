@@ -87,7 +87,7 @@ function RunSimulationAutomatic() {
                     async: false,
                     url: "/Simulation/ActivePatients",
                     type: "GET",
-                    data: { iteration: iteration }
+                    data: { }
                 }).done(function (patientList) {
                     $("#main").html(patientList);
                 });
@@ -179,7 +179,7 @@ function NextIteraction() {
                 async: false,
                 url: "/Simulation/ActivePatients",
                 type: "GET",
-                data: { iteration: iterationNumber }
+                data: { }
             }).done(function (patientList) {
                 $("#main").html(patientList);
             });

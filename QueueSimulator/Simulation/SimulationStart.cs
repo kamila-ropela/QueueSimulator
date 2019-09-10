@@ -32,21 +32,21 @@ namespace QueueSimulator.Simulation
             }
         }
 
-        public void SetStatus(int iteration)
+        public void SetStatus()
         {
             //liczby w HighestPriority odpowidaja
             //returnToQuery + addToQuery + twoQuery
             switch (Helper.additionalEvents)
             {
                 case 0:
-                    status.BasedOnPriorityValue(iteration);
+                    status.BasedOnPriorityValue();
                     break;
                 case 1:
                     status.PriorityWithTwoQuery();
                     break;
                 case 2:
                     status.PriorityWithAddToQuery();
-                    status.BasedOnPriorityValue(iteration);
+                    status.BasedOnPriorityValue();
                     break;
                 case 3:
                     status.PriorityWithAddToQuery();

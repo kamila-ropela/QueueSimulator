@@ -50,12 +50,12 @@ namespace QueueSimulator.Controllers
         }        
 
         //przy procesie symulacji
-        public IActionResult ActivePatients(int iteration)
+        public IActionResult ActivePatients()
         {
             Helper.iteration++;
 
             if(SimulationProcess.activePatient.Count() != 0)
-                simulationStart.SetStatus(iteration);
+                simulationStart.SetStatus();
             
             simulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
@@ -98,6 +98,7 @@ namespace QueueSimulator.Controllers
         {
             return PatientsDB.GetNumbersOfRowInTable("Patients");
         }
+
         public int GetIteratinNumber()
         {
             return Helper.iteration;
