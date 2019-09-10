@@ -50,3 +50,15 @@ QueueSimulator/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B
 QueueSimulator/obj/QueueSimulator.csproj.nuget.g.props
 QueueSimulator/obj/QueueSimulator.csproj.nuget.g.targets
 QueueSimulator/obj/Debug/netcoreapp2.1/Razor/Views/Simulation/AddPatient.g.cshtml.cs
+QueueSimulationTests/obj/QueueSimulationTests.csproj.nuget.g.targets
+QueueSimulationTests/obj/Debug/netcoreapp2.1/QueueSimulationTests.AssemblyInfo.cs
+QueueSimulationTests/obj/Debug/netcoreapp2.1/QueueSimulationTests.AssemblyInfoInputs.cache
+QueueSimulationTests/obj/Debug/netcoreapp2.1/QueueSimulationTests.assets.cache
+QueueSimulationTests/obj/project.assets.json
+QueueSimulationTests/obj/QueueSimulationTests.csproj.nuget.cache
+QueueSimulationTests/obj/QueueSimulationTests.csproj.nuget.g.props
+QueueSimulationTests/obj/Debug/netcoreapp2.1/QueueSimulationTests.csproj.CoreCompileInputs.cache
+QueueSimulationTests/obj/Debug/netcoreapp2.1/QueueSimulationTests.Program.cs
+QueueSimulationTests/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+QueueSimulationTests/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+QueueSimulationTests/obj/Debug/netcoreapp2.1/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
