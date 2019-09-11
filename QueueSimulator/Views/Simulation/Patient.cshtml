@@ -17,7 +17,7 @@
     <tbody>
 @foreach (var item in Model)
 {
-        <tr style='background-color: @(item.Priority.Equals(1) ? "#ee2c2c" : item.Priority.Equals(2) ? "#ff6f50" : item.Priority.Equals(3) ? "#ffd700" : "#66cd00");'>
+        <tr style='background-color: @(item.Priority.Equals(1) ? "#ff4040" : item.Priority.Equals(2) ? "#ff6f50" : item.Priority.Equals(3) ? "#ffc125" : "#7FCF67");'>
             <td>
                 @Html.DisplayFor(modelItem => item.PatientName)
             </td>

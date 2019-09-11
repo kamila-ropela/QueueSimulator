@@ -20,5 +20,7 @@ namespace QueueSimulator.Models
         public int Four { get; set; }
         public string Temperature { get; set; }
         public double WeightPriority { get; set; }
+        public bool IfAdded { get; set; }
+        public bool IfReturned { get; set; }
     }
 }

@@ -1,9 +1,6 @@
 ﻿@model QueueSimulator.Models.Patient
 
-@{
-    ViewData["Title"] = "AddPatient";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 <div>
     <br>
     <input type="button" value="dodaj losowego pacjenta" id="AddOneRandom" class="btn btn-info" />
@@ -159,7 +156,12 @@
                             </div>
                         </div>
 
-                        <br /><br />
+                        <div class="col-sm-4" style="width: 40%">
+                            <br /><br />
+                        </div>
+                        <div class="col-sm-4" style="width: 50%">
+                            <br /><br />
+                        </div>
                         <div class="col-sm-4" style="width: 50%">
                             <label for="GCS" class="control-label">Reakcja ruchowa</label>
                             <div class="custom-control custom-radio custom-control-inline">
@@ -192,7 +194,7 @@
                 <div id="menu1" class="tab-pane fade">
                     <div class="row">
                         <br />
-                        <div class="col-sm-4" style="width: 33%">
+                        <div class="col-sm-4" style="width: 40%">
                             <label for="GCS" class="control-label">Otwieranie oczu</label>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" name="OtwieranieOczu2" value="1.4" class="custom-control-input" checked="checked" id="OtwieranieOczu21">
@@ -240,8 +242,15 @@
                             </div>
                         </div>
                         <br>
-
+                        <br />
+                        <div class="col-sm-4" style="width: 40%">
+                            <br /><br />
+                        </div>
                         <div class="col-sm-4" style="width: 50%">
+                            <br /><br />
+                        </div>
+
+                        <div class="col-sm-4" style="width: 40%">
                             <label for="GCS" class="control-label">Odruchy oddychania</label>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input type="radio" name="OdruchyOddychania" value="4.4" class="custom-control-input" checked="checked" id="OdruchyOddychania1">

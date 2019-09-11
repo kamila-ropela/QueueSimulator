@@ -1,0 +1,102 @@
+﻿@model IEnumerable<QueueSimulator.Simulation.Raport>
+@{
+    Layout = null;
+}
+
+<html>
+
+<head>
+    <style>
+        .grid-container {
+            width: 500px;
+            display: grid;
+            grid-gap: 10px;
+            padding: 10px;
+        }
+
+        .grid-item {
+            text-align: center;
+            padding: 20px;
+            font-size: 30px;
+        }
+
+        .item1 {
+            grid-column: 1 / span 2;
+            grid-row: 2;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        <center>Raport</center>
+    </h2>
+
+    <div class="grid-container">
+        <div class="grid-item item1">
+            <table>
+                <tbody>
+                    @{var iteration = 0; }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th></th>
+                            <th>Iteracja: @iteration</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>Priorytet</th>
+                            <td>Czerwony</td>
+                            <td>Pomarańczowy</td>
+                            <td>Żółty</td>
+                            <td>Zielony</td>
+                        </tr>
+                        <tr>
+                            <th>Ilość pacjentów</th>
+                            <td>@Html.DisplayFor(modelItem => item.Red)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Orange)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Yellow)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Grean)</td>
+                        </tr>
+                        <tr>
+                            <th>Ilość dodanych pacjentów</th>
+                            <td>@Html.DisplayFor(modelItem => item.RedAdded)</td>
+                            <td>@Html.DisplayFor(modelItem => item.OrangeAdded)</td>
+                            <td>@Html.DisplayFor(modelItem => item.YellowAdded)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GreanAdded)</td>
+                        </tr>
+                        <tr>
+                            <th>Ilość przywróconych pacjentów</th>
+                            <td>@Html.DisplayFor(modelItem => item.RedReturned)</td>
+                            <td>@Html.DisplayFor(modelItem => item.OrangeReturned)</td>
+                            <td>@Html.DisplayFor(modelItem => item.YellowReturned)</td>
+                            <td>@Html.DisplayFor(modelItem => item.GreanReturned)</td>
+                        </tr>
+                        iteration++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

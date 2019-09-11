@@ -17,6 +17,9 @@ $(document).ready(function () {
 });
 
 function RunSimulationAutomatic() {
+    var x = document.getElementById("raport");
+    x.style.display = "none";
+
     var CountPatient = $("#CountPatient").val();
     var CountIteration = $("#CountIteration").val();
     var Algorytm = $("#Algorytm").val();
@@ -95,10 +98,15 @@ function RunSimulationAutomatic() {
             }
         }, 6000);
 
+        var x = document.getElementById("raport");
+            x.style.display = "block";
     });
 }
 
 function StartManualSimulation() {
+    var x = document.getElementById("raport");
+    x.style.display = "none";
+
     var CountPatient = $("#CountPatient").val();
     var CountIteration = $("#CountIteration").val();
     var Algorytm = $("#Algorytm").val();
@@ -184,6 +192,11 @@ function NextIteraction() {
                 $("#main").html(patientList);
             });
             console.log("Itemation number: " + iterationNumber)
+
+            if ((iterationNumber + 1) == CountIteration) {
+                var x = document.getElementById("raport");
+                x.style.display = "block";
+            }
         }
     });
 }

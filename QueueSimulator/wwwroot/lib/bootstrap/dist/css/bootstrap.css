@@ -4095,12 +4095,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li + li {
   margin-left: 2px;
 }
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
-.nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #337ab7;
-}
+    .nav-pills > li.active > a,
+    .nav-pills > li.active > a:hover,
+    .nav-pills > li.active > a:focus {
+        color: #fff;
+        background-color: #46b8da;
+    }
 .nav-stacked > li {
   float: none;
 }

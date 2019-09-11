@@ -34,6 +34,7 @@ namespace QueueSimulator.Simulation
                 var randomIndex = random.Next(0, noActivePatientList.Count() - 1);
 
                 SimulationProcess.patientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).ToList().ForEach(x => x.Status = 1);
+                noActivePatientList.ElementAt(randomIndex).IfReturned = true;
                 simulationProcess.UpdatePatientList(new List<Patient>{ noActivePatientList.Where(x => x.Id == noActivePatientList.ElementAt(randomIndex).Id).First()}, true);
             }            
         }
@@ -44,6 +45,7 @@ namespace QueueSimulator.Simulation
 
             newPatients.GeneratePatientWithRandomData(newPatientsCount);
             var lastAddedPatients = PatientsDB.GetLastAddedPatientFromPatientsTable(newPatientsCount);
+            lastAddedPatients.ForEach(x => { x.IfAdded = true; x.IfReturned = false; });
 
             switch (Helper.algorytm)
             {

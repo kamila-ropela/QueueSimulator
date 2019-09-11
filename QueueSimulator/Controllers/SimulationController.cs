@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using QueueSimulator.Models;
 using QueueSimulator.Simulation;
 using System.Linq;
-using SelectPdf;
 using QueueSimulator.Database;
 
 namespace QueueSimulator.Controllers
@@ -17,12 +16,22 @@ namespace QueueSimulator.Controllers
         SimulationProcess simulationProcess = new SimulationProcess();
         SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
-        SimulationRaport simulationRaport = new SimulationRaport();
+       // SimulationRaport simulationRaport = new SimulationRaport();
 
         public IActionResult Simulation()
         {
             Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
             return View();
+        }
+
+        public IActionResult Raport()
+        {
+            return View(SimulationRaport.raportList);
+        }
+
+        public IActionResult GenerateRaport()
+        {
+            return SimulationRaport.GenerateRaport();
         }
 
         public string SetPatientDataToModalPopup(int patientId)
@@ -32,7 +41,6 @@ namespace QueueSimulator.Controllers
        
         public IActionResult StartSimulation(int countPatient, int countIteration, int Algorytm, string returnToQuery, string addToQuery, string twoQuery, int doctorCount)
         {
-            simulationRaport.GenerateRaport();
             int additionalEvents = simulationForm.ConvertAdditionalEventsToBinary(countPatient, returnToQuery, addToQuery, twoQuery);
             Helper.doctorCount = doctorCount;
             Helper.additionalEvents = additionalEvents;
@@ -41,7 +49,8 @@ namespace QueueSimulator.Controllers
             
             simulationProcess.CleanList();
             simulationProcess.FillPatientListOnTheBegging(patients, false);
-            simulationRaport.UpdatePatientListAfterIteration();
+            SimulationProcess.patientList.ForEach(x => { x.IfAdded = false; x.IfReturned = false; });
+            SimulationRaport.UpdatePatientListAfterIteration();
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
             ViewBag.Iteration = 0;
@@ -57,7 +66,7 @@ namespace QueueSimulator.Controllers
             if(SimulationProcess.activePatient.Count() != 0)
                 simulationStart.SetStatus();
             
-            simulationRaport.UpdatePatientListAfterIteration();
+            SimulationRaport.UpdatePatientListAfterIteration();
             var patients = SimulationProcess.patientList.Where(x => x.Status == 1);
 
             ViewBag.Iteration = Helper.iteration;

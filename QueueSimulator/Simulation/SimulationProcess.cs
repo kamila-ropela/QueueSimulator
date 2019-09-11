@@ -172,6 +172,8 @@ namespace QueueSimulator.Simulation
         {
             activePatient.Clear();
             patientList.Clear();
+            SimulationRaport.IterationList.Clear();
+            SimulationRaport.raportList.Clear();
         }
     }
 
