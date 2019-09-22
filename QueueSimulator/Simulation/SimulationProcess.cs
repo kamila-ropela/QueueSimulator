@@ -1,4 +1,5 @@
 ﻿using QueueSimulator.Database;
+using QueueSimulator.EnumAndDictionary;
 using QueueSimulator.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace QueueSimulator.Simulation
         public static List<PatientContent> activePatient = new List<PatientContent>();
         public static List<Patient> patientList = new List<Patient>();
 
-        public void CleanTable()
+        public static void CleanTable()
         {
             PatientsDB.CleanTable();
         }
@@ -28,13 +29,13 @@ namespace QueueSimulator.Simulation
                 }                
             }
 
-            if(Helper.algorytm == 5)
+            if(Helper.algorytm == (int)AlgorithmEnum.SREN)
             {
-                activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-                activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-                activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-
                 activePatient.ForEach(x => x.Iteration++);
+
+                activePatient.Where(x => x.Iteration % 2 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 3 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 5 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
             }
         }
 
@@ -74,13 +75,13 @@ namespace QueueSimulator.Simulation
                 }                    
             }
 
-            if(Helper.algorytm == 5)
-            {            
-                activePatient.Where(x => x.Iteration % 2 == 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-                activePatient.Where(x => x.Iteration % 3 == 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-                activePatient.Where(x => x.Iteration % 5 == 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
-
+            if(Helper.algorytm == (int)AlgorithmEnum.SREN)
+            {
                 activePatient.ForEach(x => x.Iteration++);
+
+                activePatient.Where(x => x.Iteration % 2 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 2).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 3 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 3).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
+                activePatient.Where(x => x.Iteration % 5 == 0 && x.Iteration != 0 && x.Priority != 1 && x.OrginalPriority == 4).ToList().ForEach(x => { x.Priority--; patientList.Where(a => a.Id == x.Id).ToList().ForEach(a => a.Priority = x.Priority); });
             }
         }
 
@@ -97,7 +98,7 @@ namespace QueueSimulator.Simulation
                     Iteration = 0
                 };
 
-                if (Helper.algorytm == 5 || Helper.algorytm == 6)
+                if (Helper.algorytm == (int)AlgorithmEnum.SREN)// || Helper.algorytm == (int)AlgorithmEnum.MIXED)
                 {                
                     switch (pat.Priority)
                     {
@@ -118,7 +119,7 @@ namespace QueueSimulator.Simulation
                             break;
                     }
                 }
-                if (Helper.algorytm == 4)
+                if (Helper.algorytm == (int)AlgorithmEnum.SCON)
                 {
                     switch (pat.Priority)
                     {
@@ -173,7 +174,8 @@ namespace QueueSimulator.Simulation
             activePatient.Clear();
             patientList.Clear();
             SimulationRaport.IterationList.Clear();
-            SimulationRaport.raportList.Clear();
+
+           // SimulationRaport.raportList.Clear();
         }
     }
 

@@ -83,6 +83,16 @@ function RunSimulationAutomatic() {
             if (iteration == CountIteration) {
                 console.log("stop")
                 window.clearInterval(intervalID);
+                var x = document.getElementById("raport");
+                x.style.display = "block";
+
+                $.ajax({
+                    async: false,
+                    url: "/Simulation/CreateRaport",
+                    type: "GET",
+                    data: {}
+                })
+
             } else {
                 ++iteration;
 
@@ -98,8 +108,8 @@ function RunSimulationAutomatic() {
             }
         }, 6000);
 
-        var x = document.getElementById("raport");
-            x.style.display = "block";
+        
+        
     });
 }
 
@@ -182,6 +192,7 @@ function NextIteraction() {
                 type: 'warning',
                 text: 'Koniec symulacji!'
             })
+            
         } else {
             $.ajax({
                 async: false,
@@ -196,7 +207,15 @@ function NextIteraction() {
             if ((iterationNumber + 1) == CountIteration) {
                 var x = document.getElementById("raport");
                 x.style.display = "block";
+
+                $.ajax({
+                    async: false,
+                    url: "/Simulation/CreateRaport",
+                    type: "GET",
+                    data: {}
+                })
             }
+
         }
     });
 }

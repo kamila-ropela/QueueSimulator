@@ -3060,7 +3060,6 @@ fieldset[disabled] a.btn {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
-  width: 100%;
 }
 .btn-default:focus,
 .btn-default.focus {
@@ -4099,7 +4098,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     .nav-pills > li.active > a:hover,
     .nav-pills > li.active > a:focus {
         color: #fff;
-        background-color: #46b8da;
+        background-color: #B58C9D;
     }
 .nav-stacked > li {
   float: none;
@@ -4591,7 +4590,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-    background-color: #a6e3e9;
+    background-color: #E2E1E0;
     border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
@@ -6756,4 +6755,91 @@ button.close {
     display: none !important;
   }
 }
+
+.w-100 {
+    width: 100%;
+}
+
+div.container4 {
+    height: 10em;
+    position: relative
+}
+
+    div.container4 h3 {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+    }
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    min-width: 250px;
+    /*height: 100%;*/
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-color: #E2E1E0;
+    /*overflow-x: hidden;
+            overflow-y: hidden;*/
+    padding-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .sidenav a {
+        padding: 6px 6px 6px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+    }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+        }
+
+.main {
+    margin-left: 200px;
+    width: 70%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.b-color-ma {
+    background-color: #5E304D;
+    color: #fff
+}
+
+.b-color-sa {
+    background-color: #B58C9D;
+    color: #fff
+}
+
+.scaleNav > li > a {
+    color: #000;
+}
+
+
 /*# sourceMappingURL=bootstrap.css.map */

@@ -48,15 +48,18 @@ namespace QueueSimulator.Simulation
 
 
                 var randomPriority = Math.Round(Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum(), 2);
-
-
-                if (randomPriority <= patientPriorityOrder.ElementAt(1))
-                    return priorityMin;
-                else
-                    return priorityMax;
+                return PriorityToLeaveInDoubleQuery(priorityMin, priorityMax, patientPriorityOrder, randomPriority);
             }
 
             return patientPriorityGropu[0];
+        }
+
+        public static int PriorityToLeaveInDoubleQuery(int priorityMin, int priorityMax, System.Collections.Generic.IEnumerable<double> patientPriorityOrder, double randomPriority)
+        {
+            if (randomPriority <= patientPriorityOrder.ElementAt(1))
+                return priorityMin;
+            else
+                return priorityMax;
         }
 
         public static int ChoosePatienToLeaveQuery()
@@ -70,21 +73,35 @@ namespace QueueSimulator.Simulation
             {
                 patientPriorityGropu = ChangePriority(patientPriorityGropu, patientPriorityGropu.Count());
                 var patientOrderDesc = patientPriorityGropu.OrderByDescending(x => x);
-                var patientPriorityOrder = patientOrderDesc.Select(x => Convert.ToDouble(x)).Select(x => x / ((double)patientPriorityGropu.Sum()));
-                
-                var randomPriority = Math.Round(Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum(), 2);
+                var patientPriorityOrder = patientOrderDesc.Select(
+                    x => Convert.ToDouble(x))
+                    .Select(x => Math.Round(x / ((double)patientPriorityGropu.Sum()), 1));
 
-                if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0))
-                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(0) }, 1).First();
-                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1))
-                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(1) }, 1).First();
-                else if (randomPriority >= 1 - patientPriorityOrder.ElementAt(0) + patientPriorityOrder.ElementAt(1) + patientPriorityOrder.ElementAt(2))
-                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(2) }, 1).First();
-                else
-                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(3) }, 1).First();
+                var randomPriority = Math.Round(Math.Round((double)random.Next(1, patientPriorityGropu.Sum() + 1), 2) / (double)patientPriorityGropu.Sum(), 1);
+                return PriorityToLeave(patientOrderDesc, patientPriorityOrder, randomPriority);
             }
             return patientPriorityGropu[0];
         }
 
+        public static int PriorityToLeave(IOrderedEnumerable<int> patientOrderDesc, System.Collections.Generic.IEnumerable<double> patientPriorityOrder, double randomPriority)
+        {
+            if (randomPriority > (Math.Round(1 - patientPriorityOrder.ElementAt(0), 1)))
+                return ChangePriority(new int[] { patientOrderDesc.ElementAt(0) }, 1).First();
+            else if (randomPriority > (Math.Round(1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1), 1)))
+                return ChangePriority(new int[] { patientOrderDesc.ElementAt(1) }, 1).First();
+            else if (randomPriority > (Math.Round(1 - patientPriorityOrder.ElementAt(0) - patientPriorityOrder.ElementAt(1) - patientPriorityOrder.ElementAt(2), 1)))
+                return ChangePriority(new int[] { patientOrderDesc.ElementAt(2) }, 1).First();
+            else
+            {
+                try
+                {
+                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(3) }, 1).First();
+                }
+                catch (ArgumentOutOfRangeException expection)
+                {
+                    return ChangePriority(new int[] { patientOrderDesc.ElementAt(2) }, 1).First();
+                }                
+            }
+        }
     }
 }

@@ -1,315 +1,310 @@
 ﻿@model QueueSimulator.Models.Patient
 
-
-<div>
-    <br>
-    <input type="button" value="dodaj losowego pacjenta" id="AddOneRandom" class="btn btn-info" />
-    <input type="button" value="dodaj pacjenta z bazy" id="AddOneDb" class="btn btn-info" />
-    <br><br>
-</div>
-
 <div class="row">
+    <input type="button" value="Dodaj losowego pacjenta" id="AddOneRandom" class="btn btn-default b-color-sa" />
+    <input type="button" value="Dodaj pacjenta z bazy" id="AddOneDb" class="btn btn-default b-color-sa" />
+    <br><br>
 
     @using (Html.BeginForm("AddPatient", "Simulation", FormMethod.Post))
     {
-    <form id="addForm">
+        <form id="addForm">
 
 
-        <div class="form-group row">
-            <label for="PatientName" class="col-sm-2 col-form-label">Nazwa pacjenta</label>
-            <div class="col-sm-5">
-                <input type="text" name="PatientName" class="form-control" placeholder="Nazwa pacjenta">
-            </div>
-        </div>
-        <fieldset class="form-group">
-            <div class="row">
-                <label class="col-sm-2 col-form-label">Płeć</label>
+            <div class="form-group row">
+                <label for="PatientName" class="col-sm-2 col-form-label">Nazwa pacjenta</label>
                 <div class="col-sm-5">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Plec" id="Female" value="1" checked>
-                        <label class="form-check-label" for="Female">
-                            Kobieta
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="Plec" id="Male" value="0">
-                        <label class="form-check-label" for="Male">
-                            Mężczyzna
-                        </label>
-                    </div>
+                    <input type="text" name="PatientName" class="form-control" placeholder="Nazwa pacjenta">
                 </div>
             </div>
-        </fieldset>
-        <fieldset class="form-group">
-            <div class="row">
-                <label class="col-sm-2 col-form-label">Drożne drogi oddechowe</label>
+            <fieldset class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Płeć</label>
+                    <div class="col-sm-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Plec" id="Female" value="1" checked>
+                            <label class="form-check-label" for="Female">
+                                Kobieta
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Plec" id="Male" value="0">
+                            <label class="form-check-label" for="Male">
+                                Mężczyzna
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Drożne drogi oddechowe</label>
+                    <div class="col-sm-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="DrogiOddechowe" id="Drożne" value="1" checked>
+                            <label class="form-check-label" for="Drożne">
+                                Tak
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="DrogiOddechowe" id="NieDrożne" value="0">
+                            <label class="form-check-label" for="NieDrożne">
+                                Nie
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <label for="CzestoscOddechow" class="col-sm-2 col-form-label">Częstość oddechów</label>
                 <div class="col-sm-5">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="DrogiOddechowe" id="Drożne" value="1" checked>
-                        <label class="form-check-label" for="Drożne">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="DrogiOddechowe" id="NieDrożne" value="0">
-                        <label class="form-check-label" for="NieDrożne">
-                            No
-                        </label>
-                    </div>
+                    <input type="number" min="0" name="CzestoscOddechow" class="form-control" placeholder="Częstość oddechów">
                 </div>
             </div>
-        </fieldset>
-        <div class="form-group row">
-            <label for="CzestoscOddechow" class="col-sm-2 col-form-label">Częstość oddechów</label>
-            <div class="col-sm-5">
-                <input type="number" min="0" name="CzestoscOddechow" class="form-control" placeholder="Częstość oddechów">
+            <div class="form-group row">
+                <label for="Pulsoksymetria" class="col-sm-2 col-form-label">Pulsoksymetria</label>
+                <div class="col-sm-5">
+                    <input type="number" min="0" name="Pulsoksymetria" class="form-control" placeholder="Pulsoksymetria">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="Pulsoksymetria" class="col-sm-2 col-form-label">Pulsoksymetria</label>
-            <div class="col-sm-5">
-                <input type="number" min="0" name="Pulsoksymetria" class="form-control" placeholder="Pulsoksymetria">
+            <div class="form-group row">
+                <label for="Tetno" class="col-sm-2 col-form-label">Tętno</label>
+                <div class="col-sm-5">
+                    <input type="number" min="0" name="Tetno" class="form-control" placeholder="Tętno">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="Tetno" class="col-sm-2 col-form-label">Tętno</label>
-            <div class="col-sm-5">
-                <input type="number" min="0" name="Tetno" class="form-control" placeholder="Tętno">
+            <div class="form-group row">
+                <label for="CisnienieKrwi" class="col-sm-2 col-form-label">Ciśnienie krwi</label>
+                <div class="col-sm-5">
+                    <input type="number" min="0" name="CisnienieKrwi" class="form-control" placeholder="Ciśnienie krwi">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="CisnienieKrwi" class="col-sm-2 col-form-label">Ciśnienie krwi</label>
-            <div class="col-sm-5">
-                <input type="number" min="0" name="CisnienieKrwi" class="form-control" placeholder="Ciśnienie krwi">
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Niepełnosprawność</label>
+                <div class="col-sm-5">
+                    <select class="form-control" name="Disability">
+                        <option value="1">Alarm</option>
+                        <option value="2">Dezorientacja</option>
+                        <option value="3">Upośledzenie umysłowe</option>
+                        <option value="4">Nieprzytomność</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Niepełnosprawność</label>
-            <div class="col-sm-5">
-                <select class="form-control" name="Disability">
-                    <option value="1">Alarm</option>
-                    <option value="2">Dezorientacja</option>
-                    <option value="3">Upośledzenie umysłowe</option>
-                    <option value="4">Nieprzytomność</option>
-                </select>
+            <div class="form-group row">
+                <label for="Temperatura" class="col-sm-2 col-form-label">Temperatura</label>
+                <div class="col-sm-5">
+                    <input type="number" min="0" name="Temperatura" class="form-control" placeholder="Temperatura">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="Temperatura" class="col-sm-2 col-form-label">Temperatura</label>
-            <div class="col-sm-5">
-                <input type="number" min="0" name="Temperatura" class="form-control" placeholder="Temperatura">
-            </div>
-        </div>
-        <br><br>
+            <br><br>
 
-        <div class="container">
-            <ul class="nav nav-pills">
-                <li class="active"><a data-toggle="pill" href="#home">Skala Glasgow</a></li>
-                <li><a data-toggle="pill" href="#menu1">Skala FOUR</a></li>
-            </ul>
+            <div class="container">
+                <ul class="nav nav-pills scaleNav">
+                    <li class="active"><a data-toggle="pill" href="#home">Skala Glasgow</a></li>
+                    <li><a data-toggle="pill" href="#menu1">Skala FOUR</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div id="home" class="tab-pane fade in active">
-                    <div class="row">
-                        <br />
-                        <div class="col-sm-4" style="width: 33%">
-                            <label for="GCS" class="control-label">Otwieranie oczu</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu" value="1.4" class="custom-control-input" id="OtwieranieOczu1" checked="checked">
-                                <label class="custom-control-label" for="OtwieranieOczu1">spontaniczne</label>
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="row">
+                            <br />
+                            <div class="col-sm-4" style="width: 33%">
+                                <label for="GCS" class="control-label">Otwieranie oczu</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu" value="1.4" class="custom-control-input" id="OtwieranieOczu1" checked="checked">
+                                    <label class="custom-control-label" for="OtwieranieOczu1">spontaniczne</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu" value="1.3" class="custom-control-input" id="OtwieranieOczu2">
+                                    <label class="custom-control-label" for="OtwieranieOczu2">na polecenie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu" value="1.2" class="custom-control-input" id="OtwieranieOczu3">
+                                    <label class="custom-control-label" for="OtwieranieOczu3">na bodźce bólowe</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu" value="1.1" class="custom-control-input" id="OtwieranieOczu4">
+                                    <label class="custom-control-label" for="OtwieranieOczu4">nie otwiera oczu</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu" value="1.3" class="custom-control-input" id="OtwieranieOczu2">
-                                <label class="custom-control-label" for="OtwieranieOczu2">na polecenie</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu" value="1.2" class="custom-control-input" id="OtwieranieOczu3">
-                                <label class="custom-control-label" for="OtwieranieOczu3">na bodźce bólowe</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu" value="1.1" class="custom-control-input" id="OtwieranieOczu4">
-                                <label class="custom-control-label" for="OtwieranieOczu4">nie otwiera oczu</label>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4" style="width: 50%">
-                            <label for="GCS" class="control-label">Kontakt slowny</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="KontaktSlowny" value="2.5" class="custom-control-input" checked="checked" id="KontaktSlowny1">
-                                <label class="custom-control-label" for="KontaktSlowny1">odpowiedź logiczna, pacjent zorientowany co do miejsca, czasu i własnej osoby</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <label for="GCS" class="control-label">Kontakt slowny</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="KontaktSlowny" value="2.5" class="custom-control-input" checked="checked" id="KontaktSlowny1">
+                                    <label class="custom-control-label" for="KontaktSlowny1">odpowiedź logiczna, pacjent zorientowany co do miejsca, czasu i własnej osoby</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="KontaktSlowny" value="2.4" class="custom-control-input" id="KontaktSlowny2">
+                                    <label class="custom-control-label" for="KontaktSlowny2">odpowiedź splątana, pacjent zdezorientowany</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="KontaktSlowny" value="2.3" class="custom-control-input" id="KontaktSlowny3">
+                                    <label class="custom-control-label" for="KontaktSlowny3">odpowiedź nieadekwatna, nie na temat lub krzyk</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="KontaktSlowny" value="2.2" class="custom-control-input" id="KontaktSlowny4">
+                                    <label class="custom-control-label" for="KontaktSlowny4">niezrozumiałe dźwięki, pojękiwanie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="KontaktSlowny" value="2.1" class="custom-control-input" id="KontaktSlowny5">
+                                    <label class="custom-control-label" for="KontaktSlowny5">bez reakcji</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="KontaktSlowny" value="2.4" class="custom-control-input" id="KontaktSlowny2">
-                                <label class="custom-control-label" for="KontaktSlowny2">odpowiedź splątana, pacjent zdezorientowany</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="KontaktSlowny" value="2.3" class="custom-control-input" id="KontaktSlowny3">
-                                <label class="custom-control-label" for="KontaktSlowny3">odpowiedź nieadekwatna, nie na temat lub krzyk</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="KontaktSlowny" value="2.2" class="custom-control-input" id="KontaktSlowny4">
-                                <label class="custom-control-label" for="KontaktSlowny4">niezrozumiałe dźwięki, pojękiwanie</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="KontaktSlowny" value="2.1" class="custom-control-input" id="KontaktSlowny5">
-                                <label class="custom-control-label" for="KontaktSlowny5">bez reakcji</label>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4" style="width: 40%">
-                            <br /><br />
-                        </div>
-                        <div class="col-sm-4" style="width: 50%">
-                            <br /><br />
-                        </div>
-                        <div class="col-sm-4" style="width: 50%">
-                            <label for="GCS" class="control-label">Reakcja ruchowa</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.6" class="custom-control-input" checked="checked" id="ReakcjaRuchowa1">
-                                <label class="custom-control-label" for="ReakcjaRuchowa1">spełnianie ruchowych poleceń słownych, migowych</label>
+                            <div class="col-sm-4" style="width: 40%">
+                                <br /><br />
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.5" class="custom-control-input" id="ReakcjaRuchowa2">
-                                <label class="custom-control-label" for="ReakcjaRuchowa2">ruchy celowe, pacjent lokalizuje bodziec bólowy</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <br /><br />
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.4" class="custom-control-input" id="ReakcjaRuchowa3">
-                                <label class="custom-control-label" for="ReakcjaRuchowa3">reakcja obronna na ból, wycofanie, próba usunięcia bodźca bólowego</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.3" class="custom-control-input" id="ReakcjaRuchowa4">
-                                <label class="custom-control-label" for="ReakcjaRuchowa4">patologiczna reakcja zgięciowa, odkorowanie</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.2" class="custom-control-input" id="ReakcjaRuchowa5">
-                                <label class="custom-control-label" for="ReakcjaRuchowa5">patologiczna reakcja wyprostna, odmóżdżenie</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.1" class="custom-control-input" id="ReakcjaRuchowa6">
-                                <label class="custom-control-label" for="ReakcjaRuchowa6">bez reakcji</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <label for="GCS" class="control-label">Reakcja ruchowa</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.6" class="custom-control-input" checked="checked" id="ReakcjaRuchowa1">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa1">spełnianie ruchowych poleceń słownych, migowych</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.5" class="custom-control-input" id="ReakcjaRuchowa2">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa2">ruchy celowe, pacjent lokalizuje bodziec bólowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.4" class="custom-control-input" id="ReakcjaRuchowa3">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa3">reakcja obronna na ból, wycofanie, próba usunięcia bodźca bólowego</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.3" class="custom-control-input" id="ReakcjaRuchowa4">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa4">patologiczna reakcja zgięciowa, odkorowanie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.2" class="custom-control-input" id="ReakcjaRuchowa5">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa5">patologiczna reakcja wyprostna, odmóżdżenie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.1" class="custom-control-input" id="ReakcjaRuchowa6">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa6">bez reakcji</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="menu1" class="tab-pane fade">
-                    <div class="row">
-                        <br />
-                        <div class="col-sm-4" style="width: 40%">
-                            <label for="GCS" class="control-label">Otwieranie oczu</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu2" value="1.4" class="custom-control-input" checked="checked" id="OtwieranieOczu21">
-                                <label class="custom-control-label" for="OtwieranieOczu21">oczy otwarte, wodzenie i mruganie na polecenie</label>
+                    <div id="menu1" class="tab-pane fade">
+                        <div class="row">
+                            <br />
+                            <div class="col-sm-4" style="width: 40%">
+                                <label for="GCS" class="control-label">Otwieranie oczu</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu2" value="1.4" class="custom-control-input" checked="checked" id="OtwieranieOczu21">
+                                    <label class="custom-control-label" for="OtwieranieOczu21">oczy otwarte, wodzenie i mruganie na polecenie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu2" value="1.3" class="custom-control-input" id="OtwieranieOczu22">
+                                    <label class="custom-control-label" for="OtwieranieOczu22">oczy otwarte, brak wodzenia na polecenie</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu2" value="1.2" class="custom-control-input" id="OtwieranieOczu23">
+                                    <label class="custom-control-label" for="OtwieranieOczu23">oczy zamknięte, otwarcie na bodziec głosowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu2" value="1.1" class="custom-control-input" id="OtwieranieOczu24">
+                                    <label class="custom-control-label" for="OtwieranieOczu24">otwarcie oczu na bodziec bólowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OtwieranieOczu2" value="1.0" class="custom-control-input" id="OtwieranieOczu25">
+                                    <label class="custom-control-label" for="OtwieranieOczu25">brak reakcji na bodziec bólowy</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu2" value="1.3" class="custom-control-input" id="OtwieranieOczu22">
-                                <label class="custom-control-label" for="OtwieranieOczu22">oczy otwarte, brak wodzenia na polecenie</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu2" value="1.2" class="custom-control-input" id="OtwieranieOczu23">
-                                <label class="custom-control-label" for="OtwieranieOczu23">oczy zamknięte, otwarcie na bodziec głosowy</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu2" value="1.1" class="custom-control-input" id="OtwieranieOczu24">
-                                <label class="custom-control-label" for="OtwieranieOczu24">otwarcie oczu na bodziec bólowy</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OtwieranieOczu2" value="1.0" class="custom-control-input" id="OtwieranieOczu25">
-                                <label class="custom-control-label" for="OtwieranieOczu25">brak reakcji na bodziec bólowy</label>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4" style="width: 50%">
-                            <label for="GCS" class="control-label">Odruchy z pnia mózgu</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyPniaMózgu" value="2.4" class="custom-control-input" checked="checked" id="OdruchyPniaMózgu1">
-                                <label class="custom-control-label" for="OdruchyPniaMózgu1">obecne odruchy źreniczne i rogówkowe</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <label for="GCS" class="control-label">Odruchy z pnia mózgu</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyPniaMózgu" value="2.4" class="custom-control-input" checked="checked" id="OdruchyPniaMózgu1">
+                                    <label class="custom-control-label" for="OdruchyPniaMózgu1">obecne odruchy źreniczne i rogówkowe</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyPniaMózgu" value="2.3" class="custom-control-input" id="OdruchyPniaMózgu2">
+                                    <label class="custom-control-label" for="OdruchyPniaMózgu2">jedna źrenica szeroka i nieruchoma</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyPniaMózgu" value="2.2" class="custom-control-input" id="OdruchyPniaMózgu3">
+                                    <label class="custom-control-label" for="OdruchyPniaMózgu3">nieobecny odruch źreniczny lub rogówkowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyPniaMózgu" value="2.1" class="custom-control-input" id="OdruchyPniaMózgu4">
+                                    <label class="custom-control-label" for="OdruchyPniaMózgu4">nieobecny odruch źreniczny oraz rogówkowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyPniaMózgu" value="2.0" class="custom-control-input" id="OdruchyPniaMózgu5">
+                                    <label class="custom-control-label" for="OdruchyPniaMózgu5">nieobecny odruch źreniczny, rogówkowy oraz kaszlowy</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyPniaMózgu" value="2.3" class="custom-control-input" id="OdruchyPniaMózgu2">
-                                <label class="custom-control-label" for="OdruchyPniaMózgu2">jedna źrenica szeroka i nieruchoma</label>
+                            <br>
+                            <br />
+                            <div class="col-sm-4" style="width: 40%">
+                                <br /><br />
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyPniaMózgu" value="2.2" class="custom-control-input" id="OdruchyPniaMózgu3">
-                                <label class="custom-control-label" for="OdruchyPniaMózgu3">nieobecny odruch źreniczny lub rogówkowy</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <br /><br />
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyPniaMózgu" value="2.1" class="custom-control-input" id="OdruchyPniaMózgu4">
-                                <label class="custom-control-label" for="OdruchyPniaMózgu4">nieobecny odruch źreniczny oraz rogówkowy</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyPniaMózgu" value="2.0" class="custom-control-input" id="OdruchyPniaMózgu5">
-                                <label class="custom-control-label" for="OdruchyPniaMózgu5">nieobecny odruch źreniczny, rogówkowy oraz kaszlowy</label>
-                            </div>
-                        </div>
-                        <br>
-                        <br />
-                        <div class="col-sm-4" style="width: 40%">
-                            <br /><br />
-                        </div>
-                        <div class="col-sm-4" style="width: 50%">
-                            <br /><br />
-                        </div>
 
-                        <div class="col-sm-4" style="width: 40%">
-                            <label for="GCS" class="control-label">Odruchy oddychania</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyOddychania" value="4.4" class="custom-control-input" checked="checked" id="OdruchyOddychania1">
-                                <label class="custom-control-label" for="OdruchyOddychania1">regularny rytm oddechowy, pacjent niezaintubowany</label>
+                            <div class="col-sm-4" style="width: 40%">
+                                <label for="GCS" class="control-label">Odruchy oddychania</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyOddychania" value="4.4" class="custom-control-input" checked="checked" id="OdruchyOddychania1">
+                                    <label class="custom-control-label" for="OdruchyOddychania1">regularny rytm oddechowy, pacjent niezaintubowany</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyOddychania" value="4.3" class="custom-control-input" id="OdruchyOddychania2">
+                                    <label class="custom-control-label" for="OdruchyOddychania2">oddech Cheyne-Stokes’a, pacjent niezaintubowany</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyOddychania" value="4.2" class="custom-control-input" id="OdruchyOddychania3">
+                                    <label class="custom-control-label" for="OdruchyOddychania3">oddech nieregularny, pacjent niezaintubowany</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyOddychania" value="4.1" class="custom-control-input" id="OdruchyOddychania4">
+                                    <label class="custom-control-label" for="OdruchyOddychania4">oddech wspomagany z respiratora</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="OdruchyOddychania" value="4.0" class="custom-control-input" id="OdruchyOddychania5">
+                                    <label class="custom-control-label" for="OdruchyOddychania5">oddech zastępczy z respiratora, bezdechy</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyOddychania" value="4.3" class="custom-control-input" id="OdruchyOddychania2">
-                                <label class="custom-control-label" for="OdruchyOddychania2">oddech Cheyne-Stokes’a, pacjent niezaintubowany</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyOddychania" value="4.2" class="custom-control-input" id="OdruchyOddychania3">
-                                <label class="custom-control-label" for="OdruchyOddychania3">oddech nieregularny, pacjent niezaintubowany</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyOddychania" value="4.1" class="custom-control-input" id="OdruchyOddychania4">
-                                <label class="custom-control-label" for="OdruchyOddychania4">oddech wspomagany z respiratora</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="OdruchyOddychania" value="4.0" class="custom-control-input" id="OdruchyOddychania5">
-                                <label class="custom-control-label" for="OdruchyOddychania5">oddech zastępczy z respiratora, bezdechy</label>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-4" style="width: 50%">
-                            <label for="GCS" class="control-label">Reakcja ruchowa</label>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa2" value="3.4" class="custom-control-input" checked="checked" id="ReakcjaRuchowa21">
-                                <label class="custom-control-label" for="ReakcjaRuchowa21">spełnianie poleceń</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa2" value="3.3" class="custom-control-input" id="ReakcjaRuchowa22">
-                                <label class="custom-control-label" for="ReakcjaRuchowa22">lokalizacja bólu</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa2" value="3.2" class="custom-control-input" id="ReakcjaRuchowa23">
-                                <label class="custom-control-label" for="ReakcjaRuchowa23">odpowiedź zgięciowa na bodziec bólowy</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa" value="3.1" class="custom-control-input" id="ReakcjaRuchowa24">
-                                <label class="custom-control-label" for="ReakcjaRuchowa24">odpowiedź wyprostna na bodziec bólowy</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" name="ReakcjaRuchowa2" value="3.0" class="custom-control-input" id="ReakcjaRuchowa25">
-                                <label class="custom-control-label" for="ReakcjaRuchowa25">brak odpowiedzi na bodziec bólowy, uogólniony stan miokloniczny</label>
+                            <div class="col-sm-4" style="width: 50%">
+                                <label for="GCS" class="control-label">Reakcja ruchowa</label>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa2" value="3.4" class="custom-control-input" checked="checked" id="ReakcjaRuchowa21">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa21">spełnianie poleceń</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa2" value="3.3" class="custom-control-input" id="ReakcjaRuchowa22">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa22">lokalizacja bólu</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa2" value="3.2" class="custom-control-input" id="ReakcjaRuchowa23">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa23">odpowiedź zgięciowa na bodziec bólowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa" value="3.1" class="custom-control-input" id="ReakcjaRuchowa24">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa24">odpowiedź wyprostna na bodziec bólowy</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" name="ReakcjaRuchowa2" value="3.0" class="custom-control-input" id="ReakcjaRuchowa25">
+                                    <label class="custom-control-label" for="ReakcjaRuchowa25">brak odpowiedzi na bodziec bólowy, uogólniony stan miokloniczny</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <br /><br /><br />
-        <div class="form-group">
-            <input type="submit" value="Dodaj" id="Add" class="btn btn-default" style="width: 50%" />
-        </div>
-    </form>
-            }
-        
-    </div>
+            <br /><br /><br />
+            <div class="form-group">
+                <input type="submit" value="Dodaj" id="Add" class="btn btn-default b-color-ma" style="width: 50%" />
+            </div>
+        </form>
+    }
+
+</div>
 
 <script src="~/lib/QueueJS/AddPatient.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>

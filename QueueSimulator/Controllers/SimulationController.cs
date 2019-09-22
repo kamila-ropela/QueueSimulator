@@ -6,6 +6,7 @@ using QueueSimulator.Models;
 using QueueSimulator.Simulation;
 using System.Linq;
 using QueueSimulator.Database;
+using QueueSimulationTests;
 
 namespace QueueSimulator.Controllers
 {
@@ -20,7 +21,8 @@ namespace QueueSimulator.Controllers
 
         public IActionResult Simulation()
         {
-            Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
+            Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;          
+
             return View();
         }
 
@@ -53,6 +55,7 @@ namespace QueueSimulator.Controllers
             SimulationRaport.UpdatePatientListAfterIteration();
 
             var patientList = SimulationProcess.patientList.Where(x => x.Status == 1);
+
             ViewBag.Iteration = 0;
             Helper.iteration = 0;
             return PartialView("Patient", patientList);
@@ -75,6 +78,7 @@ namespace QueueSimulator.Controllers
 
         public IActionResult CreateRaport()
         {
+            SimulationProcess.CleanTable();
             return View();
         }
 

@@ -2,6 +2,7 @@
 using QueueSimulator.Database;
 using QueueSimulator.Models;
 using System;
+using System.Linq;
 
 namespace QueueSimulator.Simulation
 {
@@ -20,11 +21,11 @@ namespace QueueSimulator.Simulation
                 var Plec = random.Next(0, 1);
                 var DrogiOddechowe = random.Next(0, 2);
                 var CzestoscOddechow = random.Next(0, 40);
-                var Pulsoksymetria = random.Next(80, 100);
+                var Pulsoksymetria = random.Next(80, 120);
                 var Tetno = random.Next(20, 150);
-                var CisnienieKrwi = random.Next(80, 110);
+                var CisnienieKrwi = random.Next(80, 120);
                 var Disability = random.Next(1, 5);
-                var Temperatura = (Math.Round(random.NextDouble() * (43 - 34) + 34, 1)).ToString();
+                var Temperatura = (Math.Round(random.NextDouble() * (43 - 32) + 32, 1)).ToString().Replace(',', '.');
 
                 var GSC = random.Next(3, 15);
                 var Four = random.Next(0, 16);
@@ -76,7 +77,7 @@ namespace QueueSimulator.Simulation
             {
                 PatientName = PatientName,
                 GSC = GSC,
-                Temperature = Temperatura,
+                Temperature = Temperatura.Replace(',', '.'),
                 Inspection = DrogiOddechowe,
                 RLS = Disability,
                 RR = CzestoscOddechow,
@@ -97,10 +98,11 @@ namespace QueueSimulator.Simulation
         {
             Random random = new Random();
             var itemsCount = PatientsDB.GetNumbersOfRowInTable("SavedPatients");
+            var idsSavedPatients = PatientsDB.GetDataFromSavedPatientsTable();
 
             for (int patient = 0; patient < patientCount; patient++)
             {                
-               // PatientsDB.TransferRecordFromSavedPatientTableById(random.Next(1, itemsCount));
+                PatientsDB.TransferRecordFromSavedPatientTableById( idsSavedPatients.ElementAt(random.Next(1, itemsCount)).Id);
             }            
         }
 

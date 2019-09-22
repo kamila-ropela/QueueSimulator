@@ -7,15 +7,16 @@
         </nav>
         <div>
             <form asp-action="Simulation">
-                <br>
+    
                 <br>
                 <div class="form-group input-group-sm mb-3">
                     <label for="countPatient">Liczba pacjentow</label>
                     <input type="number" name="CountPatient" class="form-control" id="CountPatient" placeholder="Liczba pacjentow" min="1">
+                    <br />
                     <div class="btn-group-vertical">
-                        <input type="button" id="AddNew" value="dodaj nowego" class="btn btn-default" />
-                        <input type="button" id="AddRandom" value="dodaj wszytkich losowych" class="btn btn-default" />
-                        <input type="button" id="AddDb" value="dodaj wszytkich z bazy" class="btn btn-default" />
+                        <input type="button" id="AddNew" value="Dodaj nowego" class="btn btn-default b-color-sa" />
+                        <input type="button" id="AddRandom" value="Dodaj wszytkich losowych" class="btn btn-default b-color-sa" />
+                        <input type="button" id="AddDb" value="Dodaj wszytkich z bazy" class="btn btn-default b-color-sa" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -33,7 +34,7 @@
                         <option value="2">Skala FOUR</option>
                         <option value="3">METTS</option>
                         <option value="4">SCON</option>
-                        <option value="5">SREN</option>
+                        <option value="5">SREM</option>
                         <option value="6">MIXED</option>
                     </select>
                 </div>
@@ -55,12 +56,14 @@
                         Rownolegle kolejki
                     </label>
                 </div>
-
                 <div class="form-group">
-                    <input type="checkbox" id="SimulationType" checked data-toggle="toggle" data-onstyle="info" data-offstyle="dark" data-on="Automatycznia" data-off="Ręczna" data-width="100%">
-                    <input type="button" id="start" value="Start" class="btn btn-default" />
-                    <input type="button" id="nextIteration" value="Następna iteracja" class="btn btn-default" style="display: none" />
-                    <input type="button" id="raport" value="Raport" onclick="@("window.location.href='" + @Url.Action("GenerateRaport") + "'");" class="btn btn-default" style="display: none"/>
+                    <label for="SimulationType">Typ symulacji</label>
+                    <input type="checkbox" id="SimulationType" checked data-toggle="toggle" data-onstyle="default" data-offstyle="default" data-on="Automatycznia" data-off="Ręczna" data-width="100%" style="b-color-ma">
+                    <br />
+                    <br />
+                    <input type="button" id="start" value="Start" class="btn btn-default w-100 b-color-ma" />
+                    <input type="button" id="nextIteration" value="Następna iteracja" class="btn btn-default w-100 b-color-ma" style="display: none" />
+                    <input type="button" id="raport" value="Raport" onclick="@("window.location.href='" + @Url.Action("GenerateRaport") + "'");" class="btn btn-default w-100 b-color-ma" style="display: none" />
                 </div>
             </form>
         </div>

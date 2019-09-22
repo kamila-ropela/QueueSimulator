@@ -13,12 +13,13 @@ namespace QueueSimulator.Simulation
 
         public static void UpdatePatientListAfterIteration()
         {
+            SortData(SimulationProcess.patientList);
             IterationList.Add(new List<Patient>(SimulationProcess.patientList));
         }
 
         public static FileResult GenerateRaport()
         {
-            SortData();
+           // SortData();
             HtmlToPdf converter = new HtmlToPdf();
 
             PdfDocument doc = converter.ConvertUrl("https://localhost:44381/Simulation/Raport");
@@ -30,10 +31,10 @@ namespace QueueSimulator.Simulation
             return fileResult;
         }
 
-        private static void SortData()
+        private static void SortData(List<Patient> item)
         {          
-            foreach (var item in IterationList)
-            {
+           /// foreach (var item in ii)
+            //{
                 raportList.Add(new Raport
                 {
                     Red = item.Where(x => x.Priority == 1 && x.Status != 0).Count(),
@@ -41,17 +42,17 @@ namespace QueueSimulator.Simulation
                     Yellow = item.Where(x => x.Priority == 3 && x.Status != 0).Count(),
                     Grean = item.Where(x => x.Priority == 4 && x.Status != 0).Count(),
 
-                    RedAdded = item.Where(x => x.IfAdded.Equals(false) && x.Status != 0).Count(),
-                    OrangeAdded = item.Where(x => x.IfAdded.Equals(true) && x.Status != 0).Count(),
-                    YellowAdded = item.Where(x => x.IfAdded.Equals(true) && x.Status != 0).Count(),
-                    GreanAdded = item.Where(x => x.IfAdded.Equals(true) && x.Status != 0).Count(),
+                    RedAdded = item.Where(x => x.Priority == 1 && x.IfAdded.Equals(true)).Count(),
+                    OrangeAdded = item.Where(x => x.Priority == 2 && x.IfAdded.Equals(true)).Count(),
+                    YellowAdded = item.Where(x => x.Priority == 3 && x.IfAdded.Equals(true)).Count(),
+                    GreanAdded = item.Where(x => x.Priority == 4 && x.IfAdded.Equals(true)).Count(),
 
-                    RedReturned = item.Where(x => x.IfReturned.Equals(true) && x.Status != 0).Count(),
-                    OrangeReturned = item.Where(x => x.IfReturned.Equals(true) && x.Status != 0).Count(),
-                    YellowReturned = item.Where(x => x.IfReturned.Equals(true) && x.Status != 0).Count(),
-                    GreanReturned = item.Where(x => x.IfReturned.Equals(true) && x.Status != 0).Count()
+                    RedReturned = item.Where(x => x.Priority == 1 && x.IfReturned.Equals(true)).Count(),
+                    OrangeReturned = item.Where(x => x.Priority == 2 && x.IfReturned.Equals(true)).Count(),
+                    YellowReturned = item.Where(x => x.Priority == 3 && x.IfReturned.Equals(true)).Count(),
+                    GreanReturned = item.Where(x => x.Priority == 4 && x.IfReturned.Equals(true)).Count()
                 });
-            }
+          //  }
         }
     }
 

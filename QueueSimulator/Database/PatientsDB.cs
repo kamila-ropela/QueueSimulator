@@ -56,7 +56,20 @@ namespace QueueSimulator.Database
 
         public static void TransferRecordFromSavedPatientTableById(int id)
         {
-            Helper.dbContext.ExecuteQuery($@"INSERT INTO SavedPatients SELECT * FROM Patients WHERE Id = '{id}'");
+            Helper.dbContext.ExecuteQuery($@"INSERT INTO Patients (PatientName, GSC, Inspection, RR, POX, HR, BP, RLS, Temperature, Sex, Four, Status, Priority)
+                                                VALUES ( (SELECT PatientName FROM SavedPatients WHERE Id = '{id}'),
+(SELECT GSC FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Inspection FROM SavedPatients WHERE Id = '{id}'),
+(SELECT RR FROM SavedPatients WHERE Id = '{id}'),
+(SELECT POX FROM SavedPatients WHERE Id = '{id}'),
+(SELECT HR FROM SavedPatients WHERE Id = '{id}'),
+(SELECT BP FROM SavedPatients WHERE Id = '{id}'),
+(SELECT RLS FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Temperature FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Sex FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Four FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Status FROM SavedPatients WHERE Id = '{id}'),
+(SELECT Priority FROM SavedPatients WHERE Id = '{id}'))");
         }
     }
 }
