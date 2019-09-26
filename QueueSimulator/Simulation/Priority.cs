@@ -105,13 +105,6 @@ namespace QueueSimulator.Simulation
         {
             patients.ForEach(x => x.WeightPriority = 0);
 
-            //patients.Where(x => x.Inspection == 1).ToList().ForEach(x => x.Priority = 1);
-            //patients.Where(x => x.RR >= 30).ToList().ForEach(x => x.Priority = 1);
-            //patients.Where(x => x.POX <= 90).ToList().ForEach(x => x.Priority = 1);
-            //patients.Where(x => x.HR >= 130).ToList().ForEach(x => x.Priority = 1);
-            //patients.Where(x => x.BP <= 90).ToList().ForEach(x => x.Priority = 1);
-            //patients.Where(x => x.RLS == 4).ToList().ForEach(x => x.Priority = 1);
-
             patients.Where(x => x.Inspection == 1).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.RR >= 30).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.POX <= 90).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
@@ -127,17 +120,10 @@ namespace QueueSimulator.Simulation
 
         public static List<Patient> PatientsHaveOrangePriority(List<Patient> patients)
         {
-            //patients.Where(x => x.Priority == 0 && (x.RR > 25 && x.RR < 30)).ToList().ForEach(x => x.Priority = 2);
-            //patients.Where(x => x.Priority == 0 && (x.HR <= 40 || (x.HR >= 120 && x.HR < 130))).ToList().ForEach(x => x.Priority = 2);
-            //patients.Where(x => x.Priority == 0 && (x.RLS == 3)).ToList().ForEach(x => x.Priority = 2);
-            //patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) >= 41.0 || Double.Parse(x.Temperature, CultureInfo.InvariantCulture) < 35.0)).ToList().ForEach(x => x.Priority = 2);
-
-
             patients.Where(x => x.Priority == 0 && (x.RR > 25 && x.RR < 30)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (x.HR <= 40 || (x.HR >= 120 && x.HR < 130))).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (x.RLS == 3)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) >= 41.0 || Double.Parse(x.Temperature, CultureInfo.InvariantCulture) < 35.0)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
-
 
             patients.Where(x => x.WeightPriority >= 2).ToList().ForEach(x => x.Priority = 2);
             patients.ForEach(x => x.WeightPriority = 0);
@@ -147,17 +133,10 @@ namespace QueueSimulator.Simulation
 
         public static List<Patient> PatientsHaveYellowPriority(List<Patient> patients)
         {
-            //patients.Where(x => x.Priority == 0 && (x.RR <= 9)).ToList().ForEach(x => x.Priority = 3);
-            //patients.Where(x => x.Priority == 0 && ((x.HR > 40 && x.HR <= 50) || (x.HR > 110 && x.HR <= 120))).ToList().ForEach(x => x.Priority = 3);
-            //patients.Where(x => x.Priority == 0 && (x.RLS == 2)).ToList().ForEach(x => x.Priority = 3);
-            //patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) < 41.0 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) > 38.5)).ToList().ForEach(x => x.Priority = 3);
-
             patients.Where(x => x.Priority == 0 && (x.RR <= 9)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && ((x.HR > 40 && x.HR <= 50) || (x.HR > 110 && x.HR <= 120))).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (x.RLS == 2)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) < 41.0 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) > 38.5)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
-
-
 
             patients.Where(x => x.WeightPriority >= 2).ToList().ForEach(x => x.Priority = 3);
             patients.ForEach(x => x.WeightPriority = 0);
@@ -167,17 +146,10 @@ namespace QueueSimulator.Simulation
 
         public static List<Patient> PatientsHaveGreenPriority(List<Patient> patients)
         {
-            //patients.Where(x => x.Priority == 0 && (x.RR > 9 && x.RR <= 25)).ToList().ForEach(x => x.Priority = 4);
-            //patients.Where(x => x.Priority == 0 && (x.HR > 50 && x.HR <= 110)).ToList().ForEach(x => x.Priority = 4);
-            //patients.Where(x => x.Priority == 0 && (x.RLS == 1)).ToList().ForEach(x => x.Priority = 4);
-            //patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) <= 38.5 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) >= 35.0)).ToList().ForEach(x => x.Priority = 4);
-
             patients.Where(x => x.Priority == 0 && (x.RR > 9 && x.RR <= 25)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (x.HR > 50 && x.HR <= 110)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (x.RLS == 1)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
             patients.Where(x => x.Priority == 0 && (Double.Parse(x.Temperature, CultureInfo.InvariantCulture) <= 38.5 && Double.Parse(x.Temperature, CultureInfo.InvariantCulture) >= 35.0)).ToList().ForEach(x => x.WeightPriority = x.WeightPriority + 1);
-
-
 
             patients.Where(x => x.Priority == 0).ToList().ForEach(x => x.Priority = 4);
             patients.ForEach(x => x.WeightPriority = 0);

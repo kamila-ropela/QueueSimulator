@@ -109,9 +109,6 @@ namespace QueueSimulator.Simulation
         public void NewRandomPatient(int patientCount)
         {
             GeneratePatientWithRandomData(patientCount);
-
-            //var patientList = PatientsDB.GetDataFromPatientsTable();
-            //return patientList;
         }
     }
 }

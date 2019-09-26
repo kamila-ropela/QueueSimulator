@@ -1,5 +1,4 @@
-﻿using System;
-namespace QueueSimulator.EnumAndDictionary
+﻿namespace QueueSimulator.EnumAndDictionary
 {
         public enum AlgorithmEnum
         {

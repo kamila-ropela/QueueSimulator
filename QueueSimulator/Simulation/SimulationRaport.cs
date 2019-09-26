@@ -19,10 +19,9 @@ namespace QueueSimulator.Simulation
 
         public static FileResult GenerateRaport()
         {
-           // SortData();
             HtmlToPdf converter = new HtmlToPdf();
 
-            PdfDocument doc = converter.ConvertUrl("https://localhost:44381/Simulation/Raport");
+            PdfDocument doc = converter.ConvertUrl(Helper.baseUrl + "/Simulation/Raport");
             byte[] pdf = doc.Save();
             doc.Close();
 
@@ -33,8 +32,6 @@ namespace QueueSimulator.Simulation
 
         private static void SortData(List<Patient> item)
         {          
-           /// foreach (var item in ii)
-            //{
                 raportList.Add(new Raport
                 {
                     Red = item.Where(x => x.Priority == 1 && x.Status != 0).Count(),
@@ -52,7 +49,6 @@ namespace QueueSimulator.Simulation
                     YellowReturned = item.Where(x => x.Priority == 3 && x.IfReturned.Equals(true)).Count(),
                     GreanReturned = item.Where(x => x.Priority == 4 && x.IfReturned.Equals(true)).Count()
                 });
-          //  }
         }
     }
 

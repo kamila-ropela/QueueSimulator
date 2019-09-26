@@ -1,7 +1,6 @@
 ﻿using QueueSimulator.Database;
 using QueueSimulator.EnumAndDictionary;
 using QueueSimulator.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -98,7 +97,7 @@ namespace QueueSimulator.Simulation
                     Iteration = 0
                 };
 
-                if (Helper.algorytm == (int)AlgorithmEnum.SREN)// || Helper.algorytm == (int)AlgorithmEnum.MIXED)
+                if (Helper.algorytm == (int)AlgorithmEnum.SREN)
                 {                
                     switch (pat.Priority)
                     {
@@ -175,7 +174,7 @@ namespace QueueSimulator.Simulation
             patientList.Clear();
             SimulationRaport.IterationList.Clear();
 
-           // SimulationRaport.raportList.Clear();
+            SimulationRaport.raportList.Clear();
         }
     }
 

@@ -6,7 +6,6 @@ using QueueSimulator.Models;
 using QueueSimulator.Simulation;
 using System.Linq;
 using QueueSimulator.Database;
-using QueueSimulationTests;
 
 namespace QueueSimulator.Controllers
 {
@@ -17,12 +16,12 @@ namespace QueueSimulator.Controllers
         SimulationProcess simulationProcess = new SimulationProcess();
         SimulationStart simulationStart = new SimulationStart();
         List<Patient> patient = new List<Patient>();
-       // SimulationRaport simulationRaport = new SimulationRaport();
 
         public IActionResult Simulation()
         {
-            Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;          
+            Helper.dbContext = HttpContext.RequestServices.GetService(typeof(DbContext)) as DbContext;
 
+            Helper.baseUrl = Request.HttpContext.Request.Scheme + "://" + Request.HttpContext.Request.Host.Value;
             return View();
         }
 

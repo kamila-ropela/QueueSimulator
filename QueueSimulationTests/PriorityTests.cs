@@ -48,7 +48,7 @@ namespace QueueSimulationTests
         [TestCase(0, 26, 100, 125, 100, 3, "42.0", 2)]
         [TestCase(0, 29, 100, 55, 100, 3, "39.0", 2)]
         [TestCase(0, 8, 100, 45, 100, 2, "39.0", 3)]
-        [TestCase(0, 10, 100, 51, 100, 2, "36.0", 3)]
+        [TestCase(0, 8, 100, 51, 100, 2, "36.0", 3)]
         [TestCase(0, 20, 100, 70, 100, 1, "36.0", 4)]
         public void Should_set_priority_in_accordance_with_METTS(int instection, int rr, int pox, int hr, int bp, int rls, string temperature, int expectedPriority)
         {

@@ -11,7 +11,6 @@ namespace QueueSimulator.Simulation
         {
             string EventByte = returnToQuery + addToQuery + twoQuery;
             int AdditionalEvents = Helper.ReturnByte(EventByte);
-           // CheckIfDbHasEnoughtPatients(countPatient);
 
             return AdditionalEvents;
         }
